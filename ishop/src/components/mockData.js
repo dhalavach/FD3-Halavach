@@ -5,6 +5,7 @@ const data = {
   tbodyData: [
     {
       id: '1',
+      className: 'Item',
       items: [
         'ASUS ROG STRIX B550-I GAMING',
         730,
@@ -17,6 +18,8 @@ const data = {
     },
     {
       id: '2',
+      className: 'Item',
+
       items: [
         'ASUS PRIME Z790-P D4',
         820,
@@ -29,6 +32,8 @@ const data = {
     },
     {
       id: '3',
+      className: 'Item',
+
       items: [
         'MSI MPG B650 Edge WiFi',
         1095,
