@@ -12,7 +12,13 @@ export default function Table() {
     tbodyData: PropTypes.arrayOf(PropTypes.object),
   };
 
+  const [items, setItems] = useState(data.tbodyData);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  function remove(index) {
+    let newItems = items.filter((item) => item.id !== index);
+    setItems(newItems);
+  }
 
   return (
     <div>
@@ -26,13 +32,14 @@ export default function Table() {
           </tr>
         </thead>
         <tbody>
-          {data.tbodyData.map((item) => {
+          {items.map((item) => {
             return (
               <Product
                 key={item.id}
                 data={item.items}
                 isActive={activeIndex === item.id}
                 handleClick={() => setActiveIndex(item.id)}
+                removeElement={() => remove(item.id)}
               />
             );
           })}

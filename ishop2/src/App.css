@@ -8,6 +8,11 @@ h1 {
 text-align: center;
 }
 
+.delete-button{
+  margin: 8px 8px;
+  padding: 16px;
+}
+
 .select-color{
 background-color: orange;
 }
