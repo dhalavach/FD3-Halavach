@@ -1,6 +1,11 @@
 import React from 'react';
 
-function Product({ data, isActive, handleClick, removeElement }) {
+export default function Product({
+  data,
+  isActive,
+  handleClick,
+  removeElement,
+}) {
   return (
     <tr
       onClick={handleClick}
@@ -15,5 +20,3 @@ function Product({ data, isActive, handleClick, removeElement }) {
     </tr>
   );
 }
-
-export default Product;

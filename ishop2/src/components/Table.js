@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import PropTypes from 'prop-types';
 
 import Product from './Product';
@@ -16,7 +16,7 @@ export default function Table() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   function remove(index) {
-    let newItems = items.filter((item) => item.id !== index);
+    const newItems = items.filter((item) => item.id !== index);
     setItems(newItems);
   }
 
