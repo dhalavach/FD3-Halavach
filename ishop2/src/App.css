@@ -1,0 +1,17 @@
+table, th, td {
+border: solid 2px black}
+table {
+width: 100%;
+background-color: whitesmoke;
+}
+h1 {
+text-align: center;
+}
+
+.select-color{
+background-color: orange;
+}
+.primary-color {
+background-color: whitesmoke;
+}
+
