@@ -1,8 +1,7 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Product from './Product';
-import TableHeadItem from './TableHeadItem';
 import data from './mockData';
 
 export default function Table() {
@@ -27,7 +26,7 @@ export default function Table() {
         <thead>
           <tr>
             {data.theadData.map((h) => {
-              return <TableHeadItem key={h} item={h} />;
+              return <td title={h}>{h}</td>;
             })}
           </tr>
         </thead>
