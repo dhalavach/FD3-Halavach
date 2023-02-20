@@ -3,9 +3,17 @@ import React from 'react';
 export default function Product({
   data,
   isActive,
-  handleClick,
+  handleSelect,
   removeElement,
 }) {
+  const handleClick = (i) => {
+    handleSelect(i);
+  };
+
+  const handleDelete = (i) => {
+    removeElement(i);
+  };
+
   return (
     <tr
       onClick={handleClick}
@@ -14,7 +22,7 @@ export default function Product({
       {data.map((item) => {
         return <td key={item}>{item}</td>;
       })}
-      <button className='delete-button' onClick={removeElement}>
+      <button className='delete-button' onClick={handleDelete}>
         Delete
       </button>
     </tr>
