@@ -6,12 +6,13 @@ export default function Product({
   handleSelect,
   removeElement,
 }) {
-  const handleClick = (i) => {
-    handleSelect(i);
+  const handleClick = () => {
+    handleSelect();
   };
 
-  const handleDelete = (i) => {
-    removeElement(i);
+  const handleDelete = (event) => {
+    event.stopPropagation();
+    removeElement();
   };
 
   return (

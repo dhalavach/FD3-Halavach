@@ -38,8 +38,7 @@ export default function Table() {
                 data={items[index]}
                 isActive={activeIndex === item.id}
                 handleSelect={() => setActiveIndex(item.id)}
-                removeElement={(event) => {
-                  event.stopPropagation();
+                removeElement={() => {
                   remove(item.id);
                 }}
               />
