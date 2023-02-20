@@ -18,10 +18,13 @@ export default function Product({
     <tr
       onClick={handleClick}
       className={isActive ? 'select-color' : 'primary-color'}
+      key={data.id}
     >
-      {data.map((item) => {
-        return <td key={item}>{item}</td>;
-      })}
+      <td>{data.itemName}</td>
+      <td>{data.itemPrice}</td>
+      <td>{<img src={data.itemImageURL} alt={data.itemImageAlt} />}</td>
+      <td>{data.itemQuantity}</td>
+
       <button className='delete-button' onClick={handleDelete}>
         Delete
       </button>

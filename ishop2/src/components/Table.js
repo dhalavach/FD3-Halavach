@@ -31,11 +31,11 @@ export default function Table() {
           </tr>
         </thead>
         <tbody>
-          {items.map((item) => {
+          {items.map((item, index) => {
             return (
               <Product
                 key={item.id}
-                data={item.items}
+                data={items[index]}
                 isActive={activeIndex === item.id}
                 handleSelect={() => setActiveIndex(item.id)}
                 removeElement={(event) => {
