@@ -14,7 +14,7 @@ export default function ItemList() {
     'appreciate',
   ];
 
-  const [filteredItems, setFilteredItems] = useState(mockData);
+  const [items, setItems] = useState(mockData);
   const [sortingOrder, setSortingOrder] = useState(true);
 
   function filterSearch(event) {
@@ -23,17 +23,17 @@ export default function ItemList() {
     updatedList = updatedList.filter((item) => {
       return item.toLowerCase().includes(query.toLowerCase());
     });
-    setFilteredItems(updatedList);
+    setItems(updatedList);
   }
 
   function listSort() {
     setSortingOrder(!sortingOrder);
     if (sortingOrder === true) {
-      let sortedList = [...mockData];
+      let sortedList = [...items];
       sortedList = sortedList.sort((a, b) => a.localeCompare(b));
-      setFilteredItems(sortedList);
+      setItems(sortedList);
     } else {
-      setFilteredItems(mockData);
+      setItems(mockData);
     }
   }
 
@@ -44,12 +44,12 @@ export default function ItemList() {
         <input id='search-box' onChange={filterSearch} />
         <div>
           <input type='checkbox' id='sort' name='sort' onChange={listSort} />
-          <label for='sort'>Sort list</label>{' '}
+          <label for='sort'>Sort list alphabetically  </label>{' '}
         </div>
       </div>
       <div id='item-list'>
         <ol>
-          {filteredItems.map((item, index) => (
+          {items.map((item, index) => (
             <li key={index}>{item}</li>
           ))}
         </ol>
