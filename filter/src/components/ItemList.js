@@ -47,13 +47,17 @@ export default function ItemList() {
     }
   }, [checked]);
 
-  const handleReset = () => {};
+  const handleReset = () => {
+    setChecked(false);
+    setItems(mockData);
+    setSearchQuery('');
+  };
 
   return (
     <div className='item-list'>
       <div className='search-header'>
         <div className='search-text'>Search:</div>
-        <input id='search-box' onChange={filterSearch} />
+        <input id='search-box' value={searchQuery} onChange={filterSearch} />
         <div>
           <input
             type='checkbox'
