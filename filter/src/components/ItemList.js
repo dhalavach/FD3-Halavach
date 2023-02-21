@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function ItemList() {
   const mockData = [
@@ -15,7 +15,7 @@ export default function ItemList() {
   ];
 
   const [items, setItems] = useState(mockData);
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const filterSearch = (event) => {
@@ -28,7 +28,11 @@ export default function ItemList() {
     setItems(updatedList);
   };
 
-  const listSort = () => {
+  function handleChange() {
+    setChecked(!checked);
+  }
+
+  useEffect(() => {
     if (checked) {
       let sortedList = [...items];
       sortedList = sortedList.sort((a, b) => a.localeCompare(b));
@@ -41,12 +45,7 @@ export default function ItemList() {
       });
       setItems(updatedList);
     }
-  };
-
-  const handleChange = () => {
-    setChecked((checked) => !checked);
-    listSort();
-  };
+  }, [checked]);
 
   const handleReset = () => {};
 
@@ -60,7 +59,7 @@ export default function ItemList() {
             type='checkbox'
             id='sort'
             name='sort'
-            //checked={checked}
+            checked={checked}
             onChange={handleChange}
           />
           <label htmlFor='sort'>Sort list alphabetically </label>
