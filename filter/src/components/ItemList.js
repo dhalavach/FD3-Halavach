@@ -25,6 +25,7 @@ export default function ItemList() {
     updatedList = updatedList.filter((item) => {
       return item.toLowerCase().includes(query.toLowerCase());
     });
+    if (checked) updatedList.sort((a, b) => a.localeCompare(b));
     setItems(updatedList);
   };
 
