@@ -15,10 +15,10 @@ export default function ItemList() {
   ];
 
   const [items, setItems] = useState(mockData);
-  const [sorted, setSorted] = useState(true);
+  const [checked, setChecked] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  function filterSearch(event) {
+  const filterSearch = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
     let updatedList = [...mockData];
@@ -26,11 +26,10 @@ export default function ItemList() {
       return item.toLowerCase().includes(query.toLowerCase());
     });
     setItems(updatedList);
-  }
+  };
 
-  function listSort() {
-    setSorted(!sorted);
-    if (sorted) {
+  const listSort = () => {
+    if (checked) {
       let sortedList = [...items];
       sortedList = sortedList.sort((a, b) => a.localeCompare(b));
       setItems(sortedList);
@@ -42,7 +41,14 @@ export default function ItemList() {
       });
       setItems(updatedList);
     }
-  }
+  };
+
+  const handleChange = () => {
+    setChecked((checked) => !checked);
+    listSort();
+  };
+
+  const handleReset = () => {};
 
   return (
     <div className='item-list'>
@@ -50,9 +56,18 @@ export default function ItemList() {
         <div className='search-text'>Search:</div>
         <input id='search-box' onChange={filterSearch} />
         <div>
-          <input type='checkbox' id='sort' name='sort' onChange={listSort} />
+          <input
+            type='checkbox'
+            id='sort'
+            name='sort'
+            //checked={checked}
+            onChange={handleChange}
+          />
           <label htmlFor='sort'>Sort list alphabetically </label>
         </div>
+        <button className='button-small' onClick={handleReset}>
+          Reset
+        </button>
       </div>
       <div id='item-list'>
         <ol>
