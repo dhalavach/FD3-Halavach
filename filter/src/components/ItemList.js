@@ -75,7 +75,7 @@ export default function ItemList() {
       <div id='item-list'>
         <ol>
           {items.map((item, index) => (
-            <li key={index}>{item}</li>
+            <li key={index+item}>{item}</li>
           ))}
         </ol>
       </div>
