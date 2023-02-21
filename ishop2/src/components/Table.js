@@ -26,7 +26,11 @@ export default function Table() {
         <thead>
           <tr>
             {data.theadData.map((h) => {
-              return <td title={h}>{h}</td>;
+              return (
+                <td title={h} key={h}>
+                  {h}
+                </td>
+              );
             })}
           </tr>
         </thead>

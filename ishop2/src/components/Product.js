@@ -25,10 +25,11 @@ export default function Product({
       <td>{data.itemPrice}</td>
       <td>{<img src={data.itemImageURL} alt={data.itemImageAlt} />}</td>
       <td>{data.itemQuantity}</td>
-
-      <button className='delete-button' onClick={handleDelete}>
-        Delete
-      </button>
+      <td>
+        <button className='delete-button' onClick={handleDelete}>
+          Delete
+        </button>
+      </td>
     </tr>
   );
 }
