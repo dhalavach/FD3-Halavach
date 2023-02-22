@@ -18,41 +18,36 @@ export default function ItemList() {
   const [checked, setChecked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
+  const filterList = (query) => {
+    return [...mockData].filter((item) => {
+      return item.toLowerCase().includes(query.toLowerCase());
+    });
+  };
+
+  const sortList = (list) => {
+    return [...list].sort((a, b) => a.localeCompare(b));
+  };
+
   const filterSearch = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
-    let updatedList = [...mockData];
-    updatedList = updatedList.filter((item) => {
-      return item.toLowerCase().includes(query.toLowerCase());
-    });
-    if (checked) updatedList.sort((a, b) => a.localeCompare(b));
-    setItems(updatedList);
+    const updatedList = filterList(query);
+    checked ? setItems(sortList(updatedList)) : setItems(updatedList);
   };
 
   function handleChange() {
     setChecked(!checked);
   }
 
-  useEffect(() => {
-    if (checked) {
-      let sortedList = [...items];
-      sortedList = sortedList.sort((a, b) => a.localeCompare(b));
-      setItems(sortedList);
-    } else {
-      setItems(mockData);
-      let updatedList = [...mockData];
-      updatedList = updatedList.filter((item) => {
-        return item.toLowerCase().includes(searchQuery.toLowerCase());
-      });
-      setItems(updatedList);
-    }
-  }, [checked]);
-
   const handleReset = () => {
     setChecked(false);
     setItems(mockData);
     setSearchQuery('');
   };
+
+  useEffect(() => {
+    checked ? setItems(sortList(items)) : setItems(filterList(searchQuery));
+  }, [checked]);
 
   return (
     <div className='item-list'>
@@ -76,7 +71,7 @@ export default function ItemList() {
       <div id='item-list'>
         <ol>
           {items.map((item, index) => (
-            <li key={index+item}>{item}</li>
+            <li key={index + item}>{item}</li>
           ))}
         </ol>
       </div>
