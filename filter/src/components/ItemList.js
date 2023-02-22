@@ -18,21 +18,8 @@ export default function ItemList() {
   const [checked, setChecked] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filterList = (query) => {
-    return [...mockData].filter((item) => {
-      return item.toLowerCase().includes(query.toLowerCase());
-    });
-  };
-
-  const sortList = (list) => {
-    return [...list].sort((a, b) => a.localeCompare(b));
-  };
-
-  const filterSearch = (event) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-    const updatedList = filterList(query);
-    setItems(updatedList);
+  const handleSeachInput = (event) => {
+    setSearchQuery(event.target.value);
   };
 
   const handleChange = () => {
@@ -45,15 +32,31 @@ export default function ItemList() {
     setSearchQuery('');
   };
 
+  const sortList = (list) => {
+    return [...list].sort((a, b) => a.localeCompare(b));
+  };
+
+  const filterSearch = (query) => {
+    return [...mockData].filter((item) => {
+      return item.toLowerCase().includes(query.toLowerCase());
+    });
+  };
+
   useEffect(() => {
-    checked ? setItems(sortList(items)) : setItems(filterList(searchQuery));
-  }, [checked, items, searchQuery]);
+    checked
+      ? setItems(sortList(filterSearch(searchQuery)))
+      : setItems(filterSearch(searchQuery));
+  }, [checked, searchQuery]);
 
   return (
     <div className='item-list'>
       <div className='search-header'>
         <div className='search-text'>Search:</div>
-        <input id='search-box' value={searchQuery} onChange={filterSearch} />
+        <input
+          id='search-box'
+          value={searchQuery}
+          onChange={handleSeachInput}
+        />
         <div>
           <input
             type='checkbox'
