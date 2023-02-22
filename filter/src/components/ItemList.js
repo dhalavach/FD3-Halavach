@@ -35,9 +35,9 @@ export default function ItemList() {
     checked ? setItems(sortList(updatedList)) : setItems(updatedList);
   };
 
-  function handleChange() {
+  const handleChange = () => {
     setChecked(!checked);
-  }
+  };
 
   const handleReset = () => {
     setChecked(false);
