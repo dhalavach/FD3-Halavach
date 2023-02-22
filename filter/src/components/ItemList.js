@@ -32,11 +32,11 @@ export default function ItemList() {
     const query = event.target.value;
     setSearchQuery(query);
     const updatedList = filterList(query);
-    checked ? setItems(sortList(updatedList)) : setItems(updatedList);
+    setItems(updatedList);
   };
 
   const handleChange = () => {
-    setChecked(!checked);
+    setChecked((checked) => !checked);
   };
 
   const handleReset = () => {
@@ -47,7 +47,7 @@ export default function ItemList() {
 
   useEffect(() => {
     checked ? setItems(sortList(items)) : setItems(filterList(searchQuery));
-  }, [checked]);
+  }, [checked, items, searchQuery]);
 
   return (
     <div className='item-list'>
