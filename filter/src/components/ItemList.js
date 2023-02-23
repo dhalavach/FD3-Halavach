@@ -31,6 +31,16 @@ export default function ItemList() {
     setSearchQuery('');
   };
 
+  const sortList = (array) => {
+    const collator = new Intl.Collator('en', {
+      numeric: true,
+      sensitivity: 'base',
+    });
+    return array.sort((a, b) => {
+      return collator.compare(a, b);
+    });
+  };
+
   useEffect(() => {
     let arr = [...mockData];
     if (searchQuery) {
@@ -38,7 +48,7 @@ export default function ItemList() {
         return item.toLowerCase().includes(searchQuery.toLowerCase());
       });
     }
-    if (checked) arr.sort((a, b) => a.localeCompare(b));
+    if (checked) sortList(arr);
     setItems(arr);
   }, [checked, searchQuery]);
 
