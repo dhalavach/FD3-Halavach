@@ -22,8 +22,8 @@ export default function ItemList() {
     setSearchQuery(event.target.value);
   };
 
-  const handleChange = () => {
-    setChecked((checked) => !checked);
+  const handleChange = (e) => {
+    setChecked(e.target.checked ? e.target.value : !e.target.value);
   };
 
   const handleReset = () => {
