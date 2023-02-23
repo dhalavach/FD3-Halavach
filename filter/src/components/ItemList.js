@@ -28,24 +28,18 @@ export default function ItemList() {
 
   const handleReset = () => {
     setChecked(false);
-    setItems(mockData);
     setSearchQuery('');
   };
 
-  const sortList = (list) => {
-    return [...list].sort((a, b) => a.localeCompare(b));
-  };
-
-  const filterSearch = (query) => {
-    return [...mockData].filter((item) => {
-      return item.toLowerCase().includes(query.toLowerCase());
-    });
-  };
-
   useEffect(() => {
-    checked
-      ? setItems(sortList(filterSearch(searchQuery)))
-      : setItems(filterSearch(searchQuery));
+    let arr = [...mockData];
+    if (searchQuery) {
+      arr = arr.filter((item) => {
+        return item.toLowerCase().includes(searchQuery.toLowerCase());
+      });
+    }
+    if (checked) arr.sort((a, b) => a.localeCompare(b));
+    setItems(arr);
   }, [checked, searchQuery]);
 
   return (
