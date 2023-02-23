@@ -23,7 +23,7 @@ export default function ItemList() {
   };
 
   const handleChange = (e) => {
-    setChecked(e.target.checked ? e.target.value : !e.target.value);
+    setChecked(e.target.checked);
   };
 
   const handleReset = () => {
@@ -78,7 +78,7 @@ export default function ItemList() {
       <div id='item-list'>
         <ol>
           {items.map((item, index) => (
-            <li key={index + item}>{item}</li>
+            <li key={index}>{item}</li>
           ))}
         </ol>
       </div>
