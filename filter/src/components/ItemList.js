@@ -15,7 +15,7 @@ export default function ItemList() {
   ];
 
   const [items, setItems] = useState(mockData);
-  const [checked, setChecked] = useState(false);
+  const [isSorted, setIsSorted] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSeachInput = (event) => {
@@ -23,11 +23,11 @@ export default function ItemList() {
   };
 
   const handleChange = (e) => {
-    setChecked(e.target.checked);
+    setIsSorted(e.target.checked);
   };
 
   const handleReset = () => {
-    setChecked(false);
+    setIsSorted(false);
     setSearchQuery('');
   };
 
@@ -48,9 +48,9 @@ export default function ItemList() {
         return item.toLowerCase().includes(searchQuery.toLowerCase());
       });
     }
-    if (checked) sortList(arr);
+    if (isSorted) sortList(arr);
     setItems(arr);
-  }, [checked, searchQuery]);
+  }, [isSorted, searchQuery]);
 
   return (
     <div className='item-list'>
@@ -66,7 +66,7 @@ export default function ItemList() {
             type='checkbox'
             id='sort'
             name='sort'
-            checked={checked}
+            checked={isSorted}
             onChange={handleChange}
           />
           <label htmlFor='sort'>Sort list alphabetically </label>
