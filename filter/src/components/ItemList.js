@@ -18,12 +18,12 @@ export default function ItemList() {
   const [isSorted, setIsSorted] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleSeachInput = (event) => {
-    setSearchQuery(event.target.value);
+  const handleSeachInput = (eo) => {
+    setSearchQuery(eo.target.value);
   };
 
-  const handleChange = (e) => {
-    setIsSorted(e.target.checked);
+  const handleChange = (eo) => {
+    setIsSorted(eo.target.checked);
   };
 
   const handleReset = () => {
