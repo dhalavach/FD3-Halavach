@@ -1,0 +1,29 @@
+table, th, td {
+  border: solid 2px black}
+  table {
+  width: 100%;
+  background-color: whitesmoke;
+  }
+  h1 {
+  text-align: center;
+  }
+  
+  .delete-button{
+    margin: 8px 8px;
+    padding: 16px;
+  }
+  
+  .select-color{
+  background-color: orange;
+  }
+  .primary-color {
+  background-color: whitesmoke;
+  }
+  
+  img {
+  display: inline-block;
+  width: 20%;
+  height: 20%;
+  }
+  
+  
