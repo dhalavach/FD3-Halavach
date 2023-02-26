@@ -1,55 +1,71 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Product from './Product';
 import data from './mockData.json';
 
-export default function Table() {
-  Table.propTypes = {
-    heading: PropTypes.string.isRequired,
+class Table extends React.Component {
+  constructor(props) {
+    super(props);
+    this.props = props;
+    this.state = {
+      items: data.tbodyData,
+      activeIndex: 0,
+    };
+  }
+  static propTypes = {
+    heading: PropTypes.string,
     theadData: PropTypes.arrayOf(PropTypes.string),
     tbodyData: PropTypes.arrayOf(PropTypes.object),
   };
 
-  const [items, setItems] = useState(data.tbodyData);
-  const [activeIndex, setActiveIndex] = useState(0);
+  setItems = (newData) => {
+    this.setState({ items: newData });
+  };
 
-  function remove(index) {
-    const newItems = items.filter((item) => item.id !== index);
-    setItems(newItems);
-  }
+  setActiveIndex = (i) => {
+    this.setState({ activeIndex: i });
+  };
 
-  return (
-    <div>
-      <h1>{data.heading}</h1>
-      <table className='customTable'>
-        <thead>
-          <tr>
-            {data.theadData.map((h) => {
+  remove = (index) => {
+    const newItems = this.state.items.filter((item) => item.id !== index);
+    this.setItems(newItems);
+  };
+  render() {
+    return (
+      <div>
+        <h1>{data.heading}</h1>
+        <table className='customTable'>
+          <thead>
+            <tr>
+              {data.theadData.map((h) => {
+                return (
+                  <td title={h} key={h}>
+                    {h}
+                  </td>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.items.map((item, index) => {
               return (
-                <td title={h} key={h}>
-                  {h}
-                </td>
+                <Product
+                  key={item.id}
+                  data={this.state.items[index]}
+                  isActive={this.state.activeIndex === item.id}
+                  handleSelect={() => this.setActiveIndex(item.id)}
+                  removeElement={() => {
+                    this.remove(item.id);
+                  }}
+                />
               );
             })}
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item, index) => {
-            return (
-              <Product
-                key={item.id}
-                data={items[index]}
-                isActive={activeIndex === item.id}
-                handleSelect={() => setActiveIndex(item.id)}
-                removeElement={() => {
-                  remove(item.id);
-                }}
-              />
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
-  );
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 }
+
+export default Table;
