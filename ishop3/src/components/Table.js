@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Product from './Product';
-import data from './mockData';
+import data from './mockData.json';
 
 export default function Table() {
   Table.propTypes = {
