@@ -4,9 +4,8 @@ class Product extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
-    //this.state = { isActive: false };
-    //this.handleClick = this.handleClick.bind(this);
-    //this.handleDelete = this.handleDelete.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleClick = () => {
