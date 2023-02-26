@@ -5,7 +5,7 @@ class Product extends React.Component {
     super(props);
     this.props = props;
     //this.state = { isActive: false };
-    this.handleClick = this.handleClick.bind(this);
+    //this.handleClick = this.handleClick.bind(this);
     //this.handleDelete = this.handleDelete.bind(this);
   }
 
@@ -13,14 +13,14 @@ class Product extends React.Component {
     this.props.handleSelect();
   };
 
-  // handleDelete = (event) => {
-  //   event.stopPropagation();
-  //   this.props.removeElement();
-  // };
+  handleDelete = (event) => {
+    event.stopPropagation();
+    this.props.removeElement();
+  };
   render() {
     return (
       <tr
-        onClick={this.props.handleSelect}
+        onClick={this.handleClick}
         className={this.props.isActive ? 'select-color' : 'primary-color'}
         key={this.props.data.id}
       >
@@ -36,7 +36,7 @@ class Product extends React.Component {
         </td>
         <td>{this.props.data.itemQuantity}</td>
         <td>
-          <button className='delete-button' onClick={this.props.removeElement}>
+          <button className='delete-button' onClick={this.handleDelete}>
             Delete
           </button>
         </td>
