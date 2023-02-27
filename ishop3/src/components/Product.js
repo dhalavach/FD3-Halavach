@@ -6,6 +6,7 @@ class Product extends React.Component {
     this.props = props;
     this.handleClick = this.handleClick.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   handleClick = () => {
@@ -15,6 +16,11 @@ class Product extends React.Component {
   handleDelete = (event) => {
     event.stopPropagation();
     this.props.removeElement();
+  };
+
+  handleEdit = (event) => {
+    event.stopPropagation();
+    this.props.editElement();
   };
   render() {
     return (
@@ -35,7 +41,16 @@ class Product extends React.Component {
         </td>
         <td>{this.props.data.itemQuantity}</td>
         <td>
-          <button className='delete-button' onClick={this.handleDelete}>
+          <button
+            className='edit-button button-small'
+            onClick={this.handleEdit}
+          >
+            Edit
+          </button>
+          <button
+            className='delete-button button-small'
+            onClick={this.handleDelete}
+          >
             Delete
           </button>
         </td>

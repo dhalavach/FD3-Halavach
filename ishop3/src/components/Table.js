@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Product from './Product';
+import EditForm from './EditForm';
 import data from './mockData.json';
 
 class Table extends React.Component {
@@ -11,6 +12,7 @@ class Table extends React.Component {
     this.state = {
       items: data.tbodyData,
       activeIndex: 0,
+      editActive: false,
     };
   }
   static propTypes = {
@@ -30,6 +32,13 @@ class Table extends React.Component {
   remove = (index) => {
     const newItems = this.state.items.filter((item) => item.id !== index);
     this.setItems(newItems);
+  };
+
+  edit = (index) => {
+    this.setState({
+      activeIndex: index,
+      editActive: true,
+    });
   };
   render() {
     return (
@@ -58,11 +67,26 @@ class Table extends React.Component {
                   removeElement={() => {
                     this.remove(item.id);
                   }}
+                  editElement={() => {
+                    this.edit(item.id);
+                  }}
                 />
               );
             })}
           </tbody>
         </table>
+        <div>
+          {this.state.editActive && (
+            <EditForm
+              save={() => {
+                
+              }}
+              cancel={() => {
+                this.setState({ editActive: false });
+              }}
+            />
+          )}
+        </div>
       </div>
     );
   }
