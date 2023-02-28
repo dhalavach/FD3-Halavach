@@ -79,14 +79,12 @@ class Table extends React.Component {
         <div>
           {this.state.editActive && (
             <EditForm
-              save={(e) => {
+              save={(itemName, itemPrice, itemQuantity) => {
                 let tempState = [...this.state.items];
-                tempState[this.state.activeIndex - 1]['itemName'] =
-                  e.target.name.value;
-                tempState[this.state.activeIndex - 1]['itemPrice'] =
-                  e.target.price.value;
+                tempState[this.state.activeIndex - 1]['itemName'] = itemName;
+                tempState[this.state.activeIndex - 1]['itemPrice'] = itemPrice;
                 tempState[this.state.activeIndex - 1]['itemQuantity'] =
-                  e.target.quantity.value;
+                  itemQuantity;
 
                 this.setState({ items: tempState });
                 this.setState({ editActive: false });
@@ -94,6 +92,7 @@ class Table extends React.Component {
               cancel={() => {
                 this.setState({ editActive: false });
               }}
+              activeItem={this.state.items[this.state.activeIndex - 1]}
             />
           )}
         </div>
