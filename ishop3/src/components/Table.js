@@ -13,8 +13,6 @@ class Table extends React.Component {
       items: data.tbodyData,
       activeIndex: 0,
       editActive: false,
-      editDisabled: false,
-      deleteDisabled: false
     };
   }
   static propTypes = {
@@ -73,7 +71,6 @@ class Table extends React.Component {
                     this.edit(item.id);
                   }}
                   editActive={this.state.editActive}
-                  
                 />
               );
             })}
@@ -92,7 +89,7 @@ class Table extends React.Component {
                   e.target.quantity.value;
 
                 this.setState({ items: tempState });
-                this.setState({editActive: false})
+                this.setState({ editActive: false });
               }}
               cancel={() => {
                 this.setState({ editActive: false });

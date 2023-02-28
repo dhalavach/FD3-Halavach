@@ -10,7 +10,7 @@ class Product extends React.Component {
   }
 
   handleClick = () => {
-    this.props.handleSelect();
+   if (!this.props.editActive) this.props.handleSelect();
   };
 
   handleDelete = (event) => {
@@ -42,14 +42,18 @@ class Product extends React.Component {
         <td>{this.props.data.itemQuantity}</td>
         <td>
           <button
-            className='edit-button button-small'
-            onClick={this.props.editActive? undefined : this.handleEdit}
+            className={`${
+              this.props.editActive ? 'button-grayed-out' : 'button-active'
+            } button-small`}
+            onClick={this.props.editActive ? undefined : this.handleEdit}
           >
             Edit
           </button>
           <button
-            className='delete-button button-small'
-            onClick={this.props.editActive? undefined : this.handleDelete}
+            className={`${
+              this.props.editActive ? 'button-grayed-out' : 'button-active'
+            } button-small`}
+            onClick={this.props.editActive ? undefined : this.handleDelete}
           >
             Delete
           </button>

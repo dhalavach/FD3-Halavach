@@ -44,5 +44,12 @@ table, th, td {
   margin-left: 0.5rem;
   color: red;
   }
+
+  .button-grayed-out {
+  color: grey
+  }
+
+  .button-active {
+  color: black}
   
   
