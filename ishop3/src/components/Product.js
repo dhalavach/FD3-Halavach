@@ -43,13 +43,13 @@ class Product extends React.Component {
         <td>
           <button
             className='edit-button button-small'
-            onClick={this.handleEdit}
+            onClick={this.props.editActive? undefined : this.handleEdit}
           >
             Edit
           </button>
           <button
             className='delete-button button-small'
-            onClick={this.handleDelete}
+            onClick={this.props.editActive? undefined : this.handleDelete}
           >
             Delete
           </button>

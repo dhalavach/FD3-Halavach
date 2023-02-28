@@ -8,8 +8,11 @@ class EditForm extends React.Component {
     this.handleCanceol = this.handleCancel.bind(this);
   }
 
-  handleSave = () => {
-    this.props.save();
+  handleSave = (e) => {
+    e.preventDefault();
+    //console.log(e.target.name.value);
+    
+    this.props.save(e);
   };
 
   handleCancel = () => {
@@ -18,25 +21,20 @@ class EditForm extends React.Component {
 
   render() {
     return (
-      <div class='edit-form'>
+      <div className='edit-form'>
         <h2>Edit and save</h2>
-        <form>
+        <form onSubmit={this.handleSave}>
           <div className='edit-form-fields-container'>
-            <label for='name'>Item name:</label>
+            <label htmlFor='name'>Item name:</label>
             <input type='text' id='name' name='name' />
 
-            <label for='price'>Item price:</label>
+            <label htmlFor='price'>Item price:</label>
             <input type='text' id='price' name='price' />
 
-            <label for='quantity'>Item quantity:</label>
+            <label htmlFor='quantity'>Item quantity:</label>
             <input type='text' id='quantity' name='quantity' />
           </div>
-        </form>
-        <div className='edit-form-buttons'>
-          <button
-            className='edit-form-save button-small'
-            onClick={this.handleSave}
-          >
+          <button type='submit' className='edit-form-save button-small'>
             Save
           </button>
           <button
@@ -45,7 +43,7 @@ class EditForm extends React.Component {
           >
             Cancel
           </button>
-        </div>
+        </form>
       </div>
     );
   }
