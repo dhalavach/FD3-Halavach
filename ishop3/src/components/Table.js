@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Product from './Product';
 import EditForm from './EditForm';
+import ProductCard from './ProductCard';
 import data from './mockData.json';
 
 class Table extends React.Component {
@@ -13,6 +14,7 @@ class Table extends React.Component {
       items: data.tbodyData,
       activeIndex: 0,
       editActive: false,
+      productCardDisplayed: false,
     };
   }
   static propTypes = {
@@ -32,12 +34,14 @@ class Table extends React.Component {
   remove = (index) => {
     const newItems = this.state.items.filter((item) => item.id !== index);
     this.setItems(newItems);
+    this.setState({ productCardDisplayed: false });
   };
 
   edit = (index) => {
     this.setState({
       activeIndex: index,
       editActive: true,
+      productCardDisplayed: false,
     });
   };
   render() {
@@ -63,7 +67,10 @@ class Table extends React.Component {
                   key={item.id}
                   data={this.state.items[index]}
                   isActive={this.state.activeIndex === item.id}
-                  handleSelect={() => this.setActiveIndex(item.id)}
+                  handleSelect={() => {
+                    this.setActiveIndex(item.id);
+                    this.setState({ productCardDisplayed: true });
+                  }}
                   removeElement={() => {
                     this.remove(item.id);
                   }}
@@ -76,6 +83,21 @@ class Table extends React.Component {
             })}
           </tbody>
         </table>
+        <div>
+          {this.state.productCardDisplayed && (
+            <ProductCard
+              itemName={
+                this.state.items[this.state.activeIndex - 1]['itemName']
+              }
+              itemPrice={
+                this.state.items[this.state.activeIndex - 1]['itemPrice']
+              }
+              itemQuantity={
+                this.state.items[this.state.activeIndex - 1]['itemQuantity']
+              }
+            />
+          )}
+        </div>
         <div>
           {this.state.editActive && (
             <EditForm

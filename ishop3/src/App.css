@@ -1,14 +1,15 @@
 table, th, td {
   border: solid 2px black}
   table {
-  width: 100%;
   background-color: whitesmoke;
+  margin: 0.5rem;
   }
   h1 {
   text-align: center;
   }
   
   .button-small{
+    width: 5rem;
     margin: 8px 8px;
     padding: 16px;
   }
@@ -51,5 +52,12 @@ table, th, td {
 
   .button-active {
   color: black}
+
+  .product-card {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: 2px solid black;
+  width: 40%;
+  }
   
   
