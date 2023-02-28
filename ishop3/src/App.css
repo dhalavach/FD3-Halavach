@@ -39,5 +39,10 @@ table, th, td {
   flex-direction: row;
   justify-content: flex-start
   }
+
+  .message-error{
+  margin-left: 0.5rem;
+  color: red;
+  }
   
   

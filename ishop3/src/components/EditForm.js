@@ -3,16 +3,37 @@ import React from 'react';
 class EditForm extends React.Component {
   super(props) {
     this.props = props;
-    //this.state = {};
+    this.state = { errorMessage: '' };
     this.handleSave = this.handleSave.bind(this);
     this.handleCanceol = this.handleCancel.bind(this);
+    this.validateInput = this.validateInput.bind(this);
+    this.setErrorMessage = this.setErrorMessage.bind(this);
   }
+
+  validateInput = (e) => {
+    if (
+      e.target.name.value.length >= 3 &&
+      e.target.price.value > 0 &&
+      e.target.quantity.value >= 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  setErrorMessage = () => {
+    this.setState({ errorMessage: 'Incorrect input data!' });
+  };
 
   handleSave = (e) => {
     e.preventDefault();
     //console.log(e.target.name.value);
-    
-    this.props.save(e);
+
+    if (this.validateInput(e)) {
+      this.props.save(e);
+      this.setState({ errorMessage: '' });
+    } else this.setErrorMessage();
   };
 
   handleCancel = () => {
@@ -23,6 +44,7 @@ class EditForm extends React.Component {
     return (
       <div className='edit-form'>
         <h2>Edit and save</h2>
+        <span className = "message-error">{this.state?.errorMessage}</span>
         <form onSubmit={this.handleSave}>
           <div className='edit-form-fields-container'>
             <label htmlFor='name'>Item name:</label>
