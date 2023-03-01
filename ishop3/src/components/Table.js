@@ -126,7 +126,7 @@ class Table extends React.Component {
                     itemPrice: itemPrice,
                     itemQuantity: itemQuantity,
                   };
-                  let tempState = [...this.state.items];
+                  const tempState = [...this.state.items];
                   tempState.push(newItem);
 
                   this.setState({ items: tempState });
@@ -140,13 +140,15 @@ class Table extends React.Component {
           )}
         </div>
         <div>
-          {this.state.productCardDisplayed && (
-            <ProductCard
-              itemName={this.state.activeItem.itemName}
-              itemPrice={this.state.activeItem.itemPrice}
-              itemQuantity={this.state.activeItem.itemQuantity}
-            />
-          )}
+          {this.state.productCardDisplayed &&
+            !this.state.editActive &&
+            !this.state.newFormOpen && (
+              <ProductCard
+                itemName={this.state.activeItem.itemName}
+                itemPrice={this.state.activeItem.itemPrice}
+                itemQuantity={this.state.activeItem.itemQuantity}
+              />
+            )}
         </div>
         <div>
           {this.state.editActive && (
