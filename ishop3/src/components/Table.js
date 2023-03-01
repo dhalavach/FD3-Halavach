@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Product from './Product';
 import EditForm from './EditForm';
-import NewForm from './NewForm';
 import ProductCard from './ProductCard';
 import data from './mockData.json';
 
@@ -92,10 +91,37 @@ class Table extends React.Component {
             if (!this.state.editActive) this.setState({ newFormOpen: true });
           }}
         >
-          New
+          New product
         </button>
         <div>
-          {this.state.newFormOpen && !this.state.editActive && <NewForm />}
+          {this.state.newFormOpen && !this.state.editActive && (
+            <section> 
+              <h3>Add new product and save</h3>
+            <EditForm
+              save={(itemName, itemPrice, itemQuantity) => {
+                let newItem = {
+                  itemName: itemName,
+                  itemPrice: itemPrice,
+                  itemQuantity: itemQuantity,
+                };
+                let tempState = [...this.state.items];
+                tempState.push(newItem);
+
+                this.setState({ items: tempState });
+                this.setState({ newFormOpen: false });
+              }}
+              cancel={() => {
+                this.setState({ newFormOpen: false });
+              }}
+              //activeItem={this.state.items[this.state.activeIndex - 1]}
+              //name={this.state.items[this.state.activeIndex - 1]['itemName']}
+              //price={this.state.items[this.state.activeIndex - 1]['itemPrice']}
+              // quantity={
+              //   this.state.items[this.state.activeIndex - 1]['itemQuantity']
+              // }
+            />
+              </section>
+          )}
         </div>
         <div>
           {this.state.productCardDisplayed && (
@@ -114,6 +140,8 @@ class Table extends React.Component {
         </div>
         <div>
           {this.state.editActive && (
+            <section>
+              <h3>Edit and save</h3>
             <EditForm
               save={(itemName, itemPrice, itemQuantity) => {
                 let tempState = [...this.state.items];
@@ -134,7 +162,8 @@ class Table extends React.Component {
               quantity={
                 this.state.items[this.state.activeIndex - 1]['itemQuantity']
               }
-            />
+              />
+              </section>
           )}
         </div>
       </div>
