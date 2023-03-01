@@ -24,17 +24,9 @@ class Table extends React.Component {
     tbodyData: PropTypes.arrayOf(PropTypes.object),
   };
 
-  setItems = (newData) => {
-    this.setState({ items: newData });
-  };
-
-  setActiveItemId = (i) => {
-    this.setState({ activeItemId: i });
-  };
-
   remove = (id) => {
     const newItems = this.state.items.filter((item) => item.id !== id);
-    this.setItems(newItems);
+    this.setState({items: newItems});
     this.setState({ productCardDisplayed: false });
   };
 
