@@ -129,6 +129,11 @@ class Table extends React.Component {
                 this.setState({ editActive: false });
               }}
               activeItem={this.state.items[this.state.activeIndex - 1]}
+              name={this.state.items[this.state.activeIndex - 1]['itemName']}
+              price={this.state.items[this.state.activeIndex - 1]['itemPrice']}
+              quantity={
+                this.state.items[this.state.activeIndex - 1]['itemQuantity']
+              }
             />
           )}
         </div>

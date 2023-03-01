@@ -13,7 +13,7 @@ class EditForm extends React.Component {
       itemQuantity: '',
     };
     this.handleSave = this.handleSave.bind(this);
-    this.handleCanceol = this.handleCancel.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
     this.validateInput = this.validateInput.bind(this);
     this.setErrorMessage = this.setErrorMessage.bind(this);
     this.validateName = this.validateName.bind(this);
@@ -46,9 +46,11 @@ class EditForm extends React.Component {
 
   validateInput = () => {
     if (
-      this.state?.errorName === false &&
-      this.state?.errorPrice === false &&
-      this.state?.errorQuantity === false
+      this.state?.itemName &&
+      this.state?.itemName.length >= 3 &&
+      this.state?.itemName.length <= 100 &&
+      this.state?.itemPrice > 0 &&
+      this.state?.itemQuantity >= 0
     ) {
       return true;
     } else {
@@ -57,7 +59,7 @@ class EditForm extends React.Component {
   };
 
   setErrorMessage = () => {
-    this.setState({ errorMessage: 'Incorrect input data!' });
+    this.setState({ errorMessage: 'Incorrect or identical input data!' });
   };
 
   handleSave = (e) => {
@@ -76,6 +78,17 @@ class EditForm extends React.Component {
     this.props.cancel();
   };
 
+  componentDidMount() {
+    const name = this.props.name;
+    const price = this.props.price;
+    const quantity = this.props.quantity;
+    this.setState({
+      itemName: name,
+      itemPrice: price,
+      itemQuantity: quantity,
+    });
+  }
+
   render() {
     return (
       <div className='edit-form'>
@@ -88,6 +101,7 @@ class EditForm extends React.Component {
               type='text'
               id='name'
               name='name'
+              value={this.state?.itemName}
               onChange={(e) => {
                 this.setState({ itemName: e.target.value }, this.validateName);
               }}
@@ -103,13 +117,14 @@ class EditForm extends React.Component {
               type='text'
               id='price'
               name='price'
+              value={this.state?.itemPrice}
               onChange={(e) => {
                 this.setState(
                   { itemPrice: e.target.value },
                   this.validatePrice
                 );
               }}
-              // onBlur={this.validatePrice}
+              //onBlur={this.validatePrice}
             />
             <span className='message-error'>
               {this.state?.errorPrice && 'Price must be greater than zero!'}
@@ -120,12 +135,14 @@ class EditForm extends React.Component {
               type='text'
               id='quantity'
               name='quantity'
+              value={this.state?.itemQuantity}
               onChange={(e) => {
                 this.setState(
                   { itemQuantity: e.target.value },
                   this.validateQuantity
                 );
               }}
+
               //onBlur={this.validateQuantity}
             />
             <span className='message-error'>
@@ -138,6 +155,7 @@ class EditForm extends React.Component {
             className={`edit-form-save button-small ${
               this.validateInput() ? 'button-active' : 'button-grayed-out'
             }`}
+            onClick={this.handleSave}
           >
             Save
           </button>
