@@ -118,6 +118,10 @@ class Table extends React.Component {
               <EditForm
                 save={(itemName, itemPrice, itemQuantity) => {
                   let newItem = {
+                    id: itemName,
+                    className: 'Item',
+                    itemImageURL: '',
+                    itemImageAlt: '',
                     itemName: itemName,
                     itemPrice: itemPrice,
                     itemQuantity: itemQuantity,
@@ -131,11 +135,6 @@ class Table extends React.Component {
                 cancel={() => {
                   this.setState({ newFormOpen: false });
                 }}
-                //name={this.state.items.filter((item) => item.id === this.state.activeItemId)[0].itemName}
-                //price={this.state.items[this.state.activeItemId - 1]['itemPrice']}
-                // quantity={
-                //   this.state.items[this.state.activeItemId - 1]['itemQuantity']
-                // }
               />
             </section>
           )}
