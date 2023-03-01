@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Product from './Product';
 import EditForm from './EditForm';
+import NewForm from './NewForm';
 import ProductCard from './ProductCard';
 import data from './mockData.json';
 
@@ -15,6 +15,7 @@ class Table extends React.Component {
       activeIndex: 0,
       editActive: false,
       productCardDisplayed: false,
+      newFormOpen: false,
     };
   }
   static propTypes = {
@@ -83,6 +84,19 @@ class Table extends React.Component {
             })}
           </tbody>
         </table>
+        <button
+          className={`button-small ${
+            this.state.editActive ? 'button-grayed-out' : 'button-active'
+          }`}
+          onClick={() => {
+            if (!this.state.editActive) this.setState({ newFormOpen: true });
+          }}
+        >
+          New
+        </button>
+        <div>
+          {this.state.newFormOpen && !this.state.editActive && <NewForm />}
+        </div>
         <div>
           {this.state.productCardDisplayed && (
             <ProductCard
