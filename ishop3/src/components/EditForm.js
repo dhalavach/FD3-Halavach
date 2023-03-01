@@ -46,9 +46,9 @@ class EditForm extends React.Component {
 
   validateInput = () => {
     if (
-      this.state.errorName === false &&
-      this.state.errorPrice === false &&
-      this.state.errorQuantity === false
+      this.state?.errorName === false &&
+      this.state?.errorPrice === false &&
+      this.state?.errorQuantity === false
     ) {
       return true;
     } else {
@@ -88,11 +88,10 @@ class EditForm extends React.Component {
               type='text'
               id='name'
               name='name'
-              // value={this.state?.itemName}
               onChange={(e) => {
-                this.setState({ itemName: e.target.value });
+                this.setState({ itemName: e.target.value }, this.validateName);
               }}
-              onBlur={this.validateName}
+              //onBlur={this.validateName}
             />
             <span className='message-error'>
               {this.state?.errorName &&
@@ -105,9 +104,12 @@ class EditForm extends React.Component {
               id='price'
               name='price'
               onChange={(e) => {
-                this.setState({ itemPrice: e.target.value });
+                this.setState(
+                  { itemPrice: e.target.value },
+                  this.validatePrice
+                );
               }}
-              onBlur={this.validatePrice}
+              // onBlur={this.validatePrice}
             />
             <span className='message-error'>
               {this.state?.errorPrice && 'Price must be greater than zero!'}
@@ -119,16 +121,24 @@ class EditForm extends React.Component {
               id='quantity'
               name='quantity'
               onChange={(e) => {
-                this.setState({ itemQuantity: e.target.value });
+                this.setState(
+                  { itemQuantity: e.target.value },
+                  this.validateQuantity
+                );
               }}
-              onBlur={this.validateQuantity}
+              //onBlur={this.validateQuantity}
             />
             <span className='message-error'>
               {this.state?.errorQuantity &&
                 'Quantity must be greater or equal to zero!'}
             </span>
           </div>
-          <button type='submit' className='edit-form-save button-small'>
+          <button
+            type='submit'
+            className={`edit-form-save button-small ${
+              this.validateInput() ? 'button-active' : 'button-grayed-out'
+            }`}
+          >
             Save
           </button>
           <button
