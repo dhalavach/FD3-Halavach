@@ -38,13 +38,25 @@ class Table extends React.Component {
     this.setState({ productCardDisplayed: false });
   };
 
-  edit = () => {
-    this.setState({
-      // activeItemId: i,
-      editActive: true,
-      productCardDisplayed: false,
+  edit = (item) => {
+    this.setState({ activeItemId: item.id }, () => {
+      console.log(this.state.activeItemId);
+      this.setState({ productCardDisplayed: false });
+      const actItem = this.state.items.filter(
+        (item) => item.id === this.state.activeItemId
+      )[0];
+      this.setState({
+        activeItem: actItem,
+      });
+      const actIndex = this.state.items.findIndex(
+        (el) => el.id === this.state.activeItemId
+      );
+
+      this.setState({ activeIndex: actIndex });
+      this.setState({ editActive: true });
     });
   };
+
   render() {
     return (
       <div>
@@ -70,7 +82,6 @@ class Table extends React.Component {
                   isActive={this.state.activeItemId === item.id}
                   handleSelect={() => {
                     this.setState({ activeItemId: item.id }, () => {
-                      console.log(this.state.activeItemId);
                       this.setState({ productCardDisplayed: true });
                       const actItem = this.state.items.filter(
                         (item) => item.id === this.state.activeItemId
@@ -88,24 +99,7 @@ class Table extends React.Component {
                   removeElement={() => {
                     this.remove(item.id);
                   }}
-                  editElement={() => {
-                    this.setState({ activeItemId: item.id }, () => {
-                      console.log(this.state.activeItemId);
-                      this.setState({ productCardDisplayed: false });
-                      const actItem = this.state.items.filter(
-                        (item) => item.id === this.state.activeItemId
-                      )[0];
-                      this.setState({
-                        activeItem: actItem,
-                      });
-                      const actIndex = this.state.items.findIndex(
-                        (el) => el.id === this.state.activeItemId
-                      );
-
-                      this.setState({ activeIndex: actIndex });
-                      this.setState({ editActive: true });
-                    });
-                  }}
+                  editElement={() => this.edit(item)}
                   editActive={this.state.editActive}
                 />
               );
