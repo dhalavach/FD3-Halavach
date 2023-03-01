@@ -30,36 +30,30 @@ class Table extends React.Component {
     this.setState({ productCardDisplayed: false });
   };
 
+  setActive = () => {
+    const actItem = this.state.items.filter(
+      (item) => item.id === this.state.activeItemId
+    )[0];
+    this.setState({
+      activeItem: actItem,
+    });
+    const actIndex = this.state.items.findIndex(
+      (el) => el.id === this.state.activeItemId
+    );
+    this.setState({ activeIndex: actIndex });
+  };
+
   select = (item) => {
     this.setState({ activeItemId: item.id }, () => {
+      this.setActive();
       this.setState({ productCardDisplayed: true });
-      const actItem = this.state.items.filter(
-        (item) => item.id === this.state.activeItemId
-      )[0];
-      this.setState({
-        activeItem: actItem,
-      });
-      const actIndex = this.state.items.findIndex(
-        (el) => el.id === this.state.activeItemId
-      );
-      this.setState({ activeIndex: actIndex });
     });
   };
 
   edit = (item) => {
     this.setState({ activeItemId: item.id }, () => {
+      this.setActive();
       this.setState({ productCardDisplayed: false });
-      const actItem = this.state.items.filter(
-        (item) => item.id === this.state.activeItemId
-      )[0];
-      this.setState({
-        activeItem: actItem,
-      });
-      const actIndex = this.state.items.findIndex(
-        (el) => el.id === this.state.activeItemId
-      );
-
-      this.setState({ activeIndex: actIndex });
       this.setState({ editActive: true });
     });
   };
