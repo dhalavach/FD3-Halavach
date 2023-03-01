@@ -7,6 +7,10 @@ table, th, td {
   h1 {
   text-align: center;
   }
+
+  h3{
+  margin: 0.5rem;
+}
   
   .button-small{
     width: 5rem;

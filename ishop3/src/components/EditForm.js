@@ -92,7 +92,7 @@ class EditForm extends React.Component {
   render() {
     return (
       <div className='edit-form'>
-        <h2>Edit and save</h2>
+        <h3>Edit and save</h3>
         <span className='message-error'>{this.state?.errorMessage}</span>
         <form onSubmit={this.handleSave}>
           <div className='edit-form-fields-container'>

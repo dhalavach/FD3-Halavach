@@ -8,10 +8,10 @@ class NewForm extends React.Component {
   render() {
     return (
       <section>
-        <h4>Add new product</h4>
+        <h3>Add new product</h3>
         <form>
 
-          
+
         </form>
       </section>
     );
