@@ -38,9 +38,9 @@ class Table extends React.Component {
     this.setState({ productCardDisplayed: false });
   };
 
-  edit = (i) => {
+  edit = () => {
     this.setState({
-      activeItemId: i,
+      // activeItemId: i,
       editActive: true,
       productCardDisplayed: false,
     });
@@ -69,10 +69,6 @@ class Table extends React.Component {
                   data={this.state.items[index]}
                   isActive={this.state.activeItemId === item.id}
                   handleSelect={() => {
-                    // this.setActiveItemId(item.id);
-                    // this.setState({ productCardDisplayed: true });
-                    // console.log(this.state.activeItemId)
-
                     this.setState({ activeItemId: item.id }, () => {
                       console.log(this.state.activeItemId);
                       this.setState({ productCardDisplayed: true });
@@ -93,7 +89,22 @@ class Table extends React.Component {
                     this.remove(item.id);
                   }}
                   editElement={() => {
-                    this.edit(item.id);
+                    this.setState({ activeItemId: item.id }, () => {
+                      console.log(this.state.activeItemId);
+                      this.setState({ productCardDisplayed: false });
+                      const actItem = this.state.items.filter(
+                        (item) => item.id === this.state.activeItemId
+                      )[0];
+                      this.setState({
+                        activeItem: actItem,
+                      });
+                      const actIndex = this.state.items.findIndex(
+                        (el) => el.id === this.state.activeItemId
+                      );
+
+                      this.setState({ activeIndex: actIndex });
+                      this.setState({ editActive: true });
+                    });
                   }}
                   editActive={this.state.editActive}
                 />
@@ -101,6 +112,7 @@ class Table extends React.Component {
             })}
           </tbody>
         </table>
+
         <button
           className={`button-small ${
             this.state.editActive ? 'button-grayed-out' : 'button-active'
@@ -111,6 +123,7 @@ class Table extends React.Component {
         >
           New product
         </button>
+
         <div>
           {this.state.newFormOpen && !this.state.editActive && (
             <section>

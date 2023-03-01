@@ -41,6 +41,8 @@ class Product extends React.Component {
         </td>
         <td>{this.props.data.itemQuantity}</td>
         <td>
+
+          
           <button
             className={`${
               this.props.editActive ? 'button-grayed-out' : 'button-active'
@@ -49,6 +51,8 @@ class Product extends React.Component {
           >
             Edit
           </button>
+
+
           <button
             className={`${
               this.props.editActive ? 'button-grayed-out' : 'button-active'
