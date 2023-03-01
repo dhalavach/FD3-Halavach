@@ -9,7 +9,7 @@
   ],
   "tbodyData": [
     {
-      "id": "1",
+      "id": "first",
       "className": "Item",
       "itemName": "ASUS ROG STRIX B550-I GAMING",
       "itemPrice": 730,
@@ -18,7 +18,7 @@
       "itemQuantity": 2
     },
     {
-      "id": "2",
+      "id": "second",
       "className": "Item",
       "itemName": "ASUS PRIME Z790-P D4",
       "itemPrice": 820,
@@ -27,7 +27,7 @@
       "itemQuantity": 1
     },
     {
-      "id": "3",
+      "id": "third",
       "className": "Item",
       "itemName": "MSI MPG B650 Edge WiFi",
       "itemPrice": 1095,

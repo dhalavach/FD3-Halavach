@@ -11,10 +11,11 @@ class Table extends React.Component {
     this.props = props;
     this.state = {
       items: data.tbodyData,
-      activeIndex: 0,
+      activeItemId: '',
       editActive: false,
       productCardDisplayed: false,
       newFormOpen: false,
+      activeItem: '',
     };
   }
   static propTypes = {
@@ -27,19 +28,19 @@ class Table extends React.Component {
     this.setState({ items: newData });
   };
 
-  setActiveIndex = (i) => {
-    this.setState({ activeIndex: i });
+  setActiveItemId = (i) => {
+    this.setState({ activeItemId: i });
   };
 
-  remove = (index) => {
-    const newItems = this.state.items.filter((item) => item.id !== index);
+  remove = (id) => {
+    const newItems = this.state.items.filter((item) => item.id !== id);
     this.setItems(newItems);
     this.setState({ productCardDisplayed: false });
   };
 
-  edit = (index) => {
+  edit = (i) => {
     this.setState({
-      activeIndex: index,
+      activeItemId: i,
       editActive: true,
       productCardDisplayed: false,
     });
@@ -66,10 +67,27 @@ class Table extends React.Component {
                 <Product
                   key={item.id}
                   data={this.state.items[index]}
-                  isActive={this.state.activeIndex === item.id}
+                  isActive={this.state.activeItemId === item.id}
                   handleSelect={() => {
-                    this.setActiveIndex(item.id);
-                    this.setState({ productCardDisplayed: true });
+                    // this.setActiveItemId(item.id);
+                    // this.setState({ productCardDisplayed: true });
+                    // console.log(this.state.activeItemId)
+
+                    this.setState({ activeItemId: item.id }, () => {
+                      console.log(this.state.activeItemId);
+                      this.setState({ productCardDisplayed: true });
+                      const actItem = this.state.items.filter(
+                        (item) => item.id === this.state.activeItemId
+                      )[0];
+                      this.setState({
+                        activeItem: actItem,
+                      });
+                      const actIndex = this.state.items.findIndex(
+                        (el) => el.id === this.state.activeItemId
+                      );
+
+                      this.setState({ activeIndex: actIndex });
+                    });
                   }}
                   removeElement={() => {
                     this.remove(item.id);
@@ -95,46 +113,39 @@ class Table extends React.Component {
         </button>
         <div>
           {this.state.newFormOpen && !this.state.editActive && (
-            <section> 
+            <section>
               <h3>Add new product and save</h3>
-            <EditForm
-              save={(itemName, itemPrice, itemQuantity) => {
-                let newItem = {
-                  itemName: itemName,
-                  itemPrice: itemPrice,
-                  itemQuantity: itemQuantity,
-                };
-                let tempState = [...this.state.items];
-                tempState.push(newItem);
+              <EditForm
+                save={(itemName, itemPrice, itemQuantity) => {
+                  let newItem = {
+                    itemName: itemName,
+                    itemPrice: itemPrice,
+                    itemQuantity: itemQuantity,
+                  };
+                  let tempState = [...this.state.items];
+                  tempState.push(newItem);
 
-                this.setState({ items: tempState });
-                this.setState({ newFormOpen: false });
-              }}
-              cancel={() => {
-                this.setState({ newFormOpen: false });
-              }}
-              //activeItem={this.state.items[this.state.activeIndex - 1]}
-              //name={this.state.items[this.state.activeIndex - 1]['itemName']}
-              //price={this.state.items[this.state.activeIndex - 1]['itemPrice']}
-              // quantity={
-              //   this.state.items[this.state.activeIndex - 1]['itemQuantity']
-              // }
-            />
-              </section>
+                  this.setState({ items: tempState });
+                  this.setState({ newFormOpen: false });
+                }}
+                cancel={() => {
+                  this.setState({ newFormOpen: false });
+                }}
+                //name={this.state.items.filter((item) => item.id === this.state.activeItemId)[0].itemName}
+                //price={this.state.items[this.state.activeItemId - 1]['itemPrice']}
+                // quantity={
+                //   this.state.items[this.state.activeItemId - 1]['itemQuantity']
+                // }
+              />
+            </section>
           )}
         </div>
         <div>
           {this.state.productCardDisplayed && (
             <ProductCard
-              itemName={
-                this.state.items[this.state.activeIndex - 1]['itemName']
-              }
-              itemPrice={
-                this.state.items[this.state.activeIndex - 1]['itemPrice']
-              }
-              itemQuantity={
-                this.state.items[this.state.activeIndex - 1]['itemQuantity']
-              }
+              itemName={this.state.activeItem.itemName}
+              itemPrice={this.state.activeItem.itemPrice}
+              itemQuantity={this.state.activeItem.itemQuantity}
             />
           )}
         </div>
@@ -142,28 +153,27 @@ class Table extends React.Component {
           {this.state.editActive && (
             <section>
               <h3>Edit and save</h3>
-            <EditForm
-              save={(itemName, itemPrice, itemQuantity) => {
-                let tempState = [...this.state.items];
-                tempState[this.state.activeIndex - 1]['itemName'] = itemName;
-                tempState[this.state.activeIndex - 1]['itemPrice'] = itemPrice;
-                tempState[this.state.activeIndex - 1]['itemQuantity'] =
-                  itemQuantity;
+              <EditForm
+                save={(itemName, itemPrice, itemQuantity) => {
+                  let tempState = [...this.state.items];
+                  tempState[this.state.activeIndex]['itemName'] = itemName;
+                  tempState[this.state.activeIndex]['itemPrice'] = itemPrice;
+                  tempState[this.state.activeIndex]['itemQuantity'] =
+                    itemQuantity;
 
-                this.setState({ items: tempState });
-                this.setState({ editActive: false });
-              }}
-              cancel={() => {
-                this.setState({ editActive: false });
-              }}
-              activeItem={this.state.items[this.state.activeIndex - 1]}
-              name={this.state.items[this.state.activeIndex - 1]['itemName']}
-              price={this.state.items[this.state.activeIndex - 1]['itemPrice']}
-              quantity={
-                this.state.items[this.state.activeIndex - 1]['itemQuantity']
-              }
+                  this.setState({ items: tempState });
+                  this.setState({ editActive: false });
+                }}
+                cancel={() => {
+                  this.setState({ editActive: false });
+                }}
+                name={this.state.items[this.state.activeIndex]['itemName']}
+                price={this.state.items[this.state.activeIndex]['itemPrice']}
+                quantity={
+                  this.state.items[this.state.activeIndex]['itemQuantity']
+                }
               />
-              </section>
+            </section>
           )}
         </div>
       </div>

@@ -11,7 +11,7 @@ class ProductCard extends React.Component {
       <div>
         Item price: {this.props.itemPrice}
         </div>
-        <div>
+        <div> 
           Item quantity: {this.props.itemQuantity}
         </div>
       </section>
