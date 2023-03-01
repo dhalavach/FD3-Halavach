@@ -26,13 +26,28 @@ class Table extends React.Component {
 
   remove = (id) => {
     const newItems = this.state.items.filter((item) => item.id !== id);
-    this.setState({items: newItems});
+    this.setState({ items: newItems });
     this.setState({ productCardDisplayed: false });
+  };
+
+  select = (item) => {
+    this.setState({ activeItemId: item.id }, () => {
+      this.setState({ productCardDisplayed: true });
+      const actItem = this.state.items.filter(
+        (item) => item.id === this.state.activeItemId
+      )[0];
+      this.setState({
+        activeItem: actItem,
+      });
+      const actIndex = this.state.items.findIndex(
+        (el) => el.id === this.state.activeItemId
+      );
+      this.setState({ activeIndex: actIndex });
+    });
   };
 
   edit = (item) => {
     this.setState({ activeItemId: item.id }, () => {
-      console.log(this.state.activeItemId);
       this.setState({ productCardDisplayed: false });
       const actItem = this.state.items.filter(
         (item) => item.id === this.state.activeItemId
@@ -73,20 +88,7 @@ class Table extends React.Component {
                   data={this.state.items[index]}
                   isActive={this.state.activeItemId === item.id}
                   handleSelect={() => {
-                    this.setState({ activeItemId: item.id }, () => {
-                      this.setState({ productCardDisplayed: true });
-                      const actItem = this.state.items.filter(
-                        (item) => item.id === this.state.activeItemId
-                      )[0];
-                      this.setState({
-                        activeItem: actItem,
-                      });
-                      const actIndex = this.state.items.findIndex(
-                        (el) => el.id === this.state.activeItemId
-                      );
-
-                      this.setState({ activeIndex: actIndex });
-                    });
+                    this.select(item);
                   }}
                   removeElement={() => {
                     this.remove(item.id);
