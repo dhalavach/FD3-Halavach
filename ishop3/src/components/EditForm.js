@@ -92,7 +92,6 @@ class EditForm extends React.Component {
   render() {
     return (
       <div className='edit-form'>
-    
         <span className='message-error'>{this.state?.errorMessage}</span>
         <form onSubmit={this.handleSave}>
           <div className='edit-form-fields-container'>
@@ -101,7 +100,8 @@ class EditForm extends React.Component {
               type='text'
               id='name'
               name='name'
-              value={this.state?.itemName}
+              //defaultValue={this.props.name}
+              value={this.state?.itemName || ''}
               onChange={(e) => {
                 this.setState({ itemName: e.target.value }, this.validateName);
               }}
@@ -117,7 +117,8 @@ class EditForm extends React.Component {
               type='text'
               id='price'
               name='price'
-              value={this.state?.itemPrice}
+              //defaultValue={this.props.price}
+              value={this.state?.itemPrice || ''}
               onChange={(e) => {
                 this.setState(
                   { itemPrice: e.target.value },
@@ -135,7 +136,8 @@ class EditForm extends React.Component {
               type='text'
               id='quantity'
               name='quantity'
-              value={this.state?.itemQuantity}
+              //defaultValue={this.props.quantity}
+              value={this.state?.itemQuantity || ''}
               onChange={(e) => {
                 this.setState(
                   { itemQuantity: e.target.value },
