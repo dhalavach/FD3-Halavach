@@ -122,7 +122,7 @@ class Table extends React.Component {
         </button>
 
         <div>
-          {this.state.newFormOpen &&  (
+          {this.state.newFormOpen && (
             <section>
               <h3>Add new product and save</h3>
               <EditForm
@@ -143,8 +143,11 @@ class Table extends React.Component {
                   tempState.push(newItem);
                   //console.log(newItem.id);
 
-                  this.setState({ items: tempState });
-                  this.setState({ newFormOpen: false });
+                  this.setState({
+                    items: tempState,
+                    newFormOpen: false,
+                    dataIsChanged: false,
+                  });
                 }}
                 cancel={() => {
                   this.setState({ newFormOpen: false });
@@ -168,7 +171,7 @@ class Table extends React.Component {
           {this.state.editActive && (
             <section>
               <h3>Edit and save</h3>
-              <EditForm 
+              <EditForm
                 setDataIsChanged={() => {
                   this.setState({ dataIsChanged: true });
                 }}
@@ -179,8 +182,8 @@ class Table extends React.Component {
                   tempState[this.state.activeIndex]['itemQuantity'] =
                     itemQuantity;
 
-                  this.setState({ items: tempState });
                   this.setState({
+                    items: tempState,
                     editActive: false,
                     dataIsChanged: false,
                   });
