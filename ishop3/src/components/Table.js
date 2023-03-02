@@ -122,7 +122,7 @@ class Table extends React.Component {
         </button>
 
         <div>
-          {this.state.newFormOpen && !this.state.dataIsChanged && (
+          {this.state.newFormOpen &&  (
             <section>
               <h3>Add new product and save</h3>
               <EditForm
