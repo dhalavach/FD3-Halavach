@@ -13,6 +13,7 @@ class Table extends React.Component {
       items: data.tbodyData,
       activeItemId: '',
       editActive: false,
+      dataIsChanged: false,
       productCardDisplayed: false,
       newFormOpen: false,
       activeItem: '',
@@ -25,9 +26,11 @@ class Table extends React.Component {
   };
 
   remove = (id) => {
-    const newItems = this.state.items.filter((item) => item.id !== id);
-    this.setState({ items: newItems });
-    this.setState({ productCardDisplayed: false });
+    if (!this.state.dataIsChanged) {
+      const newItems = this.state.items.filter((item) => item.id !== id);
+      this.setState({ items: newItems });
+      this.setState({ productCardDisplayed: false });
+    }
   };
 
   setActive = () => {
@@ -44,18 +47,24 @@ class Table extends React.Component {
   };
 
   select = (item) => {
-    this.setState({ activeItemId: item.id }, () => {
-      this.setActive();
-      this.setState({ productCardDisplayed: true });
-    });
+    if (!this.state.dataIsChanged) {
+      this.setState({ activeItemId: item.id }, () => {
+        this.setActive();
+        this.setState({ productCardDisplayed: true });
+      });
+    }
   };
 
   edit = (item) => {
-    this.setState({ activeItemId: item.id }, () => {
-      this.setActive();
-      this.setState({ productCardDisplayed: false });
-      this.setState({ editActive: true });
-    });
+    if (!this.state.dataIsChanged) {
+      this.setState({ activeItemId: item.id }, () => {
+        this.setActive();
+        this.setState({
+          productCardDisplayed: false,
+          editActive: true,
+        });
+      });
+    }
   };
 
   render() {
@@ -89,6 +98,7 @@ class Table extends React.Component {
                   }}
                   editElement={() => this.edit(item)}
                   editActive={this.state.editActive}
+                  dataIsChanged={this.state.dataIsChanged}
                 />
               );
             })}
@@ -97,23 +107,31 @@ class Table extends React.Component {
 
         <button
           className={`button-small ${
-            this.state.editActive ? 'button-grayed-out' : 'button-active'
+            this.state.dataIsChanged ? 'button-grayed-out' : 'button-active'
           }`}
           onClick={() => {
-            if (!this.state.editActive) this.setState({ newFormOpen: true });
+            if (!this.state.dataIsChanged) {
+              this.setState({
+                editActive: false,
+                newFormOpen: true,
+              });
+            }
           }}
         >
           New product
         </button>
 
         <div>
-          {this.state.newFormOpen && !this.state.editActive && (
+          {this.state.newFormOpen && !this.state.dataIsChanged && (
             <section>
               <h3>Add new product and save</h3>
               <EditForm
+                setDataIsChanged={() => {
+                  this.setState({ dataIsChanged: true });
+                }}
                 save={(itemName, itemPrice, itemQuantity) => {
                   let newItem = {
-                    id: itemName,
+                    id: Math.ceil(Math.random() * 10e18),
                     className: 'Item',
                     itemImageURL: '',
                     itemImageAlt: '',
@@ -123,6 +141,7 @@ class Table extends React.Component {
                   };
                   const tempState = [...this.state.items];
                   tempState.push(newItem);
+                  //console.log(newItem.id);
 
                   this.setState({ items: tempState });
                   this.setState({ newFormOpen: false });
@@ -136,7 +155,7 @@ class Table extends React.Component {
         </div>
         <div>
           {this.state.productCardDisplayed &&
-            !this.state.editActive &&
+            !this.state.dataIsChanged &&
             !this.state.newFormOpen && (
               <ProductCard
                 itemName={this.state.activeItem.itemName}
@@ -149,7 +168,10 @@ class Table extends React.Component {
           {this.state.editActive && (
             <section>
               <h3>Edit and save</h3>
-              <EditForm
+              <EditForm 
+                setDataIsChanged={() => {
+                  this.setState({ dataIsChanged: true });
+                }}
                 save={(itemName, itemPrice, itemQuantity) => {
                   let tempState = [...this.state.items];
                   tempState[this.state.activeIndex]['itemName'] = itemName;
@@ -158,10 +180,16 @@ class Table extends React.Component {
                     itemQuantity;
 
                   this.setState({ items: tempState });
-                  this.setState({ editActive: false });
+                  this.setState({
+                    editActive: false,
+                    dataIsChanged: false,
+                  });
                 }}
                 cancel={() => {
-                  this.setState({ editActive: false });
+                  this.setState({
+                    editActive: false,
+                    dataIsChanged: false,
+                  });
                 }}
                 name={this.state.items[this.state.activeIndex]['itemName']}
                 price={this.state.items[this.state.activeIndex]['itemPrice']}

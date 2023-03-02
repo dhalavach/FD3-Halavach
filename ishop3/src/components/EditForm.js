@@ -14,6 +14,7 @@ class EditForm extends React.Component {
       itemImageURL: '',
       itemImageAlt: '',
     };
+
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.validateInput = this.validateInput.bind(this);
@@ -102,7 +103,14 @@ class EditForm extends React.Component {
               name='name'
               value={this.state?.itemName || ''}
               onChange={(e) => {
-                this.setState({ itemName: e.target.value }, this.validateName);
+                this.setState(
+                  {
+                    itemName: e.target.value,
+                  },
+                  this.validateName,
+                  this.props.setDataIsChanged()
+                
+                );
               }}
             />
             <span className='message-error'>
@@ -119,7 +127,8 @@ class EditForm extends React.Component {
               onChange={(e) => {
                 this.setState(
                   { itemPrice: e.target.value },
-                  this.validatePrice
+                  this.validatePrice,
+                  this.props.setDataIsChanged()
                 );
               }}
             />
@@ -136,7 +145,8 @@ class EditForm extends React.Component {
               onChange={(e) => {
                 this.setState(
                   { itemQuantity: e.target.value },
-                  this.validateQuantity
+                  this.validateQuantity,
+                  this.props.setDataIsChanged()
                 );
               }}
             />
