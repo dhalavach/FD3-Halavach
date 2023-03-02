@@ -11,6 +11,8 @@ class EditForm extends React.Component {
       itemName: '',
       itemPrice: '',
       itemQuantity: '',
+      itemImageURL: '',
+      itemImageAlt: '',
     };
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -79,9 +81,7 @@ class EditForm extends React.Component {
   };
 
   componentDidMount() {
-    const name = this.props.name;
-    const price = this.props.price;
-    const quantity = this.props.quantity;
+    const { name, price, quantity } = this.props;
     this.setState({
       itemName: name,
       itemPrice: price,
