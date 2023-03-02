@@ -100,12 +100,10 @@ class EditForm extends React.Component {
               type='text'
               id='name'
               name='name'
-              //defaultValue={this.props.name}
               value={this.state?.itemName || ''}
               onChange={(e) => {
                 this.setState({ itemName: e.target.value }, this.validateName);
               }}
-              //onBlur={this.validateName}
             />
             <span className='message-error'>
               {this.state?.errorName &&
@@ -117,7 +115,6 @@ class EditForm extends React.Component {
               type='text'
               id='price'
               name='price'
-              //defaultValue={this.props.price}
               value={this.state?.itemPrice || ''}
               onChange={(e) => {
                 this.setState(
@@ -125,7 +122,6 @@ class EditForm extends React.Component {
                   this.validatePrice
                 );
               }}
-              //onBlur={this.validatePrice}
             />
             <span className='message-error'>
               {this.state?.errorPrice && 'Price must be greater than zero!'}
@@ -136,7 +132,6 @@ class EditForm extends React.Component {
               type='text'
               id='quantity'
               name='quantity'
-              //defaultValue={this.props.quantity}
               value={this.state?.itemQuantity || ''}
               onChange={(e) => {
                 this.setState(
@@ -144,8 +139,6 @@ class EditForm extends React.Component {
                   this.validateQuantity
                 );
               }}
-
-              //onBlur={this.validateQuantity}
             />
             <span className='message-error'>
               {this.state?.errorQuantity &&
