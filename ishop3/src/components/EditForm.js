@@ -5,8 +5,7 @@ class EditForm extends React.Component {
     this.props = props;
 
     this.state = {
-      errorMessage: '',
-      errorsName: false,
+      errorsName: '',
       errorQuantity: false,
       errorPrice: false,
       itemName: '',
@@ -21,77 +20,56 @@ class EditForm extends React.Component {
 
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
-    this.validateInput = this.validateInput.bind(this);
-    this.setErrorMessage = this.setErrorMessage.bind(this);
     this.validateName = this.validateName.bind(this);
     this.validatePrice = this.validatePrice.bind(this);
     this.validateQuantity = this.validateQuantity.bind(this);
   }
 
   validateName = () => {
-    if (!this.state?.itemName) this.setState({ errorName: true });
+    const message =
+      'Name must be longer or equal than 3 and shorter or eual than 100 characters!';
+
+    if (!this.state?.itemName) this.setState({ errorName: message });
     else if (
       this.state?.itemName.length >= 3 &&
       this.state?.itemName.length <= 100
     ) {
-      this.setState({ errorName: false });
-    } else this.setState({ errorName: true });
+      this.setState({ errorName: '' });
+    } else this.setState({ errorName: message });
   };
 
   validatePrice = () => {
-    if (!this.state?.itemPrice) this.setState({ errorPrice: true });
-    else if (this.state.itemPrice > 0) this.setState({ errorPrice: false });
-    else this.setState({ errorPrice: true });
+    const message = 'Price must be greater than zero!';
+    if (!this.state?.itemPrice) this.setState({ errorPrice: message });
+    else if (this.state.itemPrice > 0) this.setState({ errorPrice: '' });
+    else this.setState({ errorPrice: message });
   };
 
   validateQuantity = () => {
-    if (!this.state?.itemQuantity) this.setState({ errorQuantity: true });
-    else if (this.state.itemQuantity >= 0)
-      this.setState({ errorQuantity: false });
-    else this.setState({ errorQuantity: true });
-  };
-
-  validateInput = () => {
-    if (
-      this.state?.itemName &&
-      this.state?.itemName.length >= 3 &&
-      this.state?.itemName.length <= 100 &&
-      this.state?.itemPrice > 0 &&
-      this.state?.itemQuantity >= 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  setErrorMessage = () => {
-    this.setState({ errorMessage: 'Incorrect or identical input data!' });
+    const message = 'Quantity must be greater or equal to zero!';
+    if (!this.state?.itemQuantity) this.setState({ errorQuantity: message });
+    else if (this.state.itemQuantity >= 0) this.setState({ errorQuantity: '' });
+    else this.setState({ errorQuantity: message });
   };
 
   handleSave = (e) => {
     e.preventDefault();
-    if (this.validateInput()) {
+    if (
+      !this.state.errorName &&
+      !this.state.errorPrice &&
+      !this.state.errorQuantity
+    ) {
       this.props.save(
         this.state?.itemName,
         this.state?.itemPrice,
         this.state?.itemQuantity
       );
-      this.setState({ errorMessage: '' });
-    } else this.setErrorMessage();
+    }
   };
 
   handleCancel = () => {
     this.props.cancel();
   };
-
-  // static getDerivedStateFromProps = (props, state) => {
-  //   return {
-  //     itemName: props.name,
-  //     itemPrice: props.price,
-  //     itemQuantity: props.quantity,
-  //   };
-  // };
 
   componentDidMount() {
     const { name, price, quantity } = this.props;
@@ -105,7 +83,6 @@ class EditForm extends React.Component {
   render() {
     return (
       <div className='edit-form'>
-        <span className='message-error'>{this.state?.errorMessage}</span>
         <form onSubmit={this.handleSave}>
           <div className='edit-form-fields-container'>
             <label htmlFor='name'>Item name:</label>
@@ -129,17 +106,13 @@ class EditForm extends React.Component {
                 );
               }}
             />
-            <span className='message-error'>
-              {this.state?.errorName &&
-                'Name must be longer than 3 and shorter than 100 characters!'}
-            </span>
+            <span className='message-error'>{this.state?.errorName}</span>
 
             <label htmlFor='price'>Item price:</label>
             <input
               type='text'
               id='price'
               name='price'
-              //defaultValue={this.props.price}
               value={
                 this.state?.userInputPrice
                   ? this.state?.itemPrice || ''
@@ -154,9 +127,7 @@ class EditForm extends React.Component {
                 );
               }}
             />
-            <span className='message-error'>
-              {this.state?.errorPrice && 'Price must be greater than zero!'}
-            </span>
+            <span className='message-error'>{this.state?.errorPrice}</span>
 
             <label htmlFor='quantity'>Item quantity:</label>
             <input
@@ -177,15 +148,16 @@ class EditForm extends React.Component {
                 );
               }}
             />
-            <span className='message-error'>
-              {this.state?.errorQuantity &&
-                'Quantity must be greater or equal to zero!'}
-            </span>
+            <span className='message-error'>{this.state?.errorQuantity}</span>
           </div>
           <button
             type='submit'
             className={`edit-form-save button-small ${
-              this.validateInput() ? 'button-active' : 'button-grayed-out'
+              this.state?.errorName ||
+              this.state?.errorPrice ||
+              this.state?.errorQuantity
+                ? 'button-grayed-out'
+                : 'button-active'
             }`}
             onClick={this.handleSave}
           >
