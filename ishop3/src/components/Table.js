@@ -143,7 +143,6 @@ class Table extends React.Component {
                   };
                   const tempState = [...this.state.items];
                   tempState.push(newItem);
-                  //console.log(newItem.id);
 
                   this.setState({
                     items: tempState,
@@ -161,7 +160,7 @@ class Table extends React.Component {
         <div>
           {this.state.productCardDisplayed &&
             !this.state.dataIsChanged &&
-            //!this.state.newFormOpen &&
+            !this.state.newFormOpen &&
             !this.state.editActive && (
               <ProductCard
                 itemName={this.state.activeItem.itemName}

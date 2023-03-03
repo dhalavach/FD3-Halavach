@@ -14,7 +14,9 @@ class EditForm extends React.Component {
       itemQuantity: '',
       itemImageURL: '',
       itemImageAlt: '',
-      userInput: false,
+      userInputName: false,
+      userInputPrice: false,
+      userInputQuantity: false,
     };
 
     this.handleSave = this.handleSave.bind(this);
@@ -112,7 +114,7 @@ class EditForm extends React.Component {
               id='name'
               name='name'
               value={
-                this.state?.userInput
+                this.state?.userInputName
                   ? this.state?.itemName || ''
                   : this.props.name
               }
@@ -123,7 +125,7 @@ class EditForm extends React.Component {
                   },
                   this.validateName,
                   this.props.setDataIsChanged(),
-                  this.setState({ userInput: true })
+                  this.setState({ userInputName: true })
                 );
               }}
             />
@@ -139,7 +141,7 @@ class EditForm extends React.Component {
               name='price'
               //defaultValue={this.props.price}
               value={
-                this.state?.userInput
+                this.state?.userInputPrice
                   ? this.state?.itemPrice || ''
                   : this.props.price
               }
@@ -148,7 +150,7 @@ class EditForm extends React.Component {
                   { itemPrice: e.target.value },
                   this.validatePrice,
                   this.props.setDataIsChanged(),
-                  this.setState({ userInput: true })
+                  this.setState({ userInputPrice: true })
                 );
               }}
             />
@@ -162,7 +164,7 @@ class EditForm extends React.Component {
               id='quantity'
               name='quantity'
               value={
-                this.state?.userInput
+                this.state?.userInputQuantity
                   ? this.state?.itemQuantity || ''
                   : this.props.quantity
               }
@@ -171,7 +173,7 @@ class EditForm extends React.Component {
                   { itemQuantity: e.target.value },
                   this.validateQuantity,
                   this.props.setDataIsChanged(),
-                  this.setState({ userInput: true })
+                  this.setState({ userInputQuantity: true })
                 );
               }}
             />
