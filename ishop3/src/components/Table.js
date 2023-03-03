@@ -52,7 +52,8 @@ class Table extends React.Component {
         this.setActive();
         this.setState({
           productCardDisplayed: true,
-          newFormOpen: false}); // test 
+          newFormOpen: false,
+        }); // test
       });
     }
   };
@@ -132,8 +133,16 @@ class Table extends React.Component {
                   this.setState({ dataIsChanged: true });
                 }}
                 save={(itemName, itemPrice, itemQuantity) => {
+                  let max = Number.MIN_SAFE_INTEGER;
+                  for (let i = 0; i < this.state.items.length; i++) {
+                    if (this.state.items[i].id > max)
+                      max = this.state.items[i].id;
+                  }
+                  const newId = max + 1;
+
                   let newItem = {
-                    id: Math.ceil(Math.random() * 10e18),
+                    //id: Math.ceil(Math.random() * 10e12),
+                    id: newId,
                     className: 'Item',
                     itemImageURL: '',
                     itemImageAlt: '',
@@ -143,6 +152,7 @@ class Table extends React.Component {
                   };
                   const tempState = [...this.state.items];
                   tempState.push(newItem);
+                  console.log(newItem.id);
 
                   this.setState({
                     items: tempState,
@@ -177,7 +187,6 @@ class Table extends React.Component {
                 setDataIsChanged={() => {
                   this.setState({ dataIsChanged: true });
                 }}
-              
                 save={(itemName, itemPrice, itemQuantity) => {
                   let tempState = [...this.state.items];
                   tempState[this.state.activeIndex]['itemName'] = itemName;
