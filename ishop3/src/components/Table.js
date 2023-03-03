@@ -50,7 +50,9 @@ class Table extends React.Component {
     if (!this.state.dataIsChanged) {
       this.setState({ activeItemId: item.id }, () => {
         this.setActive();
-        this.setState({ productCardDisplayed: true });
+        this.setState({
+          productCardDisplayed: true,
+          newFormOpen: false}); // test 
       });
     }
   };
@@ -159,7 +161,8 @@ class Table extends React.Component {
         <div>
           {this.state.productCardDisplayed &&
             !this.state.dataIsChanged &&
-            !this.state.newFormOpen && (
+            //!this.state.newFormOpen &&
+            !this.state.editActive && (
               <ProductCard
                 itemName={this.state.activeItem.itemName}
                 itemPrice={this.state.activeItem.itemPrice}
@@ -175,6 +178,7 @@ class Table extends React.Component {
                 setDataIsChanged={() => {
                   this.setState({ dataIsChanged: true });
                 }}
+              
                 save={(itemName, itemPrice, itemQuantity) => {
                   let tempState = [...this.state.items];
                   tempState[this.state.activeIndex]['itemName'] = itemName;

@@ -3,6 +3,7 @@ import React from 'react';
 class EditForm extends React.Component {
   super(props) {
     this.props = props;
+
     this.state = {
       errorMessage: '',
       errorsName: false,
@@ -13,6 +14,7 @@ class EditForm extends React.Component {
       itemQuantity: '',
       itemImageURL: '',
       itemImageAlt: '',
+      userInput: false,
     };
 
     this.handleSave = this.handleSave.bind(this);
@@ -27,8 +29,8 @@ class EditForm extends React.Component {
   validateName = () => {
     if (!this.state?.itemName) this.setState({ errorName: true });
     else if (
-      this.state.itemName.length >= 3 &&
-      this.state.itemName.length <= 100
+      this.state?.itemName.length >= 3 &&
+      this.state?.itemName.length <= 100
     ) {
       this.setState({ errorName: false });
     } else this.setState({ errorName: true });
@@ -69,9 +71,9 @@ class EditForm extends React.Component {
     e.preventDefault();
     if (this.validateInput()) {
       this.props.save(
-        this.state.itemName,
-        this.state.itemPrice,
-        this.state.itemQuantity
+        this.state?.itemName,
+        this.state?.itemPrice,
+        this.state?.itemQuantity
       );
       this.setState({ errorMessage: '' });
     } else this.setErrorMessage();
@@ -80,6 +82,14 @@ class EditForm extends React.Component {
   handleCancel = () => {
     this.props.cancel();
   };
+
+  // static getDerivedStateFromProps = (props, state) => {
+  //   return {
+  //     itemName: props.name,
+  //     itemPrice: props.price,
+  //     itemQuantity: props.quantity,
+  //   };
+  // };
 
   componentDidMount() {
     const { name, price, quantity } = this.props;
@@ -101,15 +111,19 @@ class EditForm extends React.Component {
               type='text'
               id='name'
               name='name'
-              value={this.state?.itemName || ''}
+              value={
+                this.state?.userInput
+                  ? this.state?.itemName || ''
+                  : this.props.name
+              }
               onChange={(e) => {
                 this.setState(
                   {
                     itemName: e.target.value,
                   },
                   this.validateName,
-                  this.props.setDataIsChanged()
-                
+                  this.props.setDataIsChanged(),
+                  this.setState({ userInput: true })
                 );
               }}
             />
@@ -123,12 +137,18 @@ class EditForm extends React.Component {
               type='text'
               id='price'
               name='price'
-              value={this.state?.itemPrice || ''}
+              //defaultValue={this.props.price}
+              value={
+                this.state?.userInput
+                  ? this.state?.itemPrice || ''
+                  : this.props.price
+              }
               onChange={(e) => {
                 this.setState(
                   { itemPrice: e.target.value },
                   this.validatePrice,
-                  this.props.setDataIsChanged()
+                  this.props.setDataIsChanged(),
+                  this.setState({ userInput: true })
                 );
               }}
             />
@@ -141,12 +161,17 @@ class EditForm extends React.Component {
               type='text'
               id='quantity'
               name='quantity'
-              value={this.state?.itemQuantity || ''}
+              value={
+                this.state?.userInput
+                  ? this.state?.itemQuantity || ''
+                  : this.props.quantity
+              }
               onChange={(e) => {
                 this.setState(
                   { itemQuantity: e.target.value },
                   this.validateQuantity,
-                  this.props.setDataIsChanged()
+                  this.props.setDataIsChanged(),
+                  this.setState({ userInput: true })
                 );
               }}
             />
