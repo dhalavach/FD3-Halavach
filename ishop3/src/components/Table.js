@@ -177,9 +177,9 @@ class Table extends React.Component {
             !this.state.newFormOpen &&
             !this.state.editActive && (
               <ProductCard
-                itemName={this.state.activeItem.itemName}
-                itemPrice={this.state.activeItem.itemPrice}
-                itemQuantity={this.state.activeItem.itemQuantity}
+                itemName={this.state?.activeItem?.itemName}
+                itemPrice={this.state?.activeItem?.itemPrice}
+                itemQuantity={this.state?.activeItem?.itemQuantity}
               />
             )}
         </div>
@@ -210,10 +210,12 @@ class Table extends React.Component {
                     dataIsChanged: false,
                   });
                 }}
-                name={this.state.items[this.state.activeIndex]['itemName']}
-                price={this.state.items[this.state.activeIndex]['itemPrice']}
+                name={this.state?.items[this.state?.activeIndex]?.['itemName']}
+                price={
+                  this.state?.items[this.state?.activeIndex]?.['itemPrice']
+                }
                 quantity={
-                  this.state.items[this.state.activeIndex]['itemQuantity']
+                  this.state?.items[this.state?.activeIndex]?.['itemQuantity']
                 }
               />
             </section>

@@ -58,8 +58,7 @@ class EditForm extends React.Component {
       this.validateName();
       this.validatePrice();
       this.validateQuantity();
-    }
-    else if (
+    } else if (
       !this.state.errorName &&
       !this.state.errorPrice &&
       !this.state.errorQuantity
@@ -77,7 +76,10 @@ class EditForm extends React.Component {
   };
 
   componentDidMount() {
-    const { name, price, quantity } = this.props;
+    //const { name, price, quantity } = this.props;
+    const name = this.props?.name;
+    const price = this.props?.price;
+    const quantity = this.props?.quantity;
     this.setState({
       itemName: name,
       itemPrice: price,
@@ -98,7 +100,7 @@ class EditForm extends React.Component {
               value={
                 this.state?.userInputName
                   ? this.state?.itemName
-                  : this.props.name
+                  : this.props?.name
               }
               onChange={(e) => {
                 this.setState(
@@ -121,7 +123,7 @@ class EditForm extends React.Component {
               value={
                 this.state?.userInputPrice
                   ? this.state?.itemPrice
-                  : this.props.price
+                  : this.props?.price
               }
               onChange={(e) => {
                 this.setState(
@@ -142,7 +144,7 @@ class EditForm extends React.Component {
               value={
                 this.state?.userInputQuantity
                   ? this.state?.itemQuantity
-                  : this.props.quantity
+                  : this.props?.quantity
               }
               onChange={(e) => {
                 this.setState(
