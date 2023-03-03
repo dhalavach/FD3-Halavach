@@ -5,7 +5,7 @@ class EditForm extends React.Component {
     this.props = props;
 
     this.state = {
-      errorsName: '',
+      errorName: '',
       errorQuantity: false,
       errorPrice: false,
       itemName: '',
@@ -27,7 +27,7 @@ class EditForm extends React.Component {
 
   validateName = () => {
     const message =
-      'Name must be longer or equal than 3 and shorter or eual than 100 characters!';
+      'Name must be longer or equal than 3 and shorter or equal than 100 characters!';
 
     if (!this.state?.itemName) this.setState({ errorName: message });
     else if (
@@ -54,7 +54,12 @@ class EditForm extends React.Component {
 
   handleSave = (e) => {
     e.preventDefault();
-    if (
+    if (this.props.newFormOpen) {
+      this.validateName();
+      this.validatePrice();
+      this.validateQuantity();
+    }
+    else if (
       !this.state.errorName &&
       !this.state.errorPrice &&
       !this.state.errorQuantity
@@ -92,7 +97,7 @@ class EditForm extends React.Component {
               name='name'
               value={
                 this.state?.userInputName
-                  ? this.state?.itemName || ''
+                  ? this.state?.itemName
                   : this.props.name
               }
               onChange={(e) => {
@@ -115,7 +120,7 @@ class EditForm extends React.Component {
               name='price'
               value={
                 this.state?.userInputPrice
-                  ? this.state?.itemPrice || ''
+                  ? this.state?.itemPrice
                   : this.props.price
               }
               onChange={(e) => {
@@ -136,7 +141,7 @@ class EditForm extends React.Component {
               name='quantity'
               value={
                 this.state?.userInputQuantity
-                  ? this.state?.itemQuantity || ''
+                  ? this.state?.itemQuantity
                   : this.props.quantity
               }
               onChange={(e) => {

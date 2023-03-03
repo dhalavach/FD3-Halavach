@@ -166,6 +166,7 @@ class Table extends React.Component {
                 name=''
                 price=''
                 quantity=''
+                newFormOpen={this.state.newFormOpen}
               />
             </section>
           )}
