@@ -6,8 +6,8 @@ class EditForm extends React.Component {
 
     this.state = {
       errorName: '',
-      errorQuantity: false,
-      errorPrice: false,
+      errorQuantity: '',
+      errorPrice: '',
       itemName: '',
       itemPrice: '',
       itemQuantity: '',
