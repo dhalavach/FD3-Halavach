@@ -163,6 +163,9 @@ class Table extends React.Component {
                 cancel={() => {
                   this.setState({ newFormOpen: false });
                 }}
+                name=''
+                price=''
+                quantity=''
               />
             </section>
           )}
