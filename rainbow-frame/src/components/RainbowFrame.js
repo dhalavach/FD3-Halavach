@@ -11,10 +11,8 @@ class RainbowFrame extends React.Component {
 
   componentWillMount() {
     const arr = [...this.props.colors];
-    if (arr.length >= 1) {
-      const color = arr.shift();
-      this.setState({ colors: arr, frameColor: color });
-    }
+    const color = arr.pop();
+    this.setState({ colors: arr, frameColor: color });
   }
 
   render() {
