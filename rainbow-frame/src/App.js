@@ -11,7 +11,7 @@ function App() {
     'blue',
     'purple',
   ];
-  return <RainbowFrame colors={colors} />;
+  return <RainbowFrame colors={colors}><h1>Hello, world!</h1></RainbowFrame>;
 }
 
 export default App;
