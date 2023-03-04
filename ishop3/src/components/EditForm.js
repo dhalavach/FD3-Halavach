@@ -54,11 +54,8 @@ class EditForm extends React.Component {
 
   handleSave = (e) => {
     e.preventDefault();
-    if (this.props.newFormOpen) {
-      this.validateName();
-      this.validatePrice();
-      this.validateQuantity();
-    } else if (
+  
+    if (
       !this.state.errorName &&
       !this.state.errorPrice &&
       !this.state.errorQuantity
@@ -77,6 +74,13 @@ class EditForm extends React.Component {
 
   componentDidMount() {
     //const { name, price, quantity } = this.props;
+
+    if (this.props.newFormOpen) {
+      this.validateName();
+      this.validatePrice();
+      this.validateQuantity();
+    }
+    
     const name = this.props?.name;
     const price = this.props?.price;
     const quantity = this.props?.quantity;
