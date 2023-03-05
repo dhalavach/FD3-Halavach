@@ -1,39 +1,31 @@
 import React from 'react';
-class RainbowFrame extends React.Component {
-  super(props) {
-    this.props = props;
-  }
+import { useState, useEffect } from 'react';
 
-  state = {
-    colors: [],
-    frameColor: '',
-  };
+export default function RainbowFrame(props) {
+  const [colors, setColors] = useState([]);
+  const [frameColor, setFrameColor] = useState('');
 
-  componentWillMount() {
-    const arr = [...this.props.colors];
+  useEffect(() => {
+    const arr = [...props.colors];
     const color = arr.pop();
-    this.setState({ colors: arr, frameColor: color });
-  }
+    setColors(arr);
+    setFrameColor(color);
+  }, [props.colors]);
 
-  render() {
-    return (
-      <div
-        className='frame'
-        style={{
-          border: 'solid 8px ' + this.state.frameColor,
-          padding: '4px',
-        }}
-      >
-        {this.props.colors.length > 1 ? (
-          <RainbowFrame colors={this.state.colors}>
-            {this.props.children}
-          </RainbowFrame>
-        ) : (
-          this.props.children
-        )}
-      </div>
-    );
-  }
+  return (
+    <div
+      className='frame'
+      style={{
+        border: 'solid 8px ' + frameColor,
+        padding: '4px',
+      }}
+    >
+      {props.colors.length > 1 ? (
+        <RainbowFrame colors={colors}>{props.children}</RainbowFrame>
+      ) : (
+        props.children
+      )}
+    </div>
+  );
 }
 
-export default RainbowFrame;
