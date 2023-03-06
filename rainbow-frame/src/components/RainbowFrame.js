@@ -18,10 +18,5 @@ export default function RainbowFrame(props) {
       </div>
     );
   }
-
-  return (
-    <div className='rainbow-frames-container'>
-      {array.length >= 1 ? helper() : props.children}
-    </div>
-  );
+  return helper();
 }
