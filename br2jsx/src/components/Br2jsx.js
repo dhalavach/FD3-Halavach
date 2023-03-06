@@ -1,14 +1,14 @@
-export default function Br2jsx() {
-  const str = 'первый<br>второй<br/>третий<br />последний';
+export default function Br2jsx(props) {
   const lineBreakRegex = new RegExp('<br ?/?>');
-  const arr = str.split(lineBreakRegex);
-  const parsedStringArray = [];
+  const parsedStringArray = props.htmlString.split(lineBreakRegex);
+  const JSXArray = [];
 
-  for (let i = 0; i <= arr.length - 2; i++) {
-    parsedStringArray.push(arr[i]);
-    parsedStringArray.push(<br />);
-  }
-  parsedStringArray.push(arr[arr.length - 1]);
+  parsedStringArray.forEach((e, i) => {
+    if (i) {
+      JSXArray.push(<br />);
+    }
+    JSXArray.push(e);
+  });
 
-  return <div className='App'>{parsedStringArray}</div>;
+  return <div className='App'>{JSXArray}</div>;
 }
