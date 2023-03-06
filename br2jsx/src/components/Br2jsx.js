@@ -4,7 +4,8 @@ export default function Br2jsx(props) {
   const JSXArray = [];
 
   parsedStringArray.forEach((e, i) => {
-    if (i) JSXArray.push(<br />);
+    console.log(e, i);
+    if (i) JSXArray.push(<br key={i} />);
     JSXArray.push(e);
   });
 
