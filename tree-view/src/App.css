@@ -1,0 +1,12 @@
+h1 {
+text-align: center;
+}
+
+.panels-container {
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+}
+
+.file{
+  }
