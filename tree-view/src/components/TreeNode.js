@@ -15,7 +15,7 @@ export default function TreeNode({ node }) {
     if (
       arr.every((node) => {
         return node.type === 'FOLDER';
-      })
+      }) 
     )
       return true;
   }

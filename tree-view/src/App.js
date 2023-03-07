@@ -6,9 +6,12 @@ function App() {
   return (
     <div className='Tree-View-App'>
       <h1>Tree View</h1>
-      <div >
-        <section>
+      <div className="panels-container">
+        <section className="tree-panel">
           <Tree data={[mockData]} />
+        </section>
+        <section className="files-panel">
+    
         </section>
 
       </div>
