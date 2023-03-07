@@ -11,7 +11,7 @@ export default function TreeNode({ node }) {
   };
   return (
     <div>
-      <div onClick={handleClick} style={{ margin: '8px' }}>
+      <div className="node-wrapper"onClick={handleClick} style={{ margin: '8px' }}>
         <span data-type={type}>{name}</span>
       </div>
       <ul style={{ paddingLeft: '8px', borderLeft: '2px solid black' }}>
