@@ -7,13 +7,12 @@ export default function Tree({ data, setListCb }) {
   const [showChildren, setShowChildren] = useState(false);
   const select = (l) => {
     setSelectedFolders(l);
-    setListCb(data.filter((e) => e.name === selectedFolder));
     setShowChildren((showChildren) => !showChildren);
   };
 
-  // useEffect(() => {
-  // setListCb(data.filter((e) => e.name === selectedFolder));
-  // }, [selectedFolder]);
+  useEffect(() => {
+  setListCb(data.filter((e) => e.name === selectedFolder));
+  }, [selectedFolder]);
 
   return (
     <div className='container'>
