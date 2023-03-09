@@ -4,7 +4,8 @@ import '../App.css';
 
 export default function Tree({ data }) {
   const select = (l) => {
-    setSelectedFolders(l);
+     setSelectedFolders(l);
+    
     setShowChildren(!showChildren);
     console.log(selectedFolder)
   };
@@ -30,7 +31,7 @@ export default function Tree({ data }) {
               <TreeNode node={e} key={i} select={select}></TreeNode>
 
               <ul style={{ paddingLeft: '8px', borderLeft: '2px solid black' }} className="node">
-                {e.name === selectedFolder && showChildren &&  <Tree data={e.children} />}
+                {e.type === 'FOLDER' && e.name === selectedFolder  && showChildren  &&<Tree data={e.children} />}
               </ul>
             </div>
           );
