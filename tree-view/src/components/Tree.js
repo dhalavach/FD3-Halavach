@@ -2,29 +2,18 @@ import React, { useState, useEffect } from 'react';
 import TreeNode from './TreeNode';
 import '../App.css';
 
-export default function Tree({ data, setListCallback }) {
+export default function Tree({ data, setListCb }) {
   const [selectedFolder, setSelectedFolders] = useState('');
   const [showChildren, setShowChildren] = useState(false);
   const select = (l) => {
     setSelectedFolders(l);
-    setShowChildren(!showChildren);
-    setListCallback(data.filter((e) => e.name === selectedFolder));
-
-    console.log(selectedFolder);
+    setListCb(data.filter((e) => e.name === selectedFolder));
+    setShowChildren((showChildren) => !showChildren);
   };
 
   // useEffect(() => {
-  //   setListCallback(data.filter((e) => e.name === selectedFolder));
+  // setListCb(data.filter((e) => e.name === selectedFolder));
   // }, [selectedFolder]);
-
-  function checkType(arr) {
-    if (
-      arr.every((node) => {
-        return node.type === 'FOLDER';
-      })
-    )
-      return true;
-  }
 
   return (
     <div className='container'>
@@ -40,7 +29,9 @@ export default function Tree({ data, setListCallback }) {
               >
                 {e.type === 'FOLDER' &&
                   e.name === selectedFolder &&
-                  showChildren && <Tree data={e.children} setListCallback={ setListCallback} />}
+                  showChildren && (
+                    <Tree data={e.children} setListCb={setListCb} />
+                  )}
               </ul>
             </div>
           );

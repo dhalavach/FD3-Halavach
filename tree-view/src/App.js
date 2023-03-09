@@ -6,10 +6,6 @@ import mockData from './mockData';
 
 function App() {
   const [list, setList] = useState([]);
-  
-  const setFileList = (l) => {
-  setList(l)
-  }
 
 
 
@@ -18,7 +14,7 @@ function App() {
       <h1>Tree View</h1>
       <div className='panels-container'>
         <section>
-          <Tree data={[mockData]} setListCallback={setFileList}  />
+          <Tree data={[mockData]} setListCb={(l) => {setList(l)}} />
         </section>
         <section>
           <FileList data={list || []} />
