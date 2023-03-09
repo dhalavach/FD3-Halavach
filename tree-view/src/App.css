@@ -13,7 +13,7 @@ justify-content: space-between;
 .file{
   }
 
-  .node-wrapper :hover{
+  .node :hover{
     cursor: pointer;
   
   }

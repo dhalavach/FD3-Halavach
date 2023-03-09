@@ -9,21 +9,15 @@ export default function TreeNode({ node, select }) {
     select(e.target.dataset.name);
   };
 
-  function checkType(arr) {
-    if (
-      arr.every((node) => {
-        return node.type === 'FOLDER';
-      })
-    )
-      return true;
-  }
+
 
   return (
     <span
-      className='node-wrapper'
+      className='node'
       onClick={handleClick}
       style={{ margin: '8px' }}
       data-type={type}
+      data-name={name}
     >
       {name}
     </span>
