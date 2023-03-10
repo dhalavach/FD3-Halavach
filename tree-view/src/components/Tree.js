@@ -3,15 +3,15 @@ import TreeNode from './TreeNode';
 import '../App.css';
 
 export default function Tree({ data, setListCb }) {
-  const [selectedFolder, setSelectedFolders] = useState('');
+  const [selectedFolder, setSelectedFolder] = useState('');
   const [showChildren, setShowChildren] = useState(false);
   const select = (l) => {
-    setSelectedFolders(l);
+    setSelectedFolder(l);
     setShowChildren((showChildren) => !showChildren);
   };
 
   useEffect(() => {
-  setListCb(data.filter((e) => e.name === selectedFolder));
+    setListCb(data.filter((e) => e.name === selectedFolder));
   }, [selectedFolder]);
 
   return (
@@ -19,8 +19,8 @@ export default function Tree({ data, setListCb }) {
       <section className='folders'>
         {data.map((e, i) => {
           return (
-            <div className='node'>
-              <TreeNode node={e} key={i} select={select}></TreeNode>
+            <div className='node' key={i}>
+              <TreeNode node={e} select={select}></TreeNode>
 
               <ul
                 style={{ paddingLeft: '8px', borderLeft: '2px solid black' }}

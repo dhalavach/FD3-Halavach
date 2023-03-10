@@ -18,6 +18,7 @@ export default function TreeNode({ node, select }) {
       style={{ margin: '8px' }}
       data-type={type}
       data-name={name}
+      key={name}
     >
       {name}
     </span>
