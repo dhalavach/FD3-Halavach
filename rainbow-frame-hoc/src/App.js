@@ -13,15 +13,17 @@ function App() {
     'purple',
   ];
 
-  const FramedDoubleButton = withRainbowFrame(colors)(
-    <DoubleButton
-      caption1='caption 1 goes here'
-      caption2='caption2 goes here'
-      cbPressed={(e) => alert(e.target.value)}
-    />
-  );
+  const FramedDoubleButton = withRainbowFrame(colors)(DoubleButton);
 
-  return FramedDoubleButton;
+  return (
+    <div>
+      <FramedDoubleButton
+        caption1='caption1 goes here'
+        caption2={'caption2 goes here'}
+        cbPressed={(e) => alert(e.target.value)}
+      ></FramedDoubleButton>
+    </div>
+  );
 }
 
 export default App;
