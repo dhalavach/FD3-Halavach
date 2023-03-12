@@ -21,7 +21,7 @@ function App() {
         caption1='caption1 goes here'
         caption2={'caption2 goes here'}
         cbPressed={(e) => alert(e.target.value)}
-      ></FramedDoubleButton>
+      />
     </div>
   );
 }
