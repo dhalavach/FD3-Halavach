@@ -1,9 +1,17 @@
 import React from 'react';
 import ee from './EventEmitter';
 
-export default function Client({ id, firstName, lastName, balance, status }) {
+export default function Client({
+  id,
+  firstName,
+  lastName,
+  balance,
+  status,
+  selectedId,
+}) {
   return (
     <tr
+      className={id === selectedId ? 'select-color' : 'primary-color'}
       onClick={() => {
         ee.emit('select', id);
       }}

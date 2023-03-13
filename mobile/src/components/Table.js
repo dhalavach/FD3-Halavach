@@ -92,6 +92,7 @@ export default function Table({ data }) {
                 lastName={e.lastName}
                 balance={e.balance}
                 status={e.status}
+                selectedId={selectedClient?.id}
               />
             );
           })}
