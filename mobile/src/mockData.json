@@ -1,0 +1,36 @@
+{
+  "heading": "Mobile Company",
+  "theadData": [
+    "First Name",
+    "Last Name",
+    "Balance",
+    "Status",
+    "Control"
+  ],
+  "tbodyData": [
+    {
+      "id": 1,
+      "className": "client",
+      "firstName": "John",
+      "lastName": "Doe" ,
+      "balance": 15.49,
+      "status": true
+    },
+    {
+      "id": 2,
+      "className": "client",
+      "firstName": "Jane",
+      "lastName": "Doe" ,
+      "balance": 0.1,
+      "status": false
+    },
+    {
+      "id": 3,
+      "className": "client",
+      "firstName": "Jack",
+      "lastName": "Smith" ,
+      "balance": 62.50,
+      "status": true
+    }
+  ]
+}
