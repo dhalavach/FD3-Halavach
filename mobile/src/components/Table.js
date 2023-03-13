@@ -24,11 +24,11 @@ export default function Table({ data }) {
     };
   });
 
-  useEffect(() => {
-    console.log('component re-rendering');
-    console.log('selected client: ', selectedClient);
-    console.log('selected index: ', selectedClientIndex);
-  });
+  // useEffect(() => {
+  //   console.log('component re-rendering');
+  //   console.log('selected client: ', selectedClient);
+  //   console.log('selected index: ', selectedClientIndex);
+  // });
 
   const editHandler = (id) => {
     selectHandler(id);
@@ -47,9 +47,18 @@ export default function Table({ data }) {
     setClients(newClients);
   };
 
-  const saveHandler = (firstNameRef) => {
+  const saveHandler = ({
+    firstNameRef,
+    lastNameRef,
+    balanceRef,
+    statusRef,
+  }) => {
     let newClients = [...clients];
     newClients[selectedClientIndex]['firstName'] = firstNameRef.current.value;
+    newClients[selectedClientIndex]['lastName'] = lastNameRef.current.value;
+    newClients[selectedClientIndex]['balance'] = balanceRef.current.value;
+    newClients[selectedClientIndex]['status'] = statusRef.current.value;
+
     setClients(newClients);
     setEditFormOpen(false);
   };
