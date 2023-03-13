@@ -2,15 +2,17 @@ import React, { useRef } from 'react';
 import Client from './Client';
 import ee from './EventEmitter';
 
-export default function EditClientForm(props) {
+export default function EditClientForm({
+  firstName,
+  lastName,
+  balance,
+  status,
+}) {
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const balanceRef = useRef();
   const statusRef = useRef();
 
-  const handleSave = (firstNameRef) => {
-    ee.emit('save', firstNameRef);
-  };
   return (
     <div className='edit-form'>
       <form>
@@ -20,7 +22,7 @@ export default function EditClientForm(props) {
             type='text'
             id='firstName'
             name='firstName'
-            defaultValue={props.firstName}
+            defaultValue={firstName}
             ref={firstNameRef}
           />
           <label htmlFor='lastName'>Last name:</label>
@@ -28,7 +30,7 @@ export default function EditClientForm(props) {
             type='text'
             id='lastName'
             name='lastName'
-            defaultValue={props.lastName}
+            defaultValue={lastName}
             ref={lastNameRef}
           />
           <label htmlFor='balance'>Balance:</label>
@@ -36,15 +38,15 @@ export default function EditClientForm(props) {
             type='number'
             id='balance'
             name='balance'
-            defaultValue={props.balance}
+            defaultValue={balance}
             ref={balanceRef}
           />
-          <label htmlFor='status'>Status:</label>
+          <label htmlFor='status'>Status/Active:</label>
           <input
             type='checkbox'
             id='status'
             name='status'
-            defaultValue={props.status}
+            defaultChecked={status}
             ref={statusRef}
           />
         </div>

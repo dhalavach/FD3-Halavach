@@ -57,7 +57,7 @@ export default function Table({ data }) {
     newClients[selectedClientIndex]['firstName'] = firstNameRef.current.value;
     newClients[selectedClientIndex]['lastName'] = lastNameRef.current.value;
     newClients[selectedClientIndex]['balance'] = balanceRef.current.value;
-    newClients[selectedClientIndex]['status'] = statusRef.current.value;
+    newClients[selectedClientIndex]['status'] = statusRef.current.checked;
 
     setClients(newClients);
     setEditFormOpen(false);

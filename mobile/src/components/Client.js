@@ -14,6 +14,7 @@ export default function Client({ id, firstName, lastName, balance, status }) {
       <td>{status ? 'active' : 'inactive'}</td>
       <td>
         <button
+          className='button-small'
           onClick={(event) => {
             event.stopPropagation();
             ee.emit('edit', id);
@@ -21,9 +22,8 @@ export default function Client({ id, firstName, lastName, balance, status }) {
         >
           Edit
         </button>
-      </td>
-      <td>
         <button
+          className='button-small'
           onClick={(event) => {
             event.stopPropagation();
             ee.emit('delete', id);
