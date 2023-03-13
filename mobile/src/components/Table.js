@@ -6,40 +6,52 @@ import ee from './EventEmitter';
 export default function Table({ data }) {
   const [clients, setClients] = useState(data.tbodyData);
   const [editFormOpen, setEditFormOpen] = useState(false);
-  const [selectedClient, setSelectedClient] = useState('');
-  const [selectedClientIndex, setSelectedClientIndex] = useState('');
+  const [selectedClient, setSelectedClient] = useState();
+  const [selectedClientIndex, setSelectedClientIndex] = useState();
 
   useEffect(() => {
     ee.addListener('edit', editHandler);
     ee.addListener('select', selectHandler);
     ee.addListener('save', saveHandler);
+    ee.addListener('cancel', cancelHandler);
     return () => {
       ee.removeListener('edit', editHandler);
       ee.removeListener('select', selectHandler);
       ee.removeListener('save', saveHandler);
+      ee.removeListener('cancel', cancelHandler);
     };
-  }, []);
+  });
+
 
   useEffect(() => {
+    console.log('component re-rendering');
     console.log('selected client: ', selectedClient);
     console.log('selected index: ', selectedClientIndex);
-  }, [selectedClient, selectedClientIndex]);
+  });
 
-  function editHandler(id) {
-    console.log('using edit event...');
-    setSelectedClient(clients.filter((c) => c.id === id)[0]);
-    setSelectedClientIndex(clients.findIndex((c) => c.id === id));
+  
+  const editHandler = (id) => {
+    selectHandler(id);
     setEditFormOpen(true);
-  }
+  };
 
-  function selectHandler(id) {
-    setSelectedClient(clients.filter((c) => c.id === id)[0]);
-    setSelectedClientIndex(clients.findIndex((c) => c.id === id));
-  }
+  const selectHandler = (id) => {
+    let sci = clients.findIndex((c) => c.id === id);
+    setSelectedClientIndex(sci);
+    let sc = clients.filter((c) => c.id === id)[0];
+   setSelectedClient(sc);
+  };
 
-  function saveHandler(firstNameRef) {
-    console.log(firstNameRef.current.value);
-  }
+  const saveHandler = (firstNameRef) => {
+    let newClients = [...clients];
+    newClients[selectedClientIndex]['firstName'] = firstNameRef.current.value;
+    setClients(newClients);
+    setEditFormOpen(false);
+  };
+
+  const cancelHandler = () => {
+    setEditFormOpen(false);
+  };
 
   return (
     <div>

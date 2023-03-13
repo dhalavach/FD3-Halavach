@@ -3,14 +3,14 @@ import Client from './Client';
 import ee from './EventEmitter';
 
 export default function EditClientForm(props) {
-  const firstNameRef = useRef(null);
+  const firstNameRef = useRef();
 
   const handleSave = (firstNameRef) => {
-    ee.emit('save', firstNameRef)
+    ee.emit('save', firstNameRef);
   };
   return (
     <div className='edit-form'>
-      <form onSubmit={handleSave}>
+      <form>
         <div className='edit-form-fields-container'>
           <label htmlFor='name'>First name:</label>
           <input
@@ -21,12 +21,21 @@ export default function EditClientForm(props) {
             ref={firstNameRef}
           />
         </div>
-        <button type='submit' onClick={(e) => {
-          e.preventDefault();
-          handleSave(firstNameRef)
-
-        }}>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            ee.emit('save', firstNameRef);
+          }}
+        >
           Save
+        </button>
+        <button
+          onClick={() => {
+            ee.emit('cancel');
+          }}
+        >
+          Cancel
         </button>
       </form>
     </div>

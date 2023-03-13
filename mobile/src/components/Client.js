@@ -17,7 +17,8 @@ export default function Client({ id, firstName, lastName, balance, status }) {
       <td>{balance}</td>
       <td>{status ? 'active' : 'inactive'}</td>
       <td>
-        <button onClick={() => {
+        <button onClick={(e) => {
+          e.stopPropagation()
         ee.emit('edit', id)
         }}>Edit</button>
       </td>
