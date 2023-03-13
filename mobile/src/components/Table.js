@@ -12,16 +12,17 @@ export default function Table({ data }) {
   useEffect(() => {
     ee.addListener('edit', editHandler);
     ee.addListener('select', selectHandler);
+    ee.addListener('delete', deleteHandler);
     ee.addListener('save', saveHandler);
     ee.addListener('cancel', cancelHandler);
     return () => {
       ee.removeListener('edit', editHandler);
       ee.removeListener('select', selectHandler);
+      ee.removeListener('delete', deleteHandler);
       ee.removeListener('save', saveHandler);
       ee.removeListener('cancel', cancelHandler);
     };
   });
-
 
   useEffect(() => {
     console.log('component re-rendering');
@@ -29,7 +30,6 @@ export default function Table({ data }) {
     console.log('selected index: ', selectedClientIndex);
   });
 
-  
   const editHandler = (id) => {
     selectHandler(id);
     setEditFormOpen(true);
@@ -39,7 +39,12 @@ export default function Table({ data }) {
     let sci = clients.findIndex((c) => c.id === id);
     setSelectedClientIndex(sci);
     let sc = clients.filter((c) => c.id === id)[0];
-   setSelectedClient(sc);
+    setSelectedClient(sc);
+  };
+
+  const deleteHandler = (id) => {
+    let newClients = [...clients].filter((client) => client.id !== id);
+    setClients(newClients);
   };
 
   const saveHandler = (firstNameRef) => {
@@ -69,7 +74,7 @@ export default function Table({ data }) {
           </tr>
         </thead>
         <tbody>
-          {data.tbodyData.map((e) => {
+          {clients.map((e) => {
             return (
               <Client
                 id={e.id}
