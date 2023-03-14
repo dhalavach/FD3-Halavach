@@ -3,9 +3,10 @@ import { PureClient } from './Client';
 import EditClientForm from './EditClientForm';
 import ee from './EventEmitter';
 
- function Table({ data }) { 
+function Table({ data }) {
   const [clients, setClients] = useState(data.tbodyData);
   const [editFormOpen, setEditFormOpen] = useState(false);
+  const [addFormOpen, setAddFormOpen] = useState(false);
   const [selectedClient, setSelectedClient] = useState();
   const [selectedClientIndex, setSelectedClientIndex] = useState();
 
@@ -16,6 +17,7 @@ import ee from './EventEmitter';
     ee.addListener('save', saveHandler);
     ee.addListener('cancel', cancelHandler);
     ee.addListener('filter', filterHandler);
+    ee.addListener('add', addHandler);
     return () => {
       ee.removeListener('edit', editHandler);
       ee.removeListener('select', selectHandler);
@@ -23,6 +25,7 @@ import ee from './EventEmitter';
       ee.removeListener('save', saveHandler);
       ee.removeListener('cancel', cancelHandler);
       ee.removeListener('filter', filterHandler);
+      ee.removeListener('add', addHandler);
     };
   });
 
@@ -49,7 +52,13 @@ import ee from './EventEmitter';
     setClients(newClients);
   };
 
-  const saveHandler = ({
+  const saveHandler = (firstNameRef, lastNameRef, balanceRef, statusRef) => {
+    addFormOpen
+      ? saveNewHandler(firstNameRef, lastNameRef, balanceRef, statusRef)
+      : saveEditedHandler(firstNameRef, lastNameRef, balanceRef, statusRef);
+  };
+
+  const saveEditedHandler = ({
     firstNameRef,
     lastNameRef,
     balanceRef,
@@ -65,8 +74,30 @@ import ee from './EventEmitter';
     setEditFormOpen(false);
   };
 
+  const saveNewHandler = (firstNameRef, lastNameRef, balanceRef, statusRef) => {
+    let max = Number.MIN_SAFE_INTEGER;
+    for (let i = 0; i < clients.length; i++) {
+      if (clients[i].id > max) max = clients[i].id;
+    }
+    const newId = max + 1;
+
+    const newClient = {
+      id: newId,
+      firstName: firstNameRef.current.value,
+      lastName: lastNameRef.current.value,
+      balance: balanceRef.current.value,
+      status: statusRef.current.checked,
+    };
+
+    const newClients = [...clients];
+    newClients.push(newClient);
+    setClients(newClients);
+    setAddFormOpen(false);
+  };
+
   const cancelHandler = () => {
-    setEditFormOpen(false);
+    if (editFormOpen) setEditFormOpen(false);
+    if (addFormOpen) setAddFormOpen(false);
   };
 
   const filterHandler = (filterParameter) => {
@@ -77,6 +108,10 @@ import ee from './EventEmitter';
       );
       setClients(newClients);
     }
+  };
+
+  const addHandler = () => {
+    setAddFormOpen(true);
   };
 
   return (
@@ -126,13 +161,23 @@ import ee from './EventEmitter';
         <tbody>
           {clients.map((e) => {
             const selected = e.id === selectedClient?.id;
-            return <PureClient {...e } key={e.id} selected={selected} />;
+            return <PureClient {...e} key={e.id} selected={selected} />;
           })}
         </tbody>
       </table>
+      <button
+        className='button-small'
+        onClick={(event) => {
+          event.stopPropagation();
+          ee.emit('add');
+        }}
+      >
+        Add new client
+      </button>
+      {addFormOpen && <EditClientForm />}
       {editFormOpen && <EditClientForm {...selectedClient} />}
     </div>
   );
 }
 
-export const PureTable = React.memo(Table)
+export const PureTable = React.memo(Table);
