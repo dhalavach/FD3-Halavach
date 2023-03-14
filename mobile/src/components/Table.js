@@ -3,7 +3,7 @@ import { PureClient } from './Client';
 import EditClientForm from './EditClientForm';
 import ee from './EventEmitter';
 
- function Table({ data }) {
+ function Table({ data }) { 
   const [clients, setClients] = useState(data.tbodyData);
   const [editFormOpen, setEditFormOpen] = useState(false);
   const [selectedClient, setSelectedClient] = useState();

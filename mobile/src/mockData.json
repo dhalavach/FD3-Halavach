@@ -20,7 +20,7 @@
       "id": 2,
       "className": "client",
       "firstName": "Jane",
-      "lastName": "Doe" ,
+      "lastName": "White" ,
       "balance": 0.1,
       "status": false
     },
