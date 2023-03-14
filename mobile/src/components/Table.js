@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PureClient } from './Client';
 import EditClientForm from './EditClientForm';
 import ee from './EventEmitter';
+import deepEqual from 'deep-equal';
 
 function Table({ data }) {
   const [clients, setClients] = useState(data.tbodyData);
@@ -113,7 +114,7 @@ function Table({ data }) {
     if (filterParameter === 'NONE') setDisplayedClients(clients);
     else {
       const newClients = clients.filter((c) => c.status === filterParameter);
-      setDisplayedClients(newClients);
+      if (!deepEqual(newClients, displayedClients)) setDisplayedClients(newClients);
     }
   };
 
@@ -167,7 +168,6 @@ function Table({ data }) {
         </thead>
         <tbody>
           {displayedClients.map((e) => {
-           
             const selected = e.id === selectedClient?.id;
             const infoObj = { ...e, selected };
             return <PureClient clientInfo={infoObj} key={e.id} />;
@@ -188,5 +188,6 @@ function Table({ data }) {
     </div>
   );
 }
+
 
 export const PureTable = React.memo(Table);
