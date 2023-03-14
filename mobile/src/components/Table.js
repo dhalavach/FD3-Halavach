@@ -167,10 +167,10 @@ function Table({ data }) {
         </thead>
         <tbody>
           {displayedClients.map((e) => {
-            const key = e.id;
+           
             const selected = e.id === selectedClient?.id;
-            const infoObj = { ...e, key, selected };
-            return <PureClient clientInfo={infoObj} />;
+            const infoObj = { ...e, selected };
+            return <PureClient clientInfo={infoObj} key={e.id} />;
           })}
         </tbody>
       </table>
