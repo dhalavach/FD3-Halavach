@@ -52,18 +52,23 @@ function Table({ data }) {
     setClients(newClients);
   };
 
-  const saveHandler = (firstNameRef, lastNameRef, balanceRef, statusRef) => {
-    addFormOpen
-      ? saveNewHandler(firstNameRef, lastNameRef, balanceRef, statusRef)
-      : saveEditedHandler(firstNameRef, lastNameRef, balanceRef, statusRef);
-  };
-
-  const saveEditedHandler = ({
+  const saveHandler = ({
     firstNameRef,
     lastNameRef,
     balanceRef,
     statusRef,
   }) => {
+    addFormOpen
+      ? saveNewHandler(firstNameRef, lastNameRef, balanceRef, statusRef)
+      : saveEditedHandler(firstNameRef, lastNameRef, balanceRef, statusRef);
+  };
+
+  const saveEditedHandler = (
+    firstNameRef,
+    lastNameRef,
+    balanceRef,
+    statusRef,
+  ) => {
     let newClients = [...clients];
     newClients[selectedClientIndex]['firstName'] = firstNameRef.current.value;
     newClients[selectedClientIndex]['lastName'] = lastNameRef.current.value;
