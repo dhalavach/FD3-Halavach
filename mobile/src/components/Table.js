@@ -84,17 +84,7 @@ export default function Table({ data }) {
         </thead>
         <tbody>
           {clients.map((e) => {
-            return (
-              <Client
-                id={e.id}
-                key={e.id}
-                firstName={e.firstName}
-                lastName={e.lastName}
-                balance={e.balance}
-                status={e.status}
-                selectedId={selectedClient?.id}
-              />
-            );
+            return <Client {...e} key={e.id} selectedId={selectedClient?.id} />;
           })}
         </tbody>
       </table>
