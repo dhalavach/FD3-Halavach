@@ -5,7 +5,7 @@ import ee from './EventEmitter';
 
 function Table({ data }) {
   const [clients, setClients] = useState(data.tbodyData);
-  const [displayedClients, setDisplayedClients] = useState(data.tbodyData)
+  const [displayedClients, setDisplayedClients] = useState(data.tbodyData);
   const [editFormOpen, setEditFormOpen] = useState(false);
   const [addFormOpen, setAddFormOpen] = useState(false);
   const [selectedClient, setSelectedClient] = useState();
@@ -51,6 +51,7 @@ function Table({ data }) {
   const deleteHandler = (id) => {
     let newClients = [...clients].filter((client) => client.id !== id);
     setClients(newClients);
+    setDisplayedClients(newClients);
   };
 
   const saveHandler = ({
@@ -68,7 +69,7 @@ function Table({ data }) {
     firstNameRef,
     lastNameRef,
     balanceRef,
-    statusRef,
+    statusRef
   ) => {
     let newClients = [...clients];
     newClients[selectedClientIndex]['firstName'] = firstNameRef.current.value;
@@ -77,7 +78,7 @@ function Table({ data }) {
     newClients[selectedClientIndex]['status'] = statusRef.current.checked;
 
     setClients(newClients);
-    setDisplayedClients(newClients)
+    setDisplayedClients(newClients);
     setEditFormOpen(false);
   };
 
@@ -99,7 +100,7 @@ function Table({ data }) {
     const newClients = [...clients];
     newClients.push(newClient);
     setClients(newClients);
-    setDisplayedClients(newClients)
+    setDisplayedClients(newClients);
     setAddFormOpen(false);
   };
 
@@ -111,9 +112,7 @@ function Table({ data }) {
   const filterHandler = (filterParameter) => {
     if (filterParameter === 'NONE') setDisplayedClients(clients);
     else {
-      const newClients = clients.filter(
-        (c) => c.status === filterParameter
-      );
+      const newClients = clients.filter((c) => c.status === filterParameter);
       setDisplayedClients(newClients);
     }
   };
