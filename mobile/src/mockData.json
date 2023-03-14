@@ -31,6 +31,14 @@
       "lastName": "Smith" ,
       "balance": 62.50,
       "status": true
+    },
+    {
+      "id": 4,
+      "className": "client",
+      "firstName": "Robert",
+      "lastName": "House" ,
+      "balance": 999,
+      "status": true
     }
   ]
 }

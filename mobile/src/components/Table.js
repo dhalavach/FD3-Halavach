@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Client from './Client';
+import {PureClient} from './Client';
 import EditClientForm from './EditClientForm';
 import ee from './EventEmitter';
 
@@ -84,7 +84,8 @@ export default function Table({ data }) {
         </thead>
         <tbody>
           {clients.map((e) => {
-            return <Client {...e} key={e.id} selectedId={selectedClient?.id} />;
+            const selected = e.id === selectedClient?.id;
+            return <PureClient {...e} key={e.id} selected={selected} />;
           })}
         </tbody>
       </table>

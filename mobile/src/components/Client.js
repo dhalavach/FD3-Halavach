@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ee from './EventEmitter';
 
-export default function Client({
+ function Client({
   id,
   firstName,
   lastName,
   balance,
   status,
-  selectedId,
+  selected,
 }) {
+  useEffect(() => {
+    console.log('client re-rendering');
+  });
+
   return (
     <tr
-      className={id === selectedId ? 'select-color' : 'primary-color'}
+      className={selected ? 'select-color' : 'primary-color'}
       onClick={() => {
         ee.emit('select', id);
       }}
@@ -43,3 +47,5 @@ export default function Client({
     </tr>
   );
 }
+
+export const PureClient = React.memo(Client)
