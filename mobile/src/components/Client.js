@@ -4,7 +4,9 @@ import deepEqual from 'deep-equal';
 
 function Client({ id, firstName, lastName, balance, status, selected }) {
   useEffect(() => {
-    console.log('Client re-rendering');
+    console.log(
+      `Client with id ${id}, first name ${firstName}, and last name ${lastName} is (re-)rendering`
+    );
   });
 
   return (
