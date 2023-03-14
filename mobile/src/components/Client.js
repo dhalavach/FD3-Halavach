@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import ee from './EventEmitter';
 import deepEqual from 'deep-equal';
 
-function Client({ id, firstName, lastName, balance, status, selected }) {
+function Client({ clientInfo }) {
+
+  const { id, firstName, lastName, balance, status, selected } = clientInfo;
   useEffect(() => {
     console.log(
       `Client with id ${id}, first name ${firstName}, and last name ${lastName} is (re-)rendering`
