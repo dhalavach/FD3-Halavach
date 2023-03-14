@@ -8,10 +8,10 @@ export default function EditClientForm({
   balance,
   status,
 }) {
-  const firstNameRef = useRef();
-  const lastNameRef = useRef();
-  const balanceRef = useRef();
-  const statusRef = useRef();
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const balanceRef = useRef(null);
+  const statusRef = useRef(null);
 
   return (
     <div className='edit-form'>
