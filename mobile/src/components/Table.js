@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {PureClient} from './Client';
+import { PureClient } from './Client';
 import EditClientForm from './EditClientForm';
 import ee from './EventEmitter';
 
@@ -15,12 +15,14 @@ export default function Table({ data }) {
     ee.addListener('delete', deleteHandler);
     ee.addListener('save', saveHandler);
     ee.addListener('cancel', cancelHandler);
+    ee.addListener('filter', filterHandler);
     return () => {
       ee.removeListener('edit', editHandler);
       ee.removeListener('select', selectHandler);
       ee.removeListener('delete', deleteHandler);
       ee.removeListener('save', saveHandler);
       ee.removeListener('cancel', cancelHandler);
+      ee.removeListener('filter', filterHandler);
     };
   });
 
@@ -67,9 +69,48 @@ export default function Table({ data }) {
     setEditFormOpen(false);
   };
 
+  const filterHandler = (filterParameter) => {
+    if (filterParameter === 'NONE') setClients(data.tbodyData);
+    else {
+      const newClients = data.tbodyData.filter(
+        (c) => c.status === filterParameter
+      );
+      setClients(newClients);
+    }
+  };
+
   return (
     <div>
       <h1>{data.heading}</h1>
+      <div className='filter-buttons'>
+        <button
+          className='button-small'
+          onClick={(event) => {
+            event.stopPropagation();
+            ee.emit('filter', 'NONE');
+          }}
+        >
+          All
+        </button>
+        <button
+          className='button-small'
+          onClick={(event) => {
+            event.stopPropagation();
+            ee.emit('filter', true);
+          }}
+        >
+          Active
+        </button>
+        <button
+          className='button-small'
+          onClick={(event) => {
+            event.stopPropagation();
+            ee.emit('filter', false);
+          }}
+        >
+          Inactive
+        </button>
+      </div>
       <table>
         <thead>
           <tr>
@@ -85,7 +126,7 @@ export default function Table({ data }) {
         <tbody>
           {clients.map((e) => {
             const selected = e.id === selectedClient?.id;
-            return <PureClient {...e} key={e.id} selected={selected} />;
+            return <PureClient {...e } key={e.id} selected={selected} />;
           })}
         </tbody>
       </table>
