@@ -5,6 +5,7 @@ import ee from './EventEmitter';
 
 function Table({ data }) {
   const [clients, setClients] = useState(data.tbodyData);
+  const [displayedClients, setDisplayedClients] = useState(data.tbodyData)
   const [editFormOpen, setEditFormOpen] = useState(false);
   const [addFormOpen, setAddFormOpen] = useState(false);
   const [selectedClient, setSelectedClient] = useState();
@@ -76,6 +77,7 @@ function Table({ data }) {
     newClients[selectedClientIndex]['status'] = statusRef.current.checked;
 
     setClients(newClients);
+    setDisplayedClients(newClients)
     setEditFormOpen(false);
   };
 
@@ -97,6 +99,7 @@ function Table({ data }) {
     const newClients = [...clients];
     newClients.push(newClient);
     setClients(newClients);
+    setDisplayedClients(newClients)
     setAddFormOpen(false);
   };
 
@@ -106,12 +109,12 @@ function Table({ data }) {
   };
 
   const filterHandler = (filterParameter) => {
-    if (filterParameter === 'NONE') setClients(data.tbodyData);
+    if (filterParameter === 'NONE') setDisplayedClients(clients);
     else {
-      const newClients = data.tbodyData.filter(
+      const newClients = clients.filter(
         (c) => c.status === filterParameter
       );
-      setClients(newClients);
+      setDisplayedClients(newClients);
     }
   };
 
@@ -164,7 +167,7 @@ function Table({ data }) {
           </tr>
         </thead>
         <tbody>
-          {clients.map((e) => {
+          {displayedClients.map((e) => {
             const selected = e.id === selectedClient?.id;
             return <PureClient {...e} key={e.id} selected={selected} />;
           })}
