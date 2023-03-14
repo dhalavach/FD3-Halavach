@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import Client from './Client';
 import ee from './EventEmitter';
 
 export default function EditClientForm({

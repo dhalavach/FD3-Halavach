@@ -1,11 +1,11 @@
 import './App.css';
-import Table from './components/Table';
+import {PureTable} from './components/Table';
 import data from './mockData.json';
 
 function App() {
   return (
     <div className='App'>
-      <Table data={data} />
+      <PureTable data={data} />
     </div>
   );
 }

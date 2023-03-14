@@ -3,7 +3,7 @@ import { PureClient } from './Client';
 import EditClientForm from './EditClientForm';
 import ee from './EventEmitter';
 
-export default function Table({ data }) {
+ function Table({ data }) {
   const [clients, setClients] = useState(data.tbodyData);
   const [editFormOpen, setEditFormOpen] = useState(false);
   const [selectedClient, setSelectedClient] = useState();
@@ -26,11 +26,11 @@ export default function Table({ data }) {
     };
   });
 
-  // useEffect(() => {
-  //   console.log('component re-rendering');
-  //   console.log('selected client: ', selectedClient);
-  //   console.log('selected index: ', selectedClientIndex);
-  // });
+  useEffect(() => {
+    console.log('Table re-rendering');
+    // console.log('selected client: ', selectedClient);
+    // console.log('selected index: ', selectedClientIndex);
+  });
 
   const editHandler = (id) => {
     selectHandler(id);
@@ -134,3 +134,5 @@ export default function Table({ data }) {
     </div>
   );
 }
+
+export const PureTable = React.memo(Table)

@@ -1,16 +1,10 @@
 import React, { useEffect } from 'react';
 import ee from './EventEmitter';
+import deepEqual from 'deep-equal';
 
- function Client({
-  id,
-  firstName,
-  lastName,
-  balance,
-  status,
-  selected,
-}) {
+function Client({ id, firstName, lastName, balance, status, selected }) {
   useEffect(() => {
-    console.log('client re-rendering');
+    console.log('Client re-rendering');
   });
 
   return (
@@ -48,4 +42,8 @@ import ee from './EventEmitter';
   );
 }
 
-export const PureClient = React.memo(Client)
+const areEqual = (prevProps, nextProps) => {
+  return deepEqual(prevProps, nextProps);
+};
+
+export const PureClient = React.memo(Client, areEqual);
