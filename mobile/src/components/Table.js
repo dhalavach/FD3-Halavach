@@ -29,7 +29,7 @@ function Table({ data }) {
       ee.removeListener('filter', filterHandler);
       ee.removeListener('add', addHandler);
     };
-  });
+  }, []);
 
   useEffect(() => {
     console.log('Table re-rendering');
