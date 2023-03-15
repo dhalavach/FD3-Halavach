@@ -15,7 +15,7 @@ class Client extends React.PureComponent {
 
   componentWillUpdate() {
     console.log(
-      `Client with id ${this.id}, first name ${this.firstName}, and last name ${this.lastName} is (re-)rendering`
+      `Client with id ${this.props.clientInfo.id}, first name ${this.props.clientInfo.firstName}, and last name ${this.props.clientInfo.lastName} is (re-)rendering`
     );
   }
 
