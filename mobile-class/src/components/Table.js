@@ -197,7 +197,7 @@ class Table extends React.PureComponent {
             {this.state.displayedClients.map((e) => {
               const selected = e.id === this.state.selectedClient?.id;
               const infoObj = { ...e, selected };
-              return <Client clientInfo={infoObj} key={e.id}  />;
+              return <Client {...infoObj} key={e.id}  />;
             })}
           </tbody>
         </table>
