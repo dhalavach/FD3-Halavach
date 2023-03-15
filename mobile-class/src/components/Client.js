@@ -2,18 +2,18 @@ import React from 'react';
 import eventEmitter from './EventEmitter';
 import deepEqual from 'deep-equal';
 
-class Client extends React.PureComponent {
+class Client extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
   }
 
-  // shouldComponentUpdate(nextProps) {
-  //   if (!deepEqual(this.props, nextProps)) return true;
-  //   else return false;
-  // }
+  shouldComponentUpdate(nextProps) {
+    if (!deepEqual(this.props, nextProps)) return true;
+    else return false;
+  }
 
-  componentWillUpdate() {
+  componentDidUpdate() {
     console.log(
       `Client with id ${this.props.clientInfo.id}, first name ${this.props.clientInfo.firstName}, and last name ${this.props.clientInfo.lastName} is (re-)rendering`
     );
