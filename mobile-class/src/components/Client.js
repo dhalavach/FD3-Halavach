@@ -19,11 +19,11 @@ class Client extends React.PureComponent {
   //   );
   // }
 
-  componentDidUpdate() {
-    console.log(
-      `Client ${this.props.firstName} ${this.props.lastName} with id ${this.props.id} is rendering`
-    );
-  }
+  // componentDidUpdate() {
+  //   console.log(
+  //     `Client ${this.props.firstName} ${this.props.lastName} with id ${this.props.id} is rendering`
+  //   );
+  // }
 
   // componentWillUnmount() {
   //   console.log(
@@ -33,6 +33,7 @@ class Client extends React.PureComponent {
 
   render() {
     const { id, firstName, lastName, balance, status, selected } = this.props;
+    console.log(`Client ${firstName} ${lastName} with id ${id} is rendering`);
 
     return (
       <tr

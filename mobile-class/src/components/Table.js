@@ -54,9 +54,9 @@ class Table extends React.PureComponent {
   //   else return false;
   // }
 
-  componentDidUpdate() {
-    console.log('Component Table rendering');
-  }
+  // componentDidUpdate() {
+  //   console.log('Component Table rendering');
+  // }
 
   editHandler = (id) => {
     this.selectHandler(id);
@@ -151,6 +151,7 @@ class Table extends React.PureComponent {
   };
 
   render() {
+    console.log('component Table is rendering')
     return (
       <div>
         <h1>{this.props.data.heading}</h1>
