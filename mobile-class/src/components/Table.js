@@ -35,6 +35,7 @@ class Table extends React.PureComponent {
     eventEmitter.addListener('cancel', this.cancelHandler);
     eventEmitter.addListener('filter', this.filterHandler);
     eventEmitter.addListener('add', this.addHandler);
+    console.log('Component Table is mounted');
   }
 
   componentWillUnmount() {
@@ -45,6 +46,7 @@ class Table extends React.PureComponent {
     eventEmitter.removeListener('cancel', this.cancelHandler);
     eventEmitter.removeListener('filter', this.filterHandler);
     eventEmitter.removeListener('add', this.addHandler);
+    console.log('Component Table will unmount');
   }
 
   // shouldComponentUpdate(nextProps) {
@@ -197,7 +199,7 @@ class Table extends React.PureComponent {
             {this.state.displayedClients.map((e) => {
               const selected = e.id === this.state.selectedClient?.id;
               const infoObj = { ...e, selected };
-              return <Client {...infoObj} key={e.id}  />;
+              return <Client {...infoObj} key={e.id} />;
             })}
           </tbody>
         </table>

@@ -3,9 +3,9 @@ import eventEmitter from './EventEmitter';
 import deepEqual from 'deep-equal';
 
 class Client extends React.PureComponent {
-  constructor( props ) {
-    super( props );
-    this.props =  props ;
+  constructor(props) {
+    super(props);
+    this.props = props;
   }
 
   // shouldComponentUpdate(nextProps) {
@@ -13,15 +13,26 @@ class Client extends React.PureComponent {
   //   else return false;
   // }
 
+  componentDidMount() {
+    console.log(
+      `Client ${this.props.firstName} ${this.props.lastName} with id ${this.props.id} is mounted`
+    );
+  }
+
   componentDidUpdate() {
     console.log(
-      `Client with id ${this.props.id}, first name ${this.props.firstName}, and last name ${this.props.lastName} is (re-)rendering`
+      `Client ${this.props.firstName} ${this.props.lastName} with id ${this.props.id} is rendering`
+    );
+  }
+
+  componentWillUnmount() {
+    console.log(
+      `Client ${this.props.firstName} ${this.props.lastName} with id ${this.props.id} is unmounting`
     );
   }
 
   render() {
-    const { id, firstName, lastName, balance, status, selected } =
-      this.props;
+    const { id, firstName, lastName, balance, status, selected } = this.props;
 
     return (
       <tr
