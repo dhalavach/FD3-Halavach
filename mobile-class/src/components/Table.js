@@ -133,7 +133,7 @@ class Table extends React.PureComponent {
     if (filterParameter === 'NONE')
       this.setState({ displayedClients: this.state.clients });
     else {
-      const newClients = this.state.clients.filter(
+      const newClients = [...this.state.clients].filter(
         (c) => c.status === filterParameter
       );
       if (!deepEqual(newClients, this.state.displayedClients))
