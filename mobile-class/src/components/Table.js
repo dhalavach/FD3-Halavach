@@ -35,7 +35,7 @@ class Table extends React.PureComponent {
     eventEmitter.addListener('cancel', this.cancelHandler);
     eventEmitter.addListener('filter', this.filterHandler);
     eventEmitter.addListener('add', this.addHandler);
-    console.log('Component Table is mounted');
+    // console.log('Component Table is mounted');
   }
 
   componentWillUnmount() {
@@ -46,7 +46,7 @@ class Table extends React.PureComponent {
     eventEmitter.removeListener('cancel', this.cancelHandler);
     eventEmitter.removeListener('filter', this.filterHandler);
     eventEmitter.removeListener('add', this.addHandler);
-    console.log('Component Table will unmount');
+    // console.log('Component Table will unmount');
   }
 
   // shouldComponentUpdate(nextProps) {

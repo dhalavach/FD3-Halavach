@@ -13,11 +13,11 @@ class Client extends React.PureComponent {
   //   else return false;
   // }
 
-  componentDidMount() {
-    console.log(
-      `Client ${this.props.firstName} ${this.props.lastName} with id ${this.props.id} is mounted`
-    );
-  }
+  // componentDidMount() {
+  //   console.log(
+  //     `Client ${this.props.firstName} ${this.props.lastName} with id ${this.props.id} is mounted`
+  //   );
+  // }
 
   componentDidUpdate() {
     console.log(
@@ -25,11 +25,11 @@ class Client extends React.PureComponent {
     );
   }
 
-  componentWillUnmount() {
-    console.log(
-      `Client ${this.props.firstName} ${this.props.lastName} with id ${this.props.id} is unmounting`
-    );
-  }
+  // componentWillUnmount() {
+  //   console.log(
+  //     `Client ${this.props.firstName} ${this.props.lastName} with id ${this.props.id} is unmounting`
+  //   );
+  // }
 
   render() {
     const { id, firstName, lastName, balance, status, selected } = this.props;
