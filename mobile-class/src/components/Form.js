@@ -6,15 +6,14 @@ class Form extends React.PureComponent {
   constructor(props) {
     super(props);
     this.props = props;
+    this.firstNameRef = React.createRef();
+    this.lastNameRef = React.createRef();
+    this.balanceRef = React.createRef();
+    this.statusRef = React.createRef();
   }
 
   render() {
     const { firstName, lastName, balance, status } = this.props;
-
-    const firstNameRef = React.createRef();
-    const lastNameRef = React.createRef();
-    const balanceRef = React.createRef();
-    const statusRef = React.createRef();
 
     return (
       <div className='edit-form'>
@@ -26,7 +25,7 @@ class Form extends React.PureComponent {
               id='firstName'
               name='firstName'
               defaultValue={firstName}
-              ref={firstNameRef}
+              ref={this.firstNameRef}
             />
             <label htmlFor='lastName'>Last name:</label>
             <input
@@ -34,7 +33,7 @@ class Form extends React.PureComponent {
               id='lastName'
               name='lastName'
               defaultValue={lastName}
-              ref={lastNameRef}
+              ref={this.lastNameRef}
             />
             <label htmlFor='balance'>Balance:</label>
             <input
@@ -42,7 +41,7 @@ class Form extends React.PureComponent {
               id='balance'
               name='balance'
               defaultValue={balance}
-              ref={balanceRef}
+              ref={this.balanceRef}
             />
             <label htmlFor='status'>Status/Active:</label>
             <input
@@ -50,7 +49,7 @@ class Form extends React.PureComponent {
               id='status'
               name='status'
               defaultChecked={status}
-              ref={statusRef}
+              ref={this.statusRef}
             />
           </div>
           <button
@@ -58,10 +57,10 @@ class Form extends React.PureComponent {
               e.preventDefault();
               e.stopPropagation();
               eventEmitter.emit('save', {
-                firstNameRef: firstNameRef,
-                lastNameRef: lastNameRef,
-                balanceRef: balanceRef,
-                statusRef: statusRef,
+                firstNameRef: this.firstNameRef,
+                lastNameRef: this.lastNameRef,
+                balanceRef: this.balanceRef,
+                statusRef: this.statusRef,
               });
             }}
           >
