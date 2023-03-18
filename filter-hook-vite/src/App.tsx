@@ -1,27 +1,25 @@
-import { useState } from 'react'
-import Filter from './components/Filter'
-import './App.css'
-
+import Filter from './components/Filter';
+import './App.css';
 
 function App() {
-const mockData = [
-  'california',
-  'everything',
-  'aboveboard',
-  'washington',
-  'basketball',
-  'weathering',
-  'characters',
-  'literature',
-  'contraband',
-  'appreciate',
-];
+  const mockData = [
+    'california',
+    'everything',
+    'aboveboard',
+    'washington',
+    'basketball',
+    'weathering',
+    'characters',
+    'literature',
+    'contraband',
+    'appreciate',
+  ];
 
   return (
-    <div className="App">
-      <Filter data ={mockData} />
+    <div className='App'>
+      <Filter data={mockData} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

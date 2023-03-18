@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from 'react';
-import Controls from './Controls'
-import List from './List'
+import { useState, useEffect } from 'react';
+import Controls from './Controls';
+import List from './List';
 
-export default function Filter(props: {data: string[]}) {
-  
-  const { data } = props
-  
-   const [items, setItems] = useState(data);
+export default function Filter(props: { data: string[] }) {
+  const { data } = props;
+
+  const [items, setItems] = useState(data);
   const [isSorted, setIsSorted] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -46,8 +45,12 @@ export default function Filter(props: {data: string[]}) {
 
   return (
     <>
-      <Controls handleSearchQuery={handleSearchQuery} handleChange={handleChange} handleReset={handleReset} />
+      <Controls
+        handleSearchQuery={handleSearchQuery}
+        handleChange={handleChange}
+        handleReset={handleReset}
+      />
       <List items={items} />
     </>
-    )
+  );
 }

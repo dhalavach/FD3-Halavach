@@ -1,14 +1,8 @@
-import React, {useState, useEffect} from 'react' 
-
 export default function List(props: { items: string[] }) {
-  
   const { items } = props;
 
-
- 
   return (
-    <div className='item-list'>
- 
+    <section className='item-list'>
       <div id='item-list'>
         <ol>
           {items.map((item, index) => (
@@ -16,6 +10,6 @@ export default function List(props: { items: string[] }) {
           ))}
         </ol>
       </div>
-    </div>
-    )
+    </section>
+  );
 }
