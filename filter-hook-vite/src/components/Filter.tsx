@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import Controls from './Controls';
 import List from './List';
 
-export default function Filter(props: { data: string[] }) {
+export default function Filter(props: { data: (string | number)[] }) {
   const { data } = props;
 
   const [items, setItems] = useState(data);
   const [isSorted, setIsSorted] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearchQuery = (query: string) => {
     setSearchQuery(query);
@@ -22,13 +22,13 @@ export default function Filter(props: { data: string[] }) {
     setSearchQuery('');
   };
 
-  const sortList = (arr: string[]) => {
+  const sortList = (arr: (string | number)[]) => {
     const collator = new Intl.Collator('en', {
       numeric: true,
       sensitivity: 'base',
     });
-    return arr.sort((a: string, b: string) => {
-      return collator.compare(a, b);
+    return arr.sort((a: (string | number), b: (string | number)) => {
+      return collator.compare(String(a), String(b));
     });
   };
 
@@ -36,7 +36,10 @@ export default function Filter(props: { data: string[] }) {
     let arr = [...data];
     if (searchQuery) {
       arr = arr.filter((item) => {
-        return item.toLowerCase().includes(searchQuery.toLowerCase());
+        return item
+          .toString()
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
       });
     }
     if (isSorted) sortList(arr);

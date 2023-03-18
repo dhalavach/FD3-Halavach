@@ -1,4 +1,4 @@
-export default function List(props: { items: string[] }) {
+export default function List(props: { items: (string | number) [] }) {
   const { items } = props;
 
   return (

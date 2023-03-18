@@ -1,20 +1,8 @@
 import Filter from './components/Filter';
 import './App.css';
+import mockData from './assets/mockData.json';
 
 function App() {
-  const mockData = [
-    'california',
-    'everything',
-    'aboveboard',
-    'washington',
-    'basketball',
-    'weathering',
-    'characters',
-    'literature',
-    'contraband',
-    'appreciate',
-  ];
-
   return (
     <div className='App'>
       <Filter data={mockData} />
