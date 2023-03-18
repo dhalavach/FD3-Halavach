@@ -1,4 +1,4 @@
-export default function List(props: { items: (string | number) [] }) {
+const List = (props: { items: (string | number)[] }) => {
   const { items } = props;
 
   return (
@@ -12,4 +12,6 @@ export default function List(props: { items: (string | number) [] }) {
       </div>
     </section>
   );
-}
+};
+
+export default List;

@@ -1,10 +1,10 @@
-export default function Controls(props: {
+const Controls = (props: {
   searchQuery: string;
   isSorted: Boolean;
   handleSearchQuery: (query: string) => void;
   handleChange: (checked: Boolean) => void;
   handleReset: () => void;
-}) {
+}) => {
   const {
     searchQuery,
     isSorted,
@@ -40,4 +40,6 @@ export default function Controls(props: {
       </button>
     </section>
   );
-}
+};
+
+export default Controls;

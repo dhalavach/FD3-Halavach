@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Controls from './Controls';
 import List from './List';
 
-export default function Filter(props: { data: (string | number)[] }) {
+const Filter = (props: { data: (string | number)[] }) => {
   const { data } = props;
 
   const [items, setItems] = useState(data);
@@ -27,7 +27,7 @@ export default function Filter(props: { data: (string | number)[] }) {
       numeric: true,
       sensitivity: 'base',
     });
-    return arr.sort((a: (string | number), b: (string | number)) => {
+    return arr.sort((a: string | number, b: string | number) => {
       return collator.compare(String(a), String(b));
     });
   };
@@ -58,4 +58,6 @@ export default function Filter(props: { data: (string | number)[] }) {
       <List items={items} />
     </>
   );
-}
+};
+
+export default Filter;
