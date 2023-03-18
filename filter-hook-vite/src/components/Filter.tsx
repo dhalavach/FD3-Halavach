@@ -13,8 +13,8 @@ const Filter = (props: { data: (string | number)[] }) => {
     setSearchQuery(query);
   };
 
-  const handleChange = (checked: Boolean) => {
-    setIsSorted(Boolean(checked));
+  const handleChange = (checked: boolean) => {
+    setIsSorted(checked);
   };
 
   const handleReset = () => {

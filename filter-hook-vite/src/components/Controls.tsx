@@ -1,8 +1,8 @@
 const Controls = (props: {
   searchQuery: string;
-  isSorted: Boolean;
+  isSorted: boolean;
   handleSearchQuery: (query: string) => void;
-  handleChange: (checked: Boolean) => void;
+  handleChange: (checked: boolean) => void;
   handleReset: () => void;
 }) => {
   const {
@@ -28,7 +28,7 @@ const Controls = (props: {
           type='checkbox'
           id='sort'
           name='sort'
-          checked={!!isSorted}
+          checked={isSorted}
           onChange={(eo) => {
             handleChange(!!eo.target.checked);
           }}
