@@ -7,7 +7,7 @@ export default function Filter(props: { data: string[] }) {
 
   const [items, setItems] = useState(data);
   const [isSorted, setIsSorted] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchQuery = (query: string) => {
     setSearchQuery(query);
@@ -46,6 +46,8 @@ export default function Filter(props: { data: string[] }) {
   return (
     <>
       <Controls
+        searchQuery={searchQuery}
+        isSorted={isSorted}
         handleSearchQuery={handleSearchQuery}
         handleChange={handleChange}
         handleReset={handleReset}
