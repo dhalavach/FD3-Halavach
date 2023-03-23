@@ -1,0 +1,40 @@
+{
+  "heading": "Mobile Company",
+  "theadData": [
+    "First Name",
+    "Last Name",
+    "Balance",
+    "Status",
+    "Control"
+  ],
+  "tbodyData": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe" ,
+      "balance": 15.49,
+      "status": true
+    },
+    {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "White" ,
+      "balance": 0.1,
+      "status": false
+    },
+    {
+      "id": 3,
+      "firstName": "Jack",
+      "lastName": "Smith" ,
+      "balance": 62.50,
+      "status": true
+    },
+    {
+      "id": 4,
+      "firstName": "Robert",
+      "lastName": "House" ,
+      "balance": 999,
+      "status": true
+    }
+  ]
+}
