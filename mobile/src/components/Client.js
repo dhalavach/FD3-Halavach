@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ee from './EventEmitter';
 import deepEqual from 'deep-equal';
 
-function Client({ clientInfo }) {
+ function Client({ clientInfo }) {
 
   const { id, firstName, lastName, balance, status, selected } = clientInfo;
   useEffect(() => {
@@ -26,7 +26,7 @@ function Client({ clientInfo }) {
         <button
           className='button-small'
           onClick={(event) => {
-            event.stopPropagation();
+            //event.stopPropagation();
             ee.emit('edit', id);
           }}
         >
@@ -35,7 +35,7 @@ function Client({ clientInfo }) {
         <button
           className='button-small'
           onClick={(event) => {
-            event.stopPropagation();
+            //event.stopPropagation();
             ee.emit('delete', id);
           }}
         >

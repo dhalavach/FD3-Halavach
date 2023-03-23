@@ -13,29 +13,12 @@ function Table({ data }) {
   const [selectedClientIndex, setSelectedClientIndex] = useState();
 
   useEffect(() => {
-    ee.addListener('edit', editHandler);
-    ee.addListener('select', selectHandler);
-    ee.addListener('delete', deleteHandler);
-    ee.addListener('save', saveHandler);
-    ee.addListener('cancel', cancelHandler);
-    ee.addListener('filter', filterHandler);
-    ee.addListener('add', addHandler);
-    return () => {
-      ee.removeListener('edit', editHandler);
-      ee.removeListener('select', selectHandler);
-      ee.removeListener('delete', deleteHandler);
-      ee.removeListener('save', saveHandler);
-      ee.removeListener('cancel', cancelHandler);
-      ee.removeListener('filter', filterHandler);
-      ee.removeListener('add', addHandler);
-    };
-  }, []);
-
-  useEffect(() => {
     console.log('Table re-rendering');
     // console.log('selected client: ', selectedClient);
     // console.log('selected index: ', selectedClientIndex);
   });
+
+  //const cachedFn = useCallback(fn, dependencies)
 
   const editHandler = (id) => {
     selectHandler(id);
@@ -114,13 +97,33 @@ function Table({ data }) {
     if (filterParameter === 'NONE') setDisplayedClients(clients);
     else {
       const newClients = clients.filter((c) => c.status === filterParameter);
-      if (!deepEqual(newClients, displayedClients)) setDisplayedClients(newClients);
+      if (!deepEqual(newClients, displayedClients))
+        setDisplayedClients(newClients);
     }
   };
 
   const addHandler = () => {
     setAddFormOpen(true);
   };
+
+  useEffect(() => {
+    ee.addListener('edit', editHandler);
+    ee.addListener('select', selectHandler);
+    ee.addListener('delete', deleteHandler);
+    ee.addListener('save', saveHandler);
+    ee.addListener('cancel', cancelHandler);
+    ee.addListener('filter', filterHandler);
+    ee.addListener('add', addHandler);
+    return () => {
+      ee.removeListener('edit', editHandler);
+      ee.removeListener('select', selectHandler);
+      ee.removeListener('delete', deleteHandler);
+      ee.removeListener('save', saveHandler);
+      ee.removeListener('cancel', cancelHandler);
+      ee.removeListener('filter', filterHandler);
+      ee.removeListener('add', addHandler);
+    };
+  });
 
   return (
     <div>
@@ -188,6 +191,5 @@ function Table({ data }) {
     </div>
   );
 }
-
 
 export const PureTable = React.memo(Table);
