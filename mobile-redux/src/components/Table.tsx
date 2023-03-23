@@ -2,35 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { PureClient } from './Client';
 import EditClientForm from './EditClientForm';
 import ee from './EventEmitter';
+import {ClientData, TableData, RefData} from '../types/Types'
+
 import deepEqual from 'deep-equal';
 
-type TableData = {
-  heading: string;
-  theadData: string[];
-  tbodyData: Array<{
-    id: number;
-    firstName: string;
-    lastName: string;
-    balance: number;
-    status: boolean;
-  }>;
-};
-
-type ClientData = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  balance: number;
-  status: boolean;
-  selected?: boolean;
-}
-
-type RefData = { //temp fix
-  firstNameRef: any;
-  lastNameRef: any;
-  balanceRef: any;
-  statusRef: any;
-}
 
 function Table(props: { data: TableData }) {
   const { data } = props;
@@ -75,7 +50,7 @@ function Table(props: { data: TableData }) {
     let sci = clients.findIndex((c) => c.id === id);
     setSelectedClientIndex(sci);
     let sc = clients.filter((c) => c.id === id)[0];
-     setSelectedClient(sc);
+     setSelectedClient(sc as ClientData);
   };
 
   const deleteHandler = (id: number) => {

@@ -1,14 +1,8 @@
 import React, { useEffect } from 'react';
 import ee from './EventEmitter';
 import deepEqual from 'deep-equal';
-type ClientData = {
-  id: number;
-  firstName: string;
-  lastName: string;
-  balance: number;
-  status: boolean;
-  selected: boolean;
-};
+import {ClientData} from '../types/Types'
+
 function Client(props: { data: ClientData }) {
   const { id, firstName, lastName, balance, status, selected } = props.data;
   useEffect(() => {
