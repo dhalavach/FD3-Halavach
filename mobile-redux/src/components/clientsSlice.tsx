@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
 import data from '../mockData.json';
 
-
 export const clientsSlice = createSlice({
   name: 'clientsSlice',
-  initialState: data,
+  initialState: [],
 
   reducers: {
-    setClients: (state, action) => {
-      return state = action.payload;
+    setClients: (state, param) => {
+      const { payload } = param;
+      return payload;
     },
   },
 });

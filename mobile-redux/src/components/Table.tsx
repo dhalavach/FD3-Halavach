@@ -25,45 +25,8 @@ function Table(props: { data: TableData }) {
   // const [selectedClient, setSelectedClient] = useState<ClientData>();
   //const [selectedClientIndex, setSelectedClientIndex] = useState<number>();
 
-  // const useSelectedClient = () => { return useSelector((state) => state.selectedClient) }
-  // const {selectedClient} = useSelectedClient()
 
-  // const initialState = {
-  //   clients: data.tbodyData,
-  //   displayedClients: data.tbodyData,
-  //   editFormOpen: false,
-  //   addFormOpen: false,
-  //   selectedClient: undefined,
-  //   selectedClientIndex: undefined,
-  // };
 
-  enum Actions {
-    setClients,
-    setSelectedClients,
-    setSelectedClient,
-    setSelectedClientIndex,
-    setEditFormOpen,
-    setAddFormOpen,
-  }
-
-  // const rootReducer = (state = initialState, action: any) => {
-  //   switch (action.type) {
-  //     case Actions.setSelectedClientIndex: {
-  //       console.log('selected index dispatched to the store!');
-  //       return { ...state, selectedClientIndex: action.payload };
-  //     }
-  //     case Actions.setSelectedClient: {
-  //       return { ...state, selectedClient: action.payload };
-  //     }
-  //   }
-  // };
-
-  // const store = configureStore({ reducer: rootReducer });
-
-  // let selectedClient = store.getState()?.selectedClient;
-  // let selectedClientIndex = store.getState()?.selectedClientIndex;
-
-  //const selectedClientIndex = useSelector((state) => state.selectedClientIndex);
 
   const dispatch = useDispatch();
 
@@ -72,41 +35,15 @@ function Table(props: { data: TableData }) {
   let clients = useSelector((state) => state?.clients);
   let displayedClients = useSelector((state) => state?.displayedClients);
   let selectedClient = useSelector((state) => state?.selectedClient);
-  // const editFormOpen = useSelector((state) => state.editFormOpen)
-  // const addFormOpen = useSelector((state) => state.addFormOpen)
-
-  // useEffect(() => {
-
-  //   ee.addListener('edit', editHandler);
-  //   ee.addListener('select', selectHandler);
-  //   ee.addListener('delete', deleteHandler);
-  //   ee.addListener('save', saveHandler);
-  //   ee.addListener('cancel', cancelHandler);
-  //   ee.addListener('filter', filterHandler);
-  //   ee.addListener('add', addHandler);
-  //   return () => {
-  //     ee.removeListener('edit', editHandler);
-  //     ee.removeListener('select', selectHandler);
-  //     ee.removeListener('delete', deleteHandler);
-  //     ee.removeListener('save', saveHandler);
-  //     ee.removeListener('cancel', cancelHandler);
-  //     ee.removeListener('filter', filterHandler);
-  //     ee.removeListener('add', addHandler);
-  //   };
-  // });
 
   useEffect(() => {
     console.log('Table re-rendering');
-    // console.log('selected client: ', selectedClient);
-    // console.log('selected index: ', selectedClientIndex);
-  }, );
+  });
 
   const editHandler = (id: number) => {
     selectHandler(id);
     setEditFormOpen(true);
   };
-
- 
 
   const deleteHandler = (id: number) => {
     let newClients = [...clients].filter((client) => client.id !== id);
@@ -165,7 +102,9 @@ function Table(props: { data: TableData }) {
     if (filterParameter === 'NONE') {
       dispatch(setDisplayedClients(clients));
     } else {
-      const newClients = clients.filter((c) => c.status === filterParameter);
+      const newClients = [...clients].filter(
+        (c) => c.status === filterParameter
+      );
       //if (!deepEqual(newClients, displayedClients))
       dispatch(setDisplayedClients(newClients));
     }
@@ -231,7 +170,7 @@ function Table(props: { data: TableData }) {
         className='button-small'
         onClick={(event) => {
           event.stopPropagation();
-          ee.emit('add');
+          //ee.emit('add');
         }}
       >
         Add new client

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import ee from './EventEmitter';
 import deepEqual from 'deep-equal';
 import {ClientData} from '../types/Types'
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,7 +40,7 @@ function Client(props: { data: ClientData }) {
           className='button-small'
           onClick={(event) => {
             event.stopPropagation();
-            ee.emit('edit', id);
+          //  ee.emit('edit', id);
           }}
         >
           Edit
@@ -50,7 +49,7 @@ function Client(props: { data: ClientData }) {
           className='button-small'
           onClick={(event) => {
             event.stopPropagation();
-            ee.emit('delete', id);
+           // ee.emit('delete', id);
           }}
         >
           Delete
