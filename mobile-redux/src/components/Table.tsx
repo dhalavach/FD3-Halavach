@@ -15,7 +15,7 @@ import { setDisplayedClients } from './displayedClientsSlice';
 function Table(props: any) {
   let selectedClientIndex = 0; //temp mock value
 
-  const { data, clients, displayedClients } = props;
+  const { data } = props;
 
   // const [clients, setClients] = useState(data.tbodyData);
   // const [displayedClients, setDisplayedClients] = useState(data.tbodyData);
@@ -27,8 +27,8 @@ function Table(props: any) {
 
   const dispatch = useDispatch();
 
-  // let clients = useSelector((state) => state?.clients);
-  // let displayedClients = useSelector((state) => state?.displayedClients);
+  let clients = useSelector((state) => state?.clients);
+  let displayedClients = useSelector((state) => state?.displayedClients);
   let selectedClient = useSelector((state) => state?.selectedClient);
 
   useEffect(() => {
