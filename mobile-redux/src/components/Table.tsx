@@ -1,20 +1,68 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSelectedClient } from './selectedClientSlice';
+import { configureStore } from '@reduxjs/toolkit';
 import { PureClient } from './Client';
 import EditClientForm from './EditClientForm';
 import ee from './EventEmitter';
-import {ClientData, TableData, RefData} from '../types/Types'
+import { ClientData, TableData, RefData } from '../types/Types';
 
 import deepEqual from 'deep-equal';
 
-
 function Table(props: { data: TableData }) {
+
+  let selectedClientIndex = 0; //temp mock value
+
   const { data } = props;
   const [clients, setClients] = useState(data.tbodyData);
   const [displayedClients, setDisplayedClients] = useState(data.tbodyData);
   const [editFormOpen, setEditFormOpen] = useState(false);
   const [addFormOpen, setAddFormOpen] = useState(false);
-  const [selectedClient, setSelectedClient] = useState<ClientData>();
-  const [selectedClientIndex, setSelectedClientIndex] = useState<number>();
+  // const [selectedClient, setSelectedClient] = useState<ClientData>();
+  //const [selectedClientIndex, setSelectedClientIndex] = useState<number>();
+
+  // const useSelectedClient = () => { return useSelector((state) => state.selectedClient) }
+  // const {selectedClient} = useSelectedClient()
+
+  // const initialState = {
+  //   clients: data.tbodyData,
+  //   displayedClients: data.tbodyData,
+  //   editFormOpen: false,
+  //   addFormOpen: false,
+  //   selectedClient: undefined,
+  //   selectedClientIndex: undefined,
+  // };
+
+  enum Actions {
+    setClients,
+    setSelectedClients,
+    setSelectedClient,
+    setSelectedClientIndex,
+    setEditFormOpen,
+    setAddFormOpen,
+  }
+
+  // const rootReducer = (state = initialState, action: any) => {
+  //   switch (action.type) {
+  //     case Actions.setSelectedClientIndex: {
+  //       console.log('selected index dispatched to the store!');
+  //       return { ...state, selectedClientIndex: action.payload };
+  //     }
+  //     case Actions.setSelectedClient: {
+  //       return { ...state, selectedClient: action.payload };
+  //     }
+  //   }
+  // };
+
+  // const store = configureStore({ reducer: rootReducer });
+
+  // let selectedClient = store.getState()?.selectedClient;
+  // let selectedClientIndex = store.getState()?.selectedClientIndex;
+
+  //const selectedClientIndex = useSelector((state) => state.selectedClientIndex);
+  const selectedClient = useSelector((state) => state.selectedClient);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     ee.addListener('edit', editHandler);
@@ -47,10 +95,11 @@ function Table(props: { data: TableData }) {
   };
 
   const selectHandler = (id: number) => {
-    let sci = clients.findIndex((c) => c.id === id);
-    setSelectedClientIndex(sci);
+    // let sci = clients.findIndex((c) => c.id === id);
+    // setSelectedClientIndex(sci);
     let sc = clients.filter((c) => c.id === id)[0];
-     setSelectedClient(sc as ClientData);
+    dispatch(setSelectedClient(sc));
+    // setSelectedClient(sc as ClientData);
   };
 
   const deleteHandler = (id: number) => {
@@ -60,21 +109,17 @@ function Table(props: { data: TableData }) {
   };
 
   const saveHandler = (refObject: RefData) => {
-    addFormOpen
-      ? saveNewHandler(refObject)
-      : saveEditedHandler(refObject);
+    addFormOpen ? saveNewHandler(refObject) : saveEditedHandler(refObject);
   };
 
-  const saveEditedHandler = (
-refObject: RefData
-  ) => {
+  const saveEditedHandler = (refObject: RefData) => {
     const { firstNameRef, lastNameRef, balanceRef, statusRef } = refObject;
 
     let newClients = [...clients];
-    newClients[selectedClientIndex as number]['firstName'] = firstNameRef.current.value;
-    newClients[selectedClientIndex as number]['lastName'] = lastNameRef.current.value;
-    newClients[selectedClientIndex as number]['balance'] = balanceRef.current.value;
-    newClients[selectedClientIndex as number]['status'] = statusRef.current.checked;
+    newClients[selectedClientIndex]['firstName'] = firstNameRef.current.value;
+    newClients[selectedClientIndex]['lastName'] = lastNameRef.current.value;
+    newClients[selectedClientIndex]['balance'] = balanceRef.current.value;
+    newClients[selectedClientIndex]['status'] = statusRef.current.checked;
 
     setClients(newClients);
     setDisplayedClients(newClients);
@@ -185,7 +230,7 @@ refObject: RefData
         Add new client
       </button>
       {addFormOpen && <EditClientForm data={{}} />}
-      {editFormOpen && <EditClientForm data={selectedClient as ClientData } />}
+      {editFormOpen && <EditClientForm data={selectedClient as ClientData} />}
     </div>
   );
 }
