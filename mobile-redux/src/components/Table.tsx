@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedClient } from './selectedClientSlice';
-import { configureStore } from '@reduxjs/toolkit';
 import { PureClient } from './Client';
 import EditClientForm from './EditClientForm';
 import ee from './EventEmitter';
 import { ClientData, TableData, RefData } from '../types/Types';
 
 import deepEqual from 'deep-equal';
+import { setClients } from './clientsSlice';
+import { setDisplayedClients } from './displayedClientsSlice';
+
 
 function Table(props: { data: TableData }) {
-
   let selectedClientIndex = 0; //temp mock value
 
   const { data } = props;
-  const [clients, setClients] = useState(data.tbodyData);
-  const [displayedClients, setDisplayedClients] = useState(data.tbodyData);
+
+  // const [clients, setClients] = useState(data.tbodyData);
+  // const [displayedClients, setDisplayedClients] = useState(data.tbodyData);
+
   const [editFormOpen, setEditFormOpen] = useState(false);
   const [addFormOpen, setAddFormOpen] = useState(false);
   // const [selectedClient, setSelectedClient] = useState<ClientData>();
@@ -60,11 +63,18 @@ function Table(props: { data: TableData }) {
   // let selectedClientIndex = store.getState()?.selectedClientIndex;
 
   //const selectedClientIndex = useSelector((state) => state.selectedClientIndex);
-  const selectedClient = useSelector((state) => state.selectedClient);
 
   const dispatch = useDispatch();
 
+  dispatch(setClients(data.tbodyData));
+  dispatch(setDisplayedClients(data.tbodyData));
+  const clients = useSelector((state) => state.clients);
+  const displayedClients = useSelector((state) => state.displayedClients)
+  const selectedClient = useSelector((state) => state.selectedClient);
+
+
   useEffect(() => {
+
     ee.addListener('edit', editHandler);
     ee.addListener('select', selectHandler);
     ee.addListener('delete', deleteHandler);
@@ -100,6 +110,8 @@ function Table(props: { data: TableData }) {
     let sc = clients.filter((c) => c.id === id)[0];
     dispatch(setSelectedClient(sc));
     // setSelectedClient(sc as ClientData);
+    //dispatch(setClients([]));
+
   };
 
   const deleteHandler = (id: number) => {
