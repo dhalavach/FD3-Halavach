@@ -12,10 +12,10 @@ import { setDisplayedClients } from './displayedClientsSlice';
 // import { setEditFormOpen } from './editFormSlice';
 // import { setAddFormOpen } from './addFormSlice';
 
-function Table(props: { data: TableData }) {
+function Table(props: any) {
   let selectedClientIndex = 0; //temp mock value
 
-  const { data } = props;
+  const { data, clients, displayedClients } = props;
 
   // const [clients, setClients] = useState(data.tbodyData);
   // const [displayedClients, setDisplayedClients] = useState(data.tbodyData);
@@ -25,20 +25,20 @@ function Table(props: { data: TableData }) {
   // const [selectedClient, setSelectedClient] = useState<ClientData>();
   //const [selectedClientIndex, setSelectedClientIndex] = useState<number>();
 
-
-
-
   const dispatch = useDispatch();
 
-  dispatch(setClients(data.tbodyData));
-  dispatch(setDisplayedClients(data.tbodyData));
-  let clients = useSelector((state) => state?.clients);
-  let displayedClients = useSelector((state) => state?.displayedClients);
+  // let clients = useSelector((state) => state?.clients);
+  // let displayedClients = useSelector((state) => state?.displayedClients);
   let selectedClient = useSelector((state) => state?.selectedClient);
 
   useEffect(() => {
     console.log('Table re-rendering');
   });
+
+  useEffect(() => {
+    dispatch(setClients(data.tbodyData));
+    dispatch(setDisplayedClients(data.tbodyData));
+  }, []);
 
   const editHandler = (id: number) => {
     selectHandler(id);
