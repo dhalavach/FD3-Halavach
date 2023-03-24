@@ -9,7 +9,8 @@ import { ClientData, TableData, RefData } from '../types/Types';
 import deepEqual from 'deep-equal';
 import { setClients } from './clientsSlice';
 import { setDisplayedClients } from './displayedClientsSlice';
-
+// import { setEditFormOpen } from './editFormSlice';
+// import { setAddFormOpen } from './addFormSlice';
 
 function Table(props: { data: TableData }) {
   let selectedClientIndex = 0; //temp mock value
@@ -68,56 +69,49 @@ function Table(props: { data: TableData }) {
 
   dispatch(setClients(data.tbodyData));
   dispatch(setDisplayedClients(data.tbodyData));
-  const clients = useSelector((state) => state.clients);
-  const displayedClients = useSelector((state) => state.displayedClients)
-  const selectedClient = useSelector((state) => state.selectedClient);
+  let clients = useSelector((state) => state?.clients);
+  let displayedClients = useSelector((state) => state?.displayedClients);
+  let selectedClient = useSelector((state) => state?.selectedClient);
+  // const editFormOpen = useSelector((state) => state.editFormOpen)
+  // const addFormOpen = useSelector((state) => state.addFormOpen)
 
+  // useEffect(() => {
 
-  useEffect(() => {
-
-    ee.addListener('edit', editHandler);
-    ee.addListener('select', selectHandler);
-    ee.addListener('delete', deleteHandler);
-    ee.addListener('save', saveHandler);
-    ee.addListener('cancel', cancelHandler);
-    ee.addListener('filter', filterHandler);
-    ee.addListener('add', addHandler);
-    return () => {
-      ee.removeListener('edit', editHandler);
-      ee.removeListener('select', selectHandler);
-      ee.removeListener('delete', deleteHandler);
-      ee.removeListener('save', saveHandler);
-      ee.removeListener('cancel', cancelHandler);
-      ee.removeListener('filter', filterHandler);
-      ee.removeListener('add', addHandler);
-    };
-  });
+  //   ee.addListener('edit', editHandler);
+  //   ee.addListener('select', selectHandler);
+  //   ee.addListener('delete', deleteHandler);
+  //   ee.addListener('save', saveHandler);
+  //   ee.addListener('cancel', cancelHandler);
+  //   ee.addListener('filter', filterHandler);
+  //   ee.addListener('add', addHandler);
+  //   return () => {
+  //     ee.removeListener('edit', editHandler);
+  //     ee.removeListener('select', selectHandler);
+  //     ee.removeListener('delete', deleteHandler);
+  //     ee.removeListener('save', saveHandler);
+  //     ee.removeListener('cancel', cancelHandler);
+  //     ee.removeListener('filter', filterHandler);
+  //     ee.removeListener('add', addHandler);
+  //   };
+  // });
 
   useEffect(() => {
     console.log('Table re-rendering');
     // console.log('selected client: ', selectedClient);
     // console.log('selected index: ', selectedClientIndex);
-  });
+  }, );
 
   const editHandler = (id: number) => {
     selectHandler(id);
     setEditFormOpen(true);
   };
 
-  const selectHandler = (id: number) => {
-    // let sci = clients.findIndex((c) => c.id === id);
-    // setSelectedClientIndex(sci);
-    let sc = clients.filter((c) => c.id === id)[0];
-    dispatch(setSelectedClient(sc));
-    // setSelectedClient(sc as ClientData);
-    //dispatch(setClients([]));
-
-  };
+ 
 
   const deleteHandler = (id: number) => {
     let newClients = [...clients].filter((client) => client.id !== id);
-    setClients(newClients);
-    setDisplayedClients(newClients);
+    dispatch(setClients(newClients));
+    dispatch(setDisplayedClients(newClients));
   };
 
   const saveHandler = (refObject: RefData) => {
@@ -168,11 +162,12 @@ function Table(props: { data: TableData }) {
   };
 
   const filterHandler = (filterParameter: boolean | string) => {
-    if (filterParameter === 'NONE') setDisplayedClients(clients);
-    else {
+    if (filterParameter === 'NONE') {
+      dispatch(setDisplayedClients(clients));
+    } else {
       const newClients = clients.filter((c) => c.status === filterParameter);
-      if (!deepEqual(newClients, displayedClients))
-        setDisplayedClients(newClients);
+      //if (!deepEqual(newClients, displayedClients))
+      dispatch(setDisplayedClients(newClients));
     }
   };
 
@@ -188,7 +183,7 @@ function Table(props: { data: TableData }) {
           className='button-small'
           onClick={(event) => {
             event.stopPropagation();
-            ee.emit('filter', 'NONE');
+            filterHandler('NONE');
           }}
         >
           All
@@ -197,7 +192,7 @@ function Table(props: { data: TableData }) {
           className='button-small'
           onClick={(event) => {
             event.stopPropagation();
-            ee.emit('filter', true);
+            filterHandler(true);
           }}
         >
           Active
@@ -206,7 +201,7 @@ function Table(props: { data: TableData }) {
           className='button-small'
           onClick={(event) => {
             event.stopPropagation();
-            ee.emit('filter', false);
+            filterHandler(false);
           }}
         >
           Inactive
