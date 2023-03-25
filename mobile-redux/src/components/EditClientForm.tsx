@@ -39,12 +39,16 @@ export default function EditClientForm(props: { data: OptionalClientData }) {
       (c: ClientData) => c.id === selectedClient.id
     );
 
-    let newClients = [...clients];
-    console.log('test');
-    newClients[selectedClientIndex]['firstName'] = firstNameRef.current.value;
-    newClients[selectedClientIndex]['lastName'] = lastNameRef.current.value;
-    newClients[selectedClientIndex]['balance'] = balanceRef.current.value;
-    newClients[selectedClientIndex]['status'] = statusRef.current.checked;
+    const newClient = {
+      id: selectedClient.id,
+      firstName: firstNameRef.current.value,
+      lastName: lastNameRef.current.value,
+      balance: balanceRef.current.value,
+      status: statusRef.current.checked,
+    };
+
+    const newClients = [...clients];
+    newClients[selectedClientIndex] = newClient;
 
     dispatch(setClients(newClients));
     dispatch(setDisplayedClients(newClients));
