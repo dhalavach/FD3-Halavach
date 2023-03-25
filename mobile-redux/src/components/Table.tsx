@@ -3,33 +3,29 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedClient } from './selectedClientSlice';
 import { PureClient } from './Client';
 import EditClientForm from './EditClientForm';
-import ee from './EventEmitter';
 import { ClientData, TableData, RefData } from '../types/Types';
 
 import deepEqual from 'deep-equal';
 import { setClients } from './clientsSlice';
 import { setDisplayedClients } from './displayedClientsSlice';
-// import { setEditFormOpen } from './editFormSlice';
+
+import { setEditFormOpen } from './editFormSlice';
+import { setAddFormOpen } from './addFormSlice';
+
 // import { setAddFormOpen } from './addFormSlice';
 
-function Table(props: any) {
-  let selectedClientIndex = 0; //temp mock value
+function Table(props: { data: TableData }) {
+  //let selectedClientIndex = 0; //temp mock value
 
   const { data } = props;
-
-  // const [clients, setClients] = useState(data.tbodyData);
-  // const [displayedClients, setDisplayedClients] = useState(data.tbodyData);
-
-  const [editFormOpen, setEditFormOpen] = useState(false);
-  const [addFormOpen, setAddFormOpen] = useState(false);
-  // const [selectedClient, setSelectedClient] = useState<ClientData>();
-  //const [selectedClientIndex, setSelectedClientIndex] = useState<number>();
 
   const dispatch = useDispatch();
 
   let clients = useSelector((state) => state?.clients);
   let displayedClients = useSelector((state) => state?.displayedClients);
   let selectedClient = useSelector((state) => state?.selectedClient);
+  const editFormOpen = useSelector((state) => state.editFormOpen);
+  const addFormOpen = useSelector((state) => state.addFormOpen);
 
   useEffect(() => {
     console.log('Table re-rendering');
@@ -40,34 +36,25 @@ function Table(props: any) {
     dispatch(setDisplayedClients(data.tbodyData));
   }, []);
 
-  const editHandler = (id: number) => {
-    selectHandler(id);
-    setEditFormOpen(true);
-  };
+  // const saveHandler = (refObject: RefData) => {
+  //   addFormOpen ? saveNewHandler(refObject) : saveEditedHandler(refObject);
+  // };
 
-  const deleteHandler = (id: number) => {
-    let newClients = [...clients].filter((client) => client.id !== id);
-    dispatch(setClients(newClients));
-    dispatch(setDisplayedClients(newClients));
-  };
+  // const saveEditedHandler = (refObject: RefData) => {
+  //   const { firstNameRef, lastNameRef, balanceRef, statusRef } = refObject;
+  //     let selectedClientIndex = clients.findIndex((c) => c.id === id);
+  //   // setSelectedClientIndex(sci);
 
-  const saveHandler = (refObject: RefData) => {
-    addFormOpen ? saveNewHandler(refObject) : saveEditedHandler(refObject);
-  };
+  //   let newClients = [...clients];
+  //   newClients[selectedClientIndex]['firstName'] = firstNameRef.current.value;
+  //   newClients[selectedClientIndex]['lastName'] = lastNameRef.current.value;
+  //   newClients[selectedClientIndex]['balance'] = balanceRef.current.value;
+  //   newClients[selectedClientIndex]['status'] = statusRef.current.checked;
 
-  const saveEditedHandler = (refObject: RefData) => {
-    const { firstNameRef, lastNameRef, balanceRef, statusRef } = refObject;
-
-    let newClients = [...clients];
-    newClients[selectedClientIndex]['firstName'] = firstNameRef.current.value;
-    newClients[selectedClientIndex]['lastName'] = lastNameRef.current.value;
-    newClients[selectedClientIndex]['balance'] = balanceRef.current.value;
-    newClients[selectedClientIndex]['status'] = statusRef.current.checked;
-
-    setClients(newClients);
-    setDisplayedClients(newClients);
-    setEditFormOpen(false);
-  };
+  //   dispatch(setClients(newClients));
+  //   dispatch(setDisplayedClients(newClients));
+  //   dispatch(setEditFormOpen(false));
+  // };
 
   const saveNewHandler = (refObject: RefData) => {
     const { firstNameRef, lastNameRef, balanceRef, statusRef } = refObject;
@@ -93,10 +80,7 @@ function Table(props: any) {
     setAddFormOpen(false);
   };
 
-  const cancelHandler = () => {
-    if (editFormOpen) setEditFormOpen(false);
-    if (addFormOpen) setAddFormOpen(false);
-  };
+  
 
   const filterHandler = (filterParameter: boolean | string) => {
     if (filterParameter === 'NONE') {
@@ -105,14 +89,14 @@ function Table(props: any) {
       const newClients = [...clients].filter(
         (c) => c.status === filterParameter
       );
-      //if (!deepEqual(newClients, displayedClients))
-      dispatch(setDisplayedClients(newClients));
+      if (!deepEqual(newClients, displayedClients))
+        dispatch(setDisplayedClients(newClients));
     }
   };
 
-  const addHandler = () => {
-    setAddFormOpen(true);
-  };
+  // const addHandler = () => {
+  //   dispatch(setAddFormOpen(true));
+  // };
 
   return (
     <div>
@@ -170,7 +154,7 @@ function Table(props: any) {
         className='button-small'
         onClick={(event) => {
           event.stopPropagation();
-          //ee.emit('add');
+          dispatch(setAddFormOpen(true));
         }}
       >
         Add new client

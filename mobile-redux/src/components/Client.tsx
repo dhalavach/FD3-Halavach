@@ -1,8 +1,12 @@
 import React, { useEffect } from 'react';
 import deepEqual from 'deep-equal';
-import {ClientData} from '../types/Types'
+import { ClientData } from '../types/Types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedClient } from './selectedClientSlice';
+import { setClients } from './clientsSlice';
+import { setDisplayedClients } from './displayedClientsSlice';
+import { setEditFormOpen } from './editFormSlice';
+
 
 function Client(props: { data: ClientData }) {
   const { id, firstName, lastName, balance, status, selected } = props.data;
@@ -11,23 +15,32 @@ function Client(props: { data: ClientData }) {
       `Client with id ${id}, first name ${firstName}, and last name ${lastName} is (re-)rendering`
     );
   });
-  let clients = useSelector((state) => state.clients)
-  const dispatch = useDispatch()
-  
+  let clients = useSelector((state) => state.clients);
+  const dispatch = useDispatch();
+
   const selectHandler = (id: number) => {
     // let sci = clients.findIndex((c) => c.id === id);
     // setSelectedClientIndex(sci);
     let sc = [...clients].filter((c) => c.id === id)[0];
     dispatch(setSelectedClient(sc));
-    // setSelectedClient(sc as ClientData);
-    //dispatch(setClients([]));
+  
   };
 
+  const deleteHandler = (id: number) => {
+    let newClients = [...clients].filter((client) => client.id !== id);
+    dispatch(setClients(newClients));
+    dispatch(setDisplayedClients(newClients));
+  };
+
+  const editHandler = (id: number) => {
+    selectHandler(id);
+    dispatch(setEditFormOpen(true));
+  };
   return (
     <tr
       className={selected ? 'select-color' : 'primary-color'}
       onClick={(event) => {
-        event.stopPropagation()
+        event.stopPropagation();
         selectHandler(id);
       }}
     >
@@ -40,7 +53,7 @@ function Client(props: { data: ClientData }) {
           className='button-small'
           onClick={(event) => {
             event.stopPropagation();
-          //  ee.emit('edit', id);
+            editHandler(id);
           }}
         >
           Edit
@@ -49,7 +62,7 @@ function Client(props: { data: ClientData }) {
           className='button-small'
           onClick={(event) => {
             event.stopPropagation();
-           // ee.emit('delete', id);
+            deleteHandler(id);
           }}
         >
           Delete
