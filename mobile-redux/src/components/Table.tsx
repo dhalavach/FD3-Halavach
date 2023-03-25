@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import deepEqual from 'deep-equal';
 import { PureClient } from './Client';
 import EditClientForm from './EditClientForm';
-import { ClientData, TableData, RefData, stateData } from '../types/Types';
+import { TableData, stateData } from '../types/Types';
 import { setClients } from './clientsSlice';
 import { setDisplayedClients } from './displayedClientsSlice';
 import { setAddFormOpen } from './addFormSlice';

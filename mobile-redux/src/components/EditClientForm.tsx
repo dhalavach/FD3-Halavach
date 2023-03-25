@@ -1,10 +1,9 @@
 import { useRef } from 'react';
 import { setEditFormOpen } from './editFormSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import ee from './EventEmitter';
 import { setClients } from './clientsSlice';
 import { setDisplayedClients } from './displayedClientsSlice';
-import { ClientData, RefData, stateData } from '../types/Types';
+import { RefData, stateData } from '../types/Types';
 import { setAddFormOpen } from './addFormSlice';
 
 type OptionalClientData = {

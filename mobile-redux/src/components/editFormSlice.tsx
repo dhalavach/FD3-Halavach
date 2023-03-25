@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import data from '../mockData.json';
 
 export const editFormSlice = createSlice({
   name: 'editFormSlice',

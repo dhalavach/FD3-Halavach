@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useSelector, useDispatch } from 'react-redux';
-import data from '../mockData.json';
 
 export const displayedClientsSlice = createSlice({
   name: 'displayedClientsSlice',
