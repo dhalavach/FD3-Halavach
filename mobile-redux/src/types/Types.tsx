@@ -19,19 +19,39 @@ export type TableData = {
   }>;
 };
 
-export type  OptionalClientData = {
+export type OptionalClientData = {
   id?: number;
   firstName?: string;
   lastName?: string;
   balance?: number;
   status?: boolean;
   selected?: boolean;
-}
+};
 
-export type RefData = { //temp fix
+export type RefData = {
+  //temp fix
   firstNameRef: any;
   lastNameRef: any;
   balanceRef: any;
   statusRef: any;
-}
+};
 
+export type stateData = {
+  clients: Array<{
+    id: number;
+    firstName: string;
+    lastName: string;
+    balance: number;
+    status: boolean;
+  }>;
+  displayedClients: Array<{
+    id: number;
+    firstName: string;
+    lastName: string;
+    balance: number;
+    status: boolean;
+  }>;
+  selectedClient: ClientData;
+  editFormOpen: boolean;
+  addFormOpen: boolean;
+};

@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import deepEqual from 'deep-equal';
-import { ClientData } from '../types/Types';
 import { useDispatch, useSelector } from 'react-redux';
+import { ClientData, stateData } from '../types/Types';
 import { setSelectedClient } from './selectedClientSlice';
 import { setClients } from './clientsSlice';
 import { setDisplayedClients } from './displayedClientsSlice';
 import { setEditFormOpen } from './editFormSlice';
-
 
 function Client(props: { data: ClientData }) {
   const { id, firstName, lastName, balance, status, selected } = props.data;
@@ -15,15 +14,12 @@ function Client(props: { data: ClientData }) {
       `Client with id ${id}, first name ${firstName}, and last name ${lastName} is (re-)rendering`
     );
   });
-  let clients = useSelector((state) => state.clients);
+  let clients = useSelector((state: stateData) => state.clients);
   const dispatch = useDispatch();
 
   const selectHandler = (id: number) => {
-    // let sci = clients.findIndex((c) => c.id === id);
-    // setSelectedClientIndex(sci);
-    let sc = [...clients].filter((c) => c.id === id)[0];
-    dispatch(setSelectedClient(sc));
-  
+    let selected = [...clients].filter((c) => c.id === id)[0];
+    dispatch(setSelectedClient(selected));
   };
 
   const deleteHandler = (id: number) => {

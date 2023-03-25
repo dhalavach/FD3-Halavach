@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ee from './EventEmitter';
 import { setClients } from './clientsSlice';
 import { setDisplayedClients } from './displayedClientsSlice';
-import { ClientData, RefData } from '../types/Types';
+import { ClientData, RefData, stateData } from '../types/Types';
 import { setAddFormOpen } from './addFormSlice';
 
 type OptionalClientData = {
@@ -23,11 +23,11 @@ export default function EditClientForm(props: { data: OptionalClientData }) {
   const statusRef = useRef(null);
 
   const dispatch = useDispatch();
-  let editFormOpen = useSelector((state) => state.editFormOpen);
+  let editFormOpen = useSelector((state: stateData) => state.editFormOpen);
 
-  let addFormOpen = useSelector((state) => state.addFormOpen);
-  let clients = useSelector((state) => state.clients);
-  let selectedClient = useSelector((state) => state.selectedClient);
+  let addFormOpen = useSelector((state: stateData) => state.addFormOpen);
+  let clients = useSelector((state: stateData) => state.clients);
+  let selectedClient = useSelector((state: stateData) => state.selectedClient);
 
   const saveHandler = (refObject: RefData) => {
     addFormOpen ? saveNewHandler(refObject) : saveEditedHandler(refObject);
@@ -36,7 +36,7 @@ export default function EditClientForm(props: { data: OptionalClientData }) {
   const saveEditedHandler = (refObject: RefData) => {
     const { firstNameRef, lastNameRef, balanceRef, statusRef } = refObject;
     let selectedClientIndex = clients.findIndex(
-      (c: ClientData) => c.id === selectedClient.id
+      (c) => c.id === selectedClient.id
     );
 
     const newClient = {
