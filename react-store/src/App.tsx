@@ -1,21 +1,29 @@
-import './styles.css'
+import './styles.css';
+import data from './mockData.json';
+import { useState } from 'react';
+import Table from './components/Table';
 
 function App() {
-
+  const [products, setProducts] = useState(data.products);
+  const [sort, setSort] = useState('');
+  const [type, setType] = useState('');
   return (
-    <div className="grid-container">
+    <div className='grid-container'>
       <header>
         <a href='/'>Cart</a>
       </header>
       <main>
-        List
+        <div className='content'>
+          <div className='main'>
+            <Table products={products} />
+          </div>
+
+          <div className='sidebar'>Items</div>
+        </div>
       </main>
-      <footer>
-        2023
-      </footer>
-      
+      <footer>2023</footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

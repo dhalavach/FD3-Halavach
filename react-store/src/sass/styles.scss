@@ -11,9 +11,9 @@
 
 
 //Layout
-@import "layout/desktop";
-@import "layout/tablet";
-@import "layout/mobile";
+// @import "layout/desktop";
+// @import "layout/tablet";
+// @import "layout/mobile";
 @import "layout/grid-container";
 @import "layout/header";
 @import "layout/main";
@@ -23,7 +23,7 @@
 
 
 // Components
-
+@import "components/table";
 
 // Pages
 

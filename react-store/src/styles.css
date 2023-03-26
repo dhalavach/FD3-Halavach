@@ -377,6 +377,19 @@ main {
   grid-area: main;
 }
 
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main {
+  flex: 3 60rem;
+}
+
+.sidebar {
+  flex: 1 20rem;
+}
+
 footer {
   display: flex;
   justify-content: center;
@@ -388,6 +401,66 @@ footer {
 
 a:hover {
   color: #E47209;
+}
+
+.products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.products li {
+  flex: 1 1 29rem;
+  height: 47rem;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.product {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.product img {
+  max-width: 37rem;
+  max-height: 37rem;
+}
+
+.product-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-price div,
+.product-price button {
+  text-align: center;
+  flex: 1;
+}
+
+.product-price div {
+  font-size: 2rem;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 1rem;
+  border: 0.1rem #f1f3f2 solid;
+  background-color: #f9804b;
+}
+.btn:hover {
+  border: 2px black solid;
+}
+
+.btn.primary {
+  background-color: #f9804b;
 }
 
 .hidden {
