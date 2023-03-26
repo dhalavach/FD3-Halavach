@@ -35,6 +35,18 @@
       "itemImageAlt": "MSI B650 Edge",
       "itemQuantity": 0,
       "itemDescription": ""
+    },
+    {
+      "id": 4,
+      "className": "Item",
+      "itemType": "CPU",
+      "itemName": "Ryzen 5800X3D",
+      "itemPrice": 1200,
+      "itemImage": "./src/assets/images/ryzen5800x3d.jpg",
+      "itemImageURL": "https://uni.by/files/ItemsImages/137010_r300.jpg",
+      "itemImageAlt": "Ryzen 5800X3D",
+      "itemQuantity": 0,
+      "itemDescription": ""
     }
   ]
 }
