@@ -8,7 +8,8 @@ export default function Filter(props: any) {
       <div className='filter-sort'>
         Order{' '}
         <select value={sort} onChange={sortProducts}>
-          <option>New</option>
+          <option value="az">A-Z</option>
+          <option value="za">Z-A</option>
           <option value='ascending'>Price - ascending</option>
           <option value='descending'>Price - descending</option>
         </select>

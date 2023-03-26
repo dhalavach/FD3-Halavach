@@ -3,17 +3,18 @@ import data from './mockData.json';
 import { useEffect, useState } from 'react';
 import Table from './components/Table';
 import Filter from './components/Filter';
+import { Product } from './types/Types';
 
 function App() {
   const [products, setProducts] = useState(data.products);
   const [sort, setSort] = useState('');
   const [type, setType] = useState('');
 
-  const filter = (e) => {
+  const filter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setType(e.target.value);
   };
 
-  const sortProducts = (e) => {
+  const sortProducts = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSort(e.target.value);
   };
 
@@ -29,6 +30,14 @@ function App() {
         arr = arr.sort((a, b) => a.itemPrice - b.itemPrice);
       } else if (sort === 'descending') {
         arr = arr.sort((a, b) => b.itemPrice - a.itemPrice);
+      } else if (sort === 'az') {
+        arr = arr.sort((a: Product, b: Product) => {
+          return a.itemName.localeCompare(b.itemName);
+        });
+      } else if (sort === 'za') {
+        arr = arr.sort((a: Product, b: Product) => {
+          return -a.itemName.localeCompare(b.itemName);
+        });
       }
     }
     setProducts(arr);
