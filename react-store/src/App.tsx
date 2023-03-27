@@ -77,6 +77,12 @@ function App() {
     setCartProducts(newCartProducts);
   };
 
+  const remove = (product: Product) => {
+  
+    let newCartProducts = [...cartProducts].filter((item) => item.id !== product.id)
+    setCartProducts(newCartProducts);
+  }
+
   useEffect(() => {
     let arr = [...data.products] as Product[];
     if (type) arr = filterProducts(type, arr);
@@ -114,7 +120,7 @@ function App() {
           </div>
 
           <div className='sidebar'>
-            <Cart cartProducts={cartProducts} />
+            <Cart cartProducts={cartProducts} remove={remove} />
           </div>
         </div>
       </main>
