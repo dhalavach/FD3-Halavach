@@ -11,7 +11,11 @@ function App() {
   const [products, setProducts] = useState<Product[]>(data.products);
   const [sort, setSort] = useState<string>('');
   const [type, setType] = useState<string>('');
-  const [cartProducts, setCartProducts] = useState<Product[]>([]);
+  const [cartProducts, setCartProducts] = useState<Product[]>(
+    localStorage.getItem('cartProducts')
+      ? JSON.parse(localStorage.getItem('cartProducts') as string)
+      : []
+  );
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const handleFilterProducts = (
@@ -75,13 +79,16 @@ function App() {
       newCartProducts.push({ ...product, count: 1 });
     }
     setCartProducts(newCartProducts);
+    localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
   };
 
   const remove = (product: Product) => {
-  
-    let newCartProducts = [...cartProducts].filter((item) => item.id !== product.id)
+    let newCartProducts = [...cartProducts].filter(
+      (item) => item.id !== product.id
+    );
     setCartProducts(newCartProducts);
-  }
+    localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
+  };
 
   useEffect(() => {
     let arr = [...data.products] as Product[];
