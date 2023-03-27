@@ -3,7 +3,7 @@ import data from './mockData.json';
 import { useEffect, useState } from 'react';
 import Table from './components/Table';
 import Filter from './components/Filter';
-import { Product } from './types/Types';
+import { orderObject, Product } from './types/Types';
 import Search from './components/Search';
 import Cart from './components/Cart';
 
@@ -90,6 +90,13 @@ function App() {
     localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
   };
 
+  const createOrder = (order: orderObject) => {
+    alert(
+      `saving order for ${order.name.toString()} - to be implemented later...`
+    );
+    console.log(order);
+  };
+
   useEffect(() => {
     let arr = [...data.products] as Product[];
     if (type) arr = filterProducts(type, arr);
@@ -127,7 +134,11 @@ function App() {
           </div>
 
           <div className='sidebar'>
-            <Cart cartProducts={cartProducts} remove={remove} />
+            <Cart
+              cartProducts={cartProducts}
+              remove={remove}
+              createOrder={createOrder}
+            />
           </div>
         </div>
       </main>

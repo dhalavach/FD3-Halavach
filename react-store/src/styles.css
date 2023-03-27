@@ -516,6 +516,23 @@ a:hover {
   background: gainsboro;
 }
 
+.form-container {
+  width: 100%;
+  padding: 0;
+  list-style-type: none;
+}
+.form-containerinput {
+  padding: 1rem;
+  border: 0.1rem #f1f3f2 solid;
+}
+
+.form-container li {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+}
+
 .hidden {
   visibility: hidden;
 }

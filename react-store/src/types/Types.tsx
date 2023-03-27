@@ -11,3 +11,10 @@ export type Product = {
   itemDescription?: string;
   count?: number;
 };
+
+export type orderObject = {
+  name: string;
+  email: string;
+  address: string;
+  products: Product[];
+};

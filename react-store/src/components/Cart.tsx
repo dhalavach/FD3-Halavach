@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Product } from '../types/Types';
 import { formatMoney } from '../util';
+import CheckoutForm from './CheckoutForm';
 
 export default function Cart(props: any) {
-  const { cartProducts, remove } = props;
+  const { cartProducts, remove, createOrder } = props;
+
+  const [checkoutFormOpen, setCheckoutFormOpen] = useState(false);
+
+  const order = (orderObj: any) => {
+    createOrder({ ...orderObj, products: cartProducts });
+  };
+
   return (
     <>
       <div>
@@ -53,9 +61,15 @@ export default function Cart(props: any) {
               )}
             </div>
           </div>
-          <button className='btn primary'>Checkout</button>
+          <button
+            className='btn primary'
+            onClick={() => setCheckoutFormOpen(true)}
+          >
+            Checkout
+          </button>
         </div>
       )}
+      {checkoutFormOpen && <CheckoutForm order={order} />}
     </>
   );
 }
