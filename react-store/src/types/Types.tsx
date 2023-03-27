@@ -9,4 +9,5 @@ export type Product = {
   itemImageAlt: string;
   itemQuantity: number;
   itemDescription?: string;
+  count?: number;
 };

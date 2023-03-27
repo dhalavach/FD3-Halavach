@@ -67,7 +67,7 @@ function App() {
     let inCart = false;
     for (const cartItem of newCartProducts) {
       if (cartItem.id === product.id) {
-        cartItem.count += 1;
+        if (cartItem.count) cartItem.count += 1;
         inCart = true;
       }
     }
