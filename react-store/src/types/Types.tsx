@@ -4,9 +4,9 @@ export type Product = {
   itemType: string;
   itemName: string;
   itemPrice: number;
-  itemImage: string | undefined;
-  itemImageURL: string | undefined;
-  itemImageAlt: string | undefined;
+  itemImage: string;
+  itemImageURL: string;
+  itemImageAlt: string;
   itemQuantity: number;
-  itemDescription: string | undefined;
+  itemDescription?: string;
 };

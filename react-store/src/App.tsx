@@ -13,16 +13,52 @@ function App() {
   const [cartProducts, setCartProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const filter = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFilterProducts = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setType(e.target.value);
   };
-
-  const sortProducts = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSort(e.target.value);
+  const filterProducts = (type: string, arr: Product[]): Product[] => {
+    if (type !== 'all')
+      arr = arr.filter((product) => product.itemType === type);
+    return arr;
   };
 
-  const searchProducts = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSortProducts = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setSort(e.target.value);
+  };
+  const sortProducts = (sort: string, arr: Product[]): Product[] => {
+    if (sort === 'ascending') {
+      arr = arr.sort((a, b) => a.itemPrice - b.itemPrice);
+    } else if (sort === 'descending') {
+      arr = arr.sort((a, b) => b.itemPrice - a.itemPrice);
+    } else if (sort === 'az') {
+      arr = arr.sort((a: Product, b: Product) => {
+        return a.itemName.localeCompare(b.itemName);
+      });
+    } else if (sort === 'za') {
+      arr = arr.sort((a: Product, b: Product) => {
+        return -a.itemName.localeCompare(b.itemName);
+      });
+    }
+
+    return arr;
+  };
+
+  const handleSearchProducts = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setSearchQuery(e.target.value);
+  };
+
+  const searchProducts = (searchQuery: string, arr: Product[]): Product[] => {
+    arr = arr.filter((product: Product) => {
+      return product.itemName
+        .toString()
+        .toLowerCase()
+        .includes(searchQuery.toString().toLowerCase());
+    });
+    return arr;
   };
 
   const add = (product: Product) => {
@@ -35,36 +71,10 @@ function App() {
   };
 
   useEffect(() => {
-    let arr = [...data.products];
-    if (type) {
-      if (type !== 'all') {
-        arr = arr.filter((product) => product.itemType === type);
-      }
-    }
-    if (sort) {
-      if (sort === 'ascending') {
-        arr = arr.sort((a, b) => a.itemPrice - b.itemPrice);
-      } else if (sort === 'descending') {
-        arr = arr.sort((a, b) => b.itemPrice - a.itemPrice);
-      } else if (sort === 'az') {
-        arr = arr.sort((a: Product, b: Product) => {
-          return a.itemName.localeCompare(b.itemName);
-        });
-      } else if (sort === 'za') {
-        arr = arr.sort((a: Product, b: Product) => {
-          return -a.itemName.localeCompare(b.itemName);
-        });
-      }
-    }
-
-    if (searchQuery) {
-      arr = arr.filter((product) => {
-        return product.itemName
-          .toString()
-          .toLowerCase()
-          .includes(searchQuery.toString().toLowerCase());
-      });
-    }
+    let arr = [...data.products] as Product[];
+    if (type) arr = filterProducts(type, arr);
+    if (sort) arr = sortProducts(sort, arr);
+    if (searchQuery) arr = searchProducts(searchQuery, arr);
     setProducts(arr);
   }, [sort, type, searchQuery]);
 
@@ -82,14 +92,14 @@ function App() {
                   count={products.length}
                   type={type}
                   sort={sort}
-                  filter={filter}
-                  sortProducts={sortProducts}
+                  handleFilterProducts={handleFilterProducts}
+                  handleSortProducts={handleSortProducts}
                 />
               </div>
               <div className='search'>
                 <Search
                   searchQuery={searchQuery}
-                  searchProducts={searchProducts}
+                  handleSearchProducts={handleSearchProducts}
                 />
               </div>
             </div>
