@@ -5,6 +5,7 @@ import Table from './components/Table';
 import Filter from './components/Filter';
 import { Product } from './types/Types';
 import Search from './components/Search';
+import Cart from './components/Cart';
 
 function App() {
   const [products, setProducts] = useState<Product[]>(data.products);
@@ -62,12 +63,18 @@ function App() {
   };
 
   const add = (product: Product) => {
-    // let newCartProducts = [...cartProducts];
-    // for (const cartItem of newCartProducts) {
-    //   if (cartItem.id === product.id) cartItem.count += 1;
-    // }
-    // newCartProducts.push(product);
-    // setCartProducts(newCartProducts);
+    let newCartProducts = [...cartProducts];
+    let inCart = false;
+    for (const cartItem of newCartProducts) {
+      if (cartItem.id === product.id) {
+        cartItem.count += 1;
+        inCart = true;
+      }
+    }
+    if (!inCart) {
+      newCartProducts.push({ ...product, count: 1 });
+    }
+    setCartProducts(newCartProducts);
   };
 
   useEffect(() => {
@@ -103,10 +110,12 @@ function App() {
                 />
               </div>
             </div>
-            <Table products={products} />
+            <Table products={products} add={add} />
           </div>
 
-          <div className='sidebar'>Items</div>
+          <div className='sidebar'>
+            <Cart cartProducts={cartProducts} />
+          </div>
         </div>
       </main>
       <footer>2023</footer>

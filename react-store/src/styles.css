@@ -471,6 +471,47 @@ a:hover {
   background-color: #f9804b;
 }
 
+.filter {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  margin: 1rem;
+  border-bottom: 0.1rem #f1f3f2 solid;
+}
+
+.filter div {
+  flex: 1;
+}
+
+.cart {
+  padding: 1rem;
+  margin: 1rem;
+  display: flex;
+}
+
+.cart-header {
+  border-bottom: 0.1rem solid #f1f3f2;
+}
+
+.cart-products {
+  padding: 0;
+  width: 100%;
+  list-style-type: none;
+}
+.cart-productsimg {
+  width: 5rem;
+}
+.cart-productsli {
+  display: flex;
+}
+.cart-productslidiv {
+  padding: 0.5rem;
+}
+
+.cart-products li div:last-child {
+  flex: 1;
+}
+
 .hidden {
   visibility: hidden;
 }
