@@ -1,0 +1,13 @@
+header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  grid-area: header;
+  background-color: $header-background;
+  color: $header-color
+}
+
+header a {
+  color: $header-color
+}
