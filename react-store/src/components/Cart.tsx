@@ -3,7 +3,7 @@ import { Product } from '../types/Types';
 import { formatMoney } from '../util';
 
 export default function Cart(props: any) {
-  const { cartProducts } = props;
+  const { cartProducts, remove } = props;
   return (
     <>
       <div>
