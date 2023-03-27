@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function Filter(props: any) {
   const { count, type, sortProducts, filter, sort } = props;
   return (

@@ -4,11 +4,14 @@ import { useEffect, useState } from 'react';
 import Table from './components/Table';
 import Filter from './components/Filter';
 import { Product } from './types/Types';
+import Search from './components/Search';
 
 function App() {
-  const [products, setProducts] = useState(data.products);
-  const [sort, setSort] = useState('');
-  const [type, setType] = useState('');
+  const [products, setProducts] = useState<Product[]>(data.products);
+  const [sort, setSort] = useState<string>('');
+  const [type, setType] = useState<string>('');
+  const [cartProducts, setCartProducts] = useState<Product[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const filter = (e: React.ChangeEvent<HTMLInputElement>) => {
     setType(e.target.value);
@@ -16,6 +19,19 @@ function App() {
 
   const sortProducts = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSort(e.target.value);
+  };
+
+  const searchProducts = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const add = (product: Product) => {
+    // let newCartProducts = [...cartProducts];
+    // for (const cartItem of newCartProducts) {
+    //   if (cartItem.id === product.id) cartItem.count += 1;
+    // }
+    // newCartProducts.push(product);
+    // setCartProducts(newCartProducts);
   };
 
   useEffect(() => {
@@ -40,8 +56,17 @@ function App() {
         });
       }
     }
+
+    if (searchQuery) {
+      arr = arr.filter((product) => {
+        return product.itemName
+          .toString()
+          .toLowerCase()
+          .includes(searchQuery.toString().toLowerCase());
+      });
+    }
     setProducts(arr);
-  }, [sort, type]);
+  }, [sort, type, searchQuery]);
 
   return (
     <div className='grid-container'>
@@ -51,13 +76,23 @@ function App() {
       <main>
         <div className='content'>
           <div className='main'>
-            <Filter
-              count={products.length}
-              type={type}
-              sort={sort}
-              filter={filter}
-              sortProducts={sortProducts}
-            />
+            <div className='controls'>
+              <div className='filter-order'>
+                <Filter
+                  count={products.length}
+                  type={type}
+                  sort={sort}
+                  filter={filter}
+                  sortProducts={sortProducts}
+                />
+              </div>
+              <div className='search'>
+                <Search
+                  searchQuery={searchQuery}
+                  searchProducts={searchProducts}
+                />
+              </div>
+            </div>
             <Table products={products} />
           </div>
 

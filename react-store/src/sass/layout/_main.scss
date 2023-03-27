@@ -14,3 +14,8 @@ flex: 3 60rem;
 .sidebar{
 flex: 1 20rem;
 }
+
+.controls {
+display:flex;
+justify-content: space-between;
+}
