@@ -533,6 +533,10 @@ a:hover {
   padding: 1rem;
 }
 
+.message-error {
+  color: red;
+}
+
 .hidden {
   visibility: hidden;
 }
