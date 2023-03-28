@@ -4,8 +4,19 @@ Build with React, Typescript, Sass, Vite, Babel, and other tools
 
 ## Installation
 
-1. clone the repository
-2. npm run install
+1. clone the repository:
+
+```
+git clone git@github.com:dhalavach/FD3-Halavach.git
+```
+
+2. Change the working directory and install dependencies
+
+```
+cd react-store
+npm run dev
+```
+
 3. View dev build:
 
 ```
