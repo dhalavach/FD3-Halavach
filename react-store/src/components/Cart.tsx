@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import { Product } from '../types/Types';
 import { formatMoney } from '../util';
 import CheckoutForm from './CheckoutForm';
 
 export default function Cart(props: any) {
-  const { cartProducts, remove, createOrder } = props;
+  const { cartProducts, remove, createOrder, setCartProducts } = props;
   const [checkoutFormOpen, setCheckoutFormOpen] = useState(false);
+  const [productToRemove, setProductToRemove] = useState<number>();
 
   const order = (orderObj: any) => {
     createOrder({ ...orderObj, products: cartProducts });
   };
+
+  useEffect(() => {
+    setCartProducts(cartProducts);
+  }, [productToRemove]);
 
   return (
     <>
@@ -30,7 +35,12 @@ export default function Cart(props: any) {
               {cartProducts.map((product: Product) => {
                 return (
                   <Fade direction={'left'} triggerOnce={true}>
-                    <li key={product.id}>
+                    <li
+                      key={product.id}
+                      className={`${
+                        product.id == productToRemove ? 'removing' : ''
+                      }`}
+                    >
                       <div>
                         <img
                           src={product.itemImage}
@@ -44,7 +54,13 @@ export default function Cart(props: any) {
                         }`}
                         <button
                           className='cart__button-remove'
-                          onClick={() => remove(product)}
+                          onClick={() => {
+                            setProductToRemove(product.id);
+                            setTimeout(() => {
+                              remove(product);
+                              setProductToRemove(undefined);
+                            }, 1000);
+                          }}
                         >
                           Remove
                         </button>

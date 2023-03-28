@@ -516,6 +516,11 @@ a:hover {
   background: gainsboro;
 }
 
+.removing img {
+  opacity: 0.2;
+  transition: opacity 1000ms;
+}
+
 .form-container {
   width: 100%;
   padding: 0;

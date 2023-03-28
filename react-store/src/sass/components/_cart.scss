@@ -54,3 +54,14 @@
 //     flex: 1;
 //   }
 // }
+
+
+.removing {
+
+  & img {
+    opacity: 0.2;
+    transition: opacity 1000ms;
+
+  }
+
+}

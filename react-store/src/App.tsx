@@ -85,6 +85,7 @@ function App() {
   };
 
   const remove = (product: Product) => {
+    
     let newCartProducts = [...cartProducts].filter(
       (item) => item.id !== product.id
     );
@@ -141,6 +142,7 @@ function App() {
                 cartProducts={cartProducts}
                 remove={remove}
                 createOrder={createOrder}
+                setCartProducts={setCartProducts}
               />
             </div>
           </div>
