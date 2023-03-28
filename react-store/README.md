@@ -14,7 +14,7 @@ git clone git@github.com:dhalavach/FD3-Halavach.git
 
 ```
 cd react-store
-npm run dev
+npm install
 ```
 
 3. View dev build:
