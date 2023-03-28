@@ -1,20 +1,8 @@
 import { Product } from '../types/Types';
 import { formatMoney } from '../util';
-import { Fade, Zoom } from 'react-awesome-reveal';
-import Modal from 'react-modal';
-import { useState } from 'react';
-
+import { Fade } from 'react-awesome-reveal';
 export default function Table(props: any) {
   const { products, add } = props;
-  const [productInModal, setProductInModal] = useState<Product | null>(null);
-
-  const openModal = (product: Product) => {
-    setProductInModal(product);
-  };
-
-  const closeModal = () => {
-    setProductInModal(null);
-  };
   return (
     <div>
       <ul className='products'>
@@ -22,12 +10,7 @@ export default function Table(props: any) {
           return (
             <Fade direction={'up'} triggerOnce={true}>
               <li key={product.id}>
-                <div
-                  className='product'
-                  onClick={() => {
-                    openModal(product);
-                  }}
-                >
+                <div className='product'>
                   <a href={'#' + product.id}>
                     <img
                       src={product.itemImage}
@@ -48,48 +31,6 @@ export default function Table(props: any) {
           );
         })}
       </ul>
-      <div>
-        {productInModal && (
-          <div className="modal__wrapper">
-            <Modal isOpen={true} onRequestClose={closeModal}>
-              <Zoom>
-                <div className='modal__close-wrapper'>
-                  <button className='close-modal' onClick={closeModal}>
-                    x
-                  </button>
-                </div>
-                <div>
-                  <div className='product'>
-                    <div className='modal__image-description-wrapper'>
-                      <div>
-                        <img
-                          src={productInModal.itemImage}
-                          alt={productInModal.itemImageAlt}
-                        ></img>{' '}
-                      </div>
-                      <div className='modal__description'>
-                        <span className='modal__description'>
-                          {productInModal?.itemDescription}
-                        </span>
-                      </div>
-                    </div>
-                    <p>{productInModal.itemName}</p>
-                  </div>
-                  <div className='product-price'>
-                    <div>{formatMoney(productInModal.itemPrice)}</div>
-                    <button
-                      className='btn primary'
-                      onClick={() => add(productInModal)}
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </Zoom>
-            </Modal>
-          </div>
-        )}
-      </div>
     </div>
   );
 }

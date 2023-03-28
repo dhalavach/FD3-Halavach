@@ -1,4 +1,0 @@
-"use strict";
-
-require("./styles.css");
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJyZXF1aXJlIl0sInNvdXJjZXMiOlsiLi4vc3JjL21haW4uZC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgJy4vc3R5bGVzLmNzcyc7XHJcbiJdLCJtYXBwaW5ncyI6Ijs7QUFBQUEsT0FBQSJ9
