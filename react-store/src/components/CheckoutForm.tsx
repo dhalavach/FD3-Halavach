@@ -7,7 +7,12 @@ export default function CheckoutForm(props: any) {
   const [address, setAddress] = useState('');
   const [emailError, setEmailError] = useState('');
   const [nameError, setNameError] = useState('');
-  const [addressErrror, setAddressError] = useState('');
+  const [addressError, setAddressError] = useState('');
+  const [userInputPresent, setUserInputPresent] = useState({
+    email: false,
+    name: false,
+    address: false,
+  });
 
   const validateName = (name: string) => {
     const message =
@@ -41,6 +46,19 @@ export default function CheckoutForm(props: any) {
       setAddressError('');
     else setAddressError(message);
   };
+
+  const validateBeforeSubmit = (): boolean => {
+    if (
+      Object.values(userInputPresent).every((val) => val === true) &&
+      !nameError &&
+      !emailError &&
+      !addressError
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   return (
     <>
       <div className='cart'>CheckoutForm</div>
@@ -56,6 +74,7 @@ export default function CheckoutForm(props: any) {
               onChange={(e) => {
                 setEmail(e.target.value);
                 validateEmail(e.target.value);
+                setUserInputPresent({ ...userInputPresent, email: true });
               }}
             ></input>
             <span className='message-error'>{emailError}</span>
@@ -70,6 +89,7 @@ export default function CheckoutForm(props: any) {
               onChange={(e) => {
                 setName(e.target.value);
                 validateName(e.target.value);
+                setUserInputPresent({ ...userInputPresent, name: true });
               }}
             ></input>
             <span className='message-error'>{nameError}</span>
@@ -84,18 +104,20 @@ export default function CheckoutForm(props: any) {
               onChange={(e) => {
                 setAddress(e.target.value);
                 validateAddress(e.target.value);
+                setUserInputPresent({ ...userInputPresent, address: true });
               }}
             ></input>
-            <span className='message-error'>{addressErrror}</span>
+            <span className='message-error'>{addressError}</span>
           </li>
           <li>
             <button
-              className='btn primary'
+              className={`btn primary ${
+                validateBeforeSubmit() ? '' : 'grey-out'
+              }`}
               type='submit'
               onClick={(e) => {
                 e.preventDefault();
-
-                if (!nameError && !emailError && !addressErrror) {
+                if (validateBeforeSubmit()) {
                   order({
                     name: name,
                     email: email,

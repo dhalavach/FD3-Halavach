@@ -537,6 +537,10 @@ a:hover {
   color: red;
 }
 
+.grey-out {
+  color: #666;
+}
+
 .hidden {
   visibility: hidden;
 }
