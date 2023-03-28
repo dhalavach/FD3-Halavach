@@ -1,0 +1,10 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.formatMoney = formatMoney;
+function formatMoney(num) {
+  return Number(num.toFixed(2)).toLocaleString() + "$ ";
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJmb3JtYXRNb25leSIsIm51bSIsIk51bWJlciIsInRvRml4ZWQiLCJ0b0xvY2FsZVN0cmluZyJdLCJzb3VyY2VzIjpbIi4uL3NyYy91dGlsLnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZnVuY3Rpb24gZm9ybWF0TW9uZXkobnVtOiBudW1iZXIpIHtcclxuICByZXR1cm4gTnVtYmVyKG51bS50b0ZpeGVkKDIpKS50b0xvY2FsZVN0cmluZygpICsgXCIkIFwiO1xyXG59Il0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBTyxTQUFTQSxXQUFXQSxDQUFDQyxHQUFXLEVBQUU7RUFDdkMsT0FBT0MsTUFBTSxDQUFDRCxHQUFHLENBQUNFLE9BQU8sQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDQyxjQUFjLEVBQUUsR0FBRyxJQUFJO0FBQ3ZEIn0=
