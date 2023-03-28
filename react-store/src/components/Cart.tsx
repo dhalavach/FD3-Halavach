@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import { Fade } from 'react-awesome-reveal';
 import { Product } from '../types/Types';
 import { formatMoney } from '../util';
 import CheckoutForm from './CheckoutForm';
 
 export default function Cart(props: any) {
   const { cartProducts, remove, createOrder } = props;
-
   const [checkoutFormOpen, setCheckoutFormOpen] = useState(false);
 
   const order = (orderObj: any) => {
@@ -29,24 +29,28 @@ export default function Cart(props: any) {
             <ul className='cart-products'>
               {cartProducts.map((product: Product) => {
                 return (
-                  <li key={product.id}>
-                    <div>
-                      <img
-                        src={product.itemImage}
-                        alt={product.itemImageAlt}
-                      ></img>
-                    </div>
-                    <div>{product.itemName}</div>
-                    <div className='right'>
-                      {`${formatMoney(product.itemPrice)} x  ${product?.count}`}
-                      <button
-                        className='cart__button-remove'
-                        onClick={() => remove(product)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </li>
+                  <Fade direction={'left'} triggerOnce={true}>
+                    <li key={product.id}>
+                      <div>
+                        <img
+                          src={product.itemImage}
+                          alt={product.itemImageAlt}
+                        ></img>
+                      </div>
+                      <div>{product.itemName}</div>
+                      <div className='right'>
+                        {`${formatMoney(product.itemPrice)} x  ${
+                          product?.count
+                        }`}
+                        <button
+                          className='cart__button-remove'
+                          onClick={() => remove(product)}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </li>
+                  </Fade>
                 );
               })}
             </ul>

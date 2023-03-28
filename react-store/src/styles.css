@@ -551,4 +551,10 @@ body,
   margin: 0;
 }
 
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
 /*# sourceMappingURL=styles.css.map */

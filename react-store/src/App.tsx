@@ -1,6 +1,8 @@
 import './styles.css';
 import data from './mockData.json';
 import { useEffect, useState } from 'react';
+import Fade from 'react-awesome-reveal';
+
 import Table from './components/Table';
 import Filter from './components/Filter';
 import { orderObject, Product } from './types/Types';
@@ -106,43 +108,45 @@ function App() {
   }, [sort, type, searchQuery]);
 
   return (
-    <div className='grid-container'>
-      <header>
-        <a href='/'>Cart</a>
-      </header>
-      <main>
-        <div className='content'>
-          <div className='main'>
-            <div className='controls'>
-              <div className='filter-order'>
-                <Filter
-                  count={products.length}
-                  type={type}
-                  sort={sort}
-                  handleFilterProducts={handleFilterProducts}
-                  handleSortProducts={handleSortProducts}
-                />
+    <div className='wrapper'>
+      <div className='grid-container'>
+        <header>
+          <a href='/'>Cart</a>
+        </header>
+        <main>
+          <div className='content'>
+            <div className='main'>
+              <div className='controls'>
+                <div className='filter-order'>
+                  <Filter
+                    count={products.length}
+                    type={type}
+                    sort={sort}
+                    handleFilterProducts={handleFilterProducts}
+                    handleSortProducts={handleSortProducts}
+                  />
+                </div>
+                <div className='search'>
+                  <Search
+                    searchQuery={searchQuery}
+                    handleSearchProducts={handleSearchProducts}
+                  />
+                </div>
               </div>
-              <div className='search'>
-                <Search
-                  searchQuery={searchQuery}
-                  handleSearchProducts={handleSearchProducts}
-                />
-              </div>
+              <Table products={products} add={add} />
             </div>
-            <Table products={products} add={add} />
-          </div>
 
-          <div className='sidebar'>
-            <Cart
-              cartProducts={cartProducts}
-              remove={remove}
-              createOrder={createOrder}
-            />
+            <div className='sidebar'>
+              <Cart
+                cartProducts={cartProducts}
+                remove={remove}
+                createOrder={createOrder}
+              />
+            </div>
           </div>
-        </div>
-      </main>
-      <footer>2023</footer>
+        </main>
+        <footer>2023</footer>
+      </div>
     </div>
   );
 }
