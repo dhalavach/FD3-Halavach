@@ -1,12 +1,17 @@
 {
   "name": "react-store",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "oldbuild": "tsc && vite build",
+    "build": "npm run build:types && vite build && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel dist --out-dir dist --extensions \".js,.jsx\" --source-maps inline"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -17,11 +22,20 @@
     "sass": "^1.60.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.3",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-typescript": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.21.0",
+    "@types/node": "^18.15.10",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/react-modal": "^3.13.1",
     "@vitejs/plugin-react": "^3.1.0",
     "typescript": "^4.9.3",
-    "vite": "^4.2.0"
+    "vite": "^4.2.0",
+    "vite-plugin-babel": "^1.1.3"
   }
 }
