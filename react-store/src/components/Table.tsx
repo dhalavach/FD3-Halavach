@@ -8,6 +8,8 @@ export default function Table(props: any) {
   const { products, add } = props;
   const [productInModal, setProductInModal] = useState<Product | null>(null);
 
+  
+
   const openModal = (product: Product) => {
     setProductInModal(product);
   };

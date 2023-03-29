@@ -10,7 +10,7 @@ import Search from './components/Search';
 import Cart from './components/Cart';
 
 function App() {
-  const [products, setProducts] = useState<Product[]>(data.products);
+  const [products, setProducts] = useState<Product[]>([]);
   const [sort, setSort] = useState<string>('');
   const [type, setType] = useState<string>('');
   const [cartProducts, setCartProducts] = useState<Product[]>(
@@ -19,6 +19,40 @@ function App() {
       : []
   );
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const fetchError = (error: unknown) => {
+    console.log(error);
+  };
+  const fetchSuccess = (data: any) => {
+    setProducts(data);
+    setDataLoaded(true);
+  };
+
+  const config = {
+    URL: 'http://localhost:3000/products',
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+    },
+  };
+
+  const loadData = async () => {
+    try {
+      const response = await fetch(config.URL, config);
+      if (!response.ok) {
+        throw new Error(`fetch error: ${response.status}`);
+      }
+      const data = await response.json();
+
+      fetchSuccess(data);
+    } catch (error: unknown) {
+      fetchError(error);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   const handleFilterProducts = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -85,7 +119,6 @@ function App() {
   };
 
   const remove = (product: Product) => {
-    
     let newCartProducts = [...cartProducts].filter(
       (item) => item.id !== product.id
     );
@@ -101,7 +134,7 @@ function App() {
   };
 
   useEffect(() => {
-    let arr = [...data.products] as Product[];
+    let arr = [...products];
     if (type) arr = filterProducts(type, arr);
     if (sort) arr = sortProducts(sort, arr);
     if (searchQuery) arr = searchProducts(searchQuery, arr);
@@ -154,3 +187,6 @@ function App() {
 }
 
 export default App;
+function isoFetch(arg0: string) {
+  throw new Error('Function not implemented.');
+}
