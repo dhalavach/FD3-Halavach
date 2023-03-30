@@ -1,4 +1,3 @@
-import isoFetch from 'isomorphic-fetch';
 import React from 'react';
 import { useEffect, useState } from 'react';
 
@@ -16,7 +15,7 @@ const WithDataLoad = (config: any, propName: any) => (Component: any) => {
 
     const loadData = async () => {
       try {
-        const response = await isoFetch(config.URL, config);
+        const response = await fetch(config.URL, config);
         if (!response.ok) {
           throw new Error(`fetch error: ${response.status}`);
         }
@@ -38,8 +37,7 @@ const WithDataLoad = (config: any, propName: any) => (Component: any) => {
       </>
     );
   };
-  const ComponentWithDataLoadMemo = React.memo(ComponentWithDataLoad);
-  return ComponentWithDataLoadMemo;
+  return ComponentWithDataLoad;
 };
 
 export default WithDataLoad;

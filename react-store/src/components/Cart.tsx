@@ -34,9 +34,8 @@ export default function Cart(props: any) {
             <ul className='cart-products'>
               {cartProducts.map((product: Product) => {
                 return (
-                  <Fade direction={'left'} triggerOnce={true}>
+                  <Fade key={product.id} direction={'left'} triggerOnce={true}>
                     <li
-                      key={product.id}
                       className={`${
                         product.id == productToRemove ? 'removing' : ''
                       }`}

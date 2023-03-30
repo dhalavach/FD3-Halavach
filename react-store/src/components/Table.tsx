@@ -8,8 +8,6 @@ export default function Table(props: any) {
   const { products, add } = props;
   const [productInModal, setProductInModal] = useState<Product | null>(null);
 
-  
-
   const openModal = (product: Product) => {
     setProductInModal(product);
   };
@@ -22,8 +20,8 @@ export default function Table(props: any) {
       <ul className='products'>
         {products.map((product: Product) => {
           return (
-            <Fade direction={'up'} triggerOnce={true}>
-              <li key={product.id}>
+            <Fade direction={'up'} triggerOnce={true} key={product.id}>
+              <li>
                 <div
                   className='product'
                   onClick={() => {
@@ -52,7 +50,7 @@ export default function Table(props: any) {
       </ul>
       <div>
         {productInModal && (
-          <div className="modal__wrapper">
+          <div className='modal__wrapper'>
             <Modal isOpen={true} onRequestClose={closeModal}>
               <Zoom>
                 <div className='modal__close-wrapper'>

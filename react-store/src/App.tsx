@@ -2,6 +2,7 @@ import './styles.css';
 import data from './mockData.json';
 import { useEffect, useState } from 'react';
 import Fade from 'react-awesome-reveal';
+import axios from 'axios';
 
 import Table from './components/Table';
 import Filter from './components/Filter';
@@ -20,15 +21,8 @@ function App() {
   );
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [dataLoaded, setDataLoaded] = useState(false);
-  const fetchError = (error: unknown) => {
-    console.log(error);
-  };
-  const fetchSuccess = (data: any) => {
-    setProducts(data);
-    setDataLoaded(true);
-  };
 
-  const config = {
+  const fetchConfig = {
     URL: 'http://localhost:3000/products',
     method: 'GET',
     headers: {
@@ -38,15 +32,11 @@ function App() {
 
   const loadData = async () => {
     try {
-      const response = await fetch(config.URL, config);
-      if (!response.ok) {
-        throw new Error(`fetch error: ${response.status}`);
-      }
-      const data = await response.json();
-
-      fetchSuccess(data);
-    } catch (error: unknown) {
-      fetchError(error);
+      const response = await axios.get(fetchConfig.URL);
+      setProducts(response.data);
+      setDataLoaded(true);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -187,6 +177,4 @@ function App() {
 }
 
 export default App;
-function isoFetch(arg0: string) {
-  throw new Error('Function not implemented.');
-}
+
