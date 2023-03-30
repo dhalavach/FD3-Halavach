@@ -1,4 +1,6 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { Product } from '../types/Types';
 
 export default function CheckoutForm(props: any) {
   const { order } = props;
@@ -13,6 +15,14 @@ export default function CheckoutForm(props: any) {
     name: false,
     address: false,
   });
+
+  const fetchConfig = {
+    URL: 'http://localhost:3000/products',
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+    },
+  };
 
   const validateName = (name: string) => {
     const message =
@@ -52,6 +62,16 @@ export default function CheckoutForm(props: any) {
       return true;
     } else {
       return false;
+    }
+  };
+
+  const postOrder = (data: Product) => {
+    try {
+      axios.post(fetchConfig.URL, data).then((response) => {
+        console.log(response.status, response.data);
+      });
+    } catch (error) {
+      console.error(error);
     }
   };
 

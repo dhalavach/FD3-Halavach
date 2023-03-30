@@ -11,7 +11,7 @@
     "module": "CommonJS",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "jsx": "react-jsx",
     "declaration": true,
     "emitDeclarationOnly": true
