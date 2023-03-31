@@ -87,6 +87,7 @@ export default function CheckoutForm(props: any) {
               type='email'
               required
               value={email}
+              data-testid='checkout__email'
               onChange={(e) => {
                 setEmail(e.target.value);
                 validateEmail(e.target.value);
@@ -102,6 +103,7 @@ export default function CheckoutForm(props: any) {
               type='text'
               required
               value={name}
+              data-testid='checkout__name'
               onChange={(e) => {
                 setName(e.target.value);
                 validateName(e.target.value);
@@ -117,6 +119,7 @@ export default function CheckoutForm(props: any) {
               type='text'
               required
               value={address}
+              data-testid='checkout__address'
               onChange={(e) => {
                 setAddress(e.target.value);
                 validateAddress(e.target.value);
@@ -127,7 +130,7 @@ export default function CheckoutForm(props: any) {
           </li>
           <li>
             <button
-              className={`btn primary ${
+              className={`btn primary btn-submit ${
                 validateBeforeSubmit() ? '' : 'grey-out'
               }`}
               type='submit'
@@ -141,6 +144,7 @@ export default function CheckoutForm(props: any) {
                   });
                 }
               }}
+              data-testid='checkout__submit-button'
             >
               Proceed to checkout
             </button>
