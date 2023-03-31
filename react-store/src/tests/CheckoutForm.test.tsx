@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 
 import CheckoutForm from '../components/CheckoutForm';
 
@@ -45,18 +46,41 @@ test('submit button is greyed-out with invalid input', async () => {
   const email = form.getByTestId('checkout__email');
   const name = form.getByTestId('checkout__name');
   const address = form.getByTestId('checkout__address');
+  const submitButton = form.getByTestId('checkout__submit-button');
 
   await userEvent.type(email, 'asdf');
   await userEvent.type(name, 'J');
   await userEvent.type(address, '3');
 
-  expect(
-    form.getByTestId('checkout__submit-button').classList.contains('grey-out')
-  ).toBe(true);
+  expect(submitButton).toHaveClass('grey-out');
 });
 
 test('submit button renders with correct text', () => {
   const form = render(<CheckoutForm />);
   const submitButton = form.getByTestId('checkout__submit-button');
   expect(submitButton.textContent).toBe('Proceed to checkout');
+});
+
+test('error message is displayed when invalid email is entered', () => {
+  render(<CheckoutForm />);
+  const emailInput = screen.getByTestId('checkout__email');
+  fireEvent.change(emailInput, { target: { value: 'qwerty' } });
+  const errorMessage = screen.getByTestId('checkout__email-error-message');
+  expect(errorMessage).toBeVisible();
+});
+
+test('error message is displayed when invalid name is entered', () => {
+  render(<CheckoutForm />);
+  const nameInput = screen.getByTestId('checkout__name');
+  fireEvent.change(nameInput, { target: { value: 'k' } });
+  const errorMessage = screen.getByTestId('checkout__name-error-message');
+  expect(errorMessage).toBeVisible();
+});
+
+test('error message is displayed when invalid address is entered', () => {
+  render(<CheckoutForm />);
+  const addressInput = screen.getByTestId('checkout__address');
+  fireEvent.change(addressInput, { target: { value: 1 } });
+  const errorMessage = screen.getByTestId('checkout__address-error-message');
+  expect(errorMessage).toBeVisible();
 });

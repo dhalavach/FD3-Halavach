@@ -1,5 +1,4 @@
 import './styles.css';
-import data from './mockData.json';
 import { useEffect, useState } from 'react';
 import Fade from 'react-awesome-reveal';
 import axios from 'axios';
@@ -134,7 +133,8 @@ function App() {
   return (
     <div className='wrapper'>
       <div className='grid-container'>
-        <header>
+        <header className='header'>
+          <h1>Super-Duper Computer Store</h1>
           <a href='/'>Cart</a>
         </header>
         <main>

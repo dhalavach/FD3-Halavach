@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 export default function Table(props: any) {
   const { products, add } = props;
+
   const [productInModal, setProductInModal] = useState<Product | null>(null);
 
   const openModal = (product: Product) => {
@@ -18,12 +19,13 @@ export default function Table(props: any) {
   return (
     <div>
       <ul className='products'>
-        {products.map((product: Product) => {
+        {products?.map((product: Product) => {
           return (
             <Fade direction={'up'} triggerOnce={true} key={product.id}>
               <li>
                 <div
                   className='product'
+                  data-testid='table__product'
                   onClick={() => {
                     openModal(product);
                   }}
@@ -50,11 +52,19 @@ export default function Table(props: any) {
       </ul>
       <div>
         {productInModal && (
-          <div className='modal__wrapper'>
-            <Modal isOpen={true} onRequestClose={closeModal}>
+          <div className='modal__wrapper' data-testid='table__modal'>
+            <Modal
+              isOpen={true}
+              onRequestClose={closeModal}
+              ariaHideApp={false}
+            >
               <Zoom>
                 <div className='modal__close-wrapper'>
-                  <button className='close-modal' onClick={closeModal}>
+                  <button
+                    className='close-modal'
+                    onClick={closeModal}
+                    data-testid='table__modal-close'
+                  >
                     x
                   </button>
                 </div>

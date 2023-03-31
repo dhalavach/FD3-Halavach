@@ -94,7 +94,12 @@ export default function CheckoutForm(props: any) {
                 setUserInputPresent({ ...userInputPresent, email: true });
               }}
             ></input>
-            <span className='message-error'>{emailError}</span>
+            <span
+              className='message-error'
+              data-testid='checkout__email-error-message'
+            >
+              {emailError}
+            </span>
           </li>
           <li>
             <label>First and last name</label>
@@ -110,7 +115,12 @@ export default function CheckoutForm(props: any) {
                 setUserInputPresent({ ...userInputPresent, name: true });
               }}
             ></input>
-            <span className='message-error'>{nameError}</span>
+            <span
+              className='message-error'
+              data-testid='checkout__name-error-message'
+            >
+              {nameError}
+            </span>
           </li>
           <li>
             <label>Delivery address</label>
@@ -126,7 +136,12 @@ export default function CheckoutForm(props: any) {
                 setUserInputPresent({ ...userInputPresent, address: true });
               }}
             ></input>
-            <span className='message-error'>{addressError}</span>
+            <span
+              className='message-error'
+              data-testid='checkout__address-error-message'
+            >
+              {addressError}
+            </span>
           </li>
           <li>
             <button

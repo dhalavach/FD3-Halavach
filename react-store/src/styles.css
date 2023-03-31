@@ -409,6 +409,11 @@ a:hover {
   color: #E47209;
 }
 
+.header {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .products {
   display: flex;
   justify-content: center;
