@@ -1,54 +1,4 @@
-{
-  "products": [
-    {
-      "id": 1,
-      "className": "Item",
-      "itemType": "motherboard",
-      "itemName": "ASUS ROG STRIX B550-I GAMING",
-      "itemPrice": 730,
-      "itemImage": "/assets/images/asusb550i.jpg",
-      "itemImageURL": "https://uni.by/files/ItemsImages/116378_r300.jpg",
-      "itemImageAlt": "ASUS B550-I",
-      "itemQuantity": 2,
-      "itemDescription": ""
-    },
-    {
-      "id": 2,
-      "className": "Item",
-      "itemType": "motherboard",
-      "itemName": "ASUS PRIME Z790-P D4",
-      "itemPrice": 820,
-      "itemImage": "/assets/images/asusz790.jpg",
-      "itemImageURL": "https://uni.by/files/ItemsImages/135354_r300.jpg",
-      "itemImageAlt": "Asus Z790 Prime",
-      "itemQuantity": 1,
-      "itemDescription": ""
-    },
-    {
-      "id": 3,
-      "className": "Item",
-      "itemType": "motherboard",
-      "itemName": "MSI MPG B650 Edge WiFi",
-      "itemPrice": 1095,
-      "itemImage": "/assets/images/msib650.jpg",
-      "itemImageURL": "https://uni.by/files/ItemsImages/137010_r300.jpg",
-      "itemImageAlt": "MSI B650 Edge",
-      "itemQuantity": 0,
-      "itemDescription": ""
-    },
-    {
-      "id": 4,
-      "className": "Item",
-      "itemType": "CPU",
-      "itemName": "Ryzen 5800X3D",
-      "itemPrice": 1200,
-      "itemImage": "/assets/images/ryzen5800x3d.jpg",
-      "itemImageURL": "https://uni.by/files/ItemsImages/137010_r300.jpg",
-      "itemImageAlt": "Ryzen 5800X3D",
-      "itemQuantity": 1,
-      "itemDescription": "The AMD Ryzen™ 7 5800X3D is the first desktop processor with stacked L3 cache, delivering unmatched 96MB of L3 cache paired with incredibly fast cores to create the world’s fastest gaming desktop processor."
-    },
-    {"id":10,"className":"Item","itemType":"GPU","itemName":"IxzyccEl","itemPrice":"381","itemImage":"/assets/images/noImage.jpg","itemImageURL":null,"itemImageAlt":null,"itemQuantity":"4","itemDescription":"vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros"},
+[{"id":10,"className":"Item","itemType":"GPU","itemName":"IxzyccEl","itemPrice":"381","itemImage":"/assets/images/noImage.jpg","itemImageURL":null,"itemImageAlt":null,"itemQuantity":"4","itemDescription":"vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros"},
 {"id":11,"className":"Item","itemType":"PSU","itemName":"Cxdidazd","itemPrice":"166","itemImage":"/assets/images/noImage.jpg","itemImageURL":null,"itemImageAlt":null,"itemQuantity":"3","itemDescription":"cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum"},
 {"id":12,"className":"Item","itemType":"GPU","itemName":"Mwftxusq","itemPrice":"879","itemImage":"/assets/images/noImage.jpg","itemImageURL":null,"itemImageAlt":null,"itemQuantity":"1","itemDescription":"curae duis faucibus accumsan odio curabitur convallis duis consequat dui nec nisi"},
 {"id":13,"className":"Item","itemType":"motherboard","itemName":"DzdvniZt","itemPrice":"572","itemImage":"/assets/images/noImage.jpg","itemImageURL":null,"itemImageAlt":null,"itemQuantity":"1","itemDescription":"donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis"},
@@ -1047,7 +997,4 @@
 {"id":1006,"className":"Item","itemType":"PSU","itemName":"Jihwdwmy","itemPrice":"450","itemImage":"/assets/images/noImage.jpg","itemImageURL":null,"itemImageAlt":null,"itemQuantity":"1","itemDescription":"nulla tellus in sagittis dui vel nisl duis ac nibh fusce lacus purus aliquet"},
 {"id":1007,"className":"Item","itemType":"PSU","itemName":"Uhtwih7b","itemPrice":"644","itemImage":"/assets/images/noImage.jpg","itemImageURL":null,"itemImageAlt":null,"itemQuantity":"0","itemDescription":"risus dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero"},
 {"id":1008,"className":"Item","itemType":"GPU","itemName":"Bkhfli3b","itemPrice":"443","itemImage":"/assets/images/noImage.jpg","itemImageURL":null,"itemImageAlt":null,"itemQuantity":"7","itemDescription":"odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis"},
-{"id":1009,"className":"Item","itemType":"GPU","itemName":"Djxfsj9o","itemPrice":"887","itemImage":"/assets/images/noImage.jpg","itemImageURL":null,"itemImageAlt":null,"itemQuantity":"7","itemDescription":"maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum"}
-    
-  ]
-}
+{"id":1009,"className":"Item","itemType":"GPU","itemName":"Djxfsj9o","itemPrice":"887","itemImage":"/assets/images/noImage.jpg","itemImageURL":null,"itemImageAlt":null,"itemQuantity":"7","itemDescription":"maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum"}]

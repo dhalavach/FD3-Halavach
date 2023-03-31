@@ -11,6 +11,7 @@ import Cart from './components/Cart';
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [sort, setSort] = useState<string>('');
   const [type, setType] = useState<string>('');
   const [cartProducts, setCartProducts] = useState<Product[]>(
@@ -33,6 +34,7 @@ function App() {
     try {
       const response = await axios.get(fetchConfig.URL);
       setProducts(response.data);
+      setAllProducts(response.data);
       setDataLoaded(true);
     } catch (error) {
       console.error(error);
@@ -123,7 +125,7 @@ function App() {
   };
 
   useEffect(() => {
-    let arr = [...products];
+    let arr = [...allProducts];
     if (type) arr = filterProducts(type, arr);
     if (sort) arr = sortProducts(sort, arr);
     if (searchQuery) arr = searchProducts(searchQuery, arr);
