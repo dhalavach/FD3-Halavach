@@ -1,5 +1,10 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { setType } from '../slices/typeSlice';
+
 export default function Filter(props: any) {
-  const { type, handleSortProducts, handleFilterProducts, sort } = props;
+  const dispatch = useDispatch();
+  const { handleSortProducts, handleFilterProducts, sort } = props;
+  let type = useSelector((state: any) => state?.type);
   return (
     <div>
       <div className='filter-sort'>
@@ -15,7 +20,10 @@ export default function Filter(props: any) {
 
       <div className='filter-type'>
         Filter
-        <select value={type} onChange={handleFilterProducts}>
+        <select
+          value={type}
+          onChange={(e) => dispatch(setType(e.target.value))}
+        >
           <option value=''>All</option>
           <option value='motherboard'>Motherboard</option>
           <option value='CPU'>CPU</option>

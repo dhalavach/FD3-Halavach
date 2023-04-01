@@ -353,7 +353,7 @@ button {
 }
 
 .sidebar {
-  display: flex;
+  display: block;
 }
 
 .app__heading-desktop {

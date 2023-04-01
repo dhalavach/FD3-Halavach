@@ -9,7 +9,10 @@ import { orderObject, Product } from './types/Types';
 import Search from './components/Search';
 import Cart from './components/Cart';
 import { Link, useSearchParams } from 'react-router-dom';
-import useSearchParamsState from './components/hooks/useSearchParamsState';
+import useSearchParamsState from './hooks/useSearchParamsState';
+
+import { useSelector, useDispatch } from 'react-redux';
+
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -25,7 +28,8 @@ function App() {
     searchQuery: '',
     sort: '',
   });
-  const [type, setType] = useSearchParamsState('type', '');
+  const type = useSelector((state: any) => state.type)
+  // const [type, setType] = useSearchParamsState('type', '');
   const [searchQuery, setSearchQuery] = useSearchParamsState('searchQuery', '');
   const [sort, setSort] = useSearchParamsState('sort', '');
 
@@ -72,16 +76,9 @@ function App() {
   }, []);
 
   //filtering
-  const handleFilterProducts = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setType(e.target.value);
-  };
 
-  const filterProducts = (type: string, arr: Product[]): Product[] => {
-    arr = arr.filter((product) => product.itemType.includes(type));
-    return arr;
-  };
+
+
 
   //sorting
   const handleSortProducts = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -206,7 +203,6 @@ function App() {
                   <Filter
                     type={type}
                     sort={sort}
-                    handleFilterProducts={handleFilterProducts}
                     handleSortProducts={handleSortProducts}
                   />
                 </div>
@@ -222,7 +218,7 @@ function App() {
                   searchParams.get('sort') as string,
                   products.filter(
                     (p) =>
-                      p.itemType.includes(searchParams.get('type') as string) &&
+                      p.itemType.includes(type) &&
                       p.itemName
                         .toLowerCase()
                         .includes(
