@@ -16,7 +16,7 @@ export default function Filter(props: any) {
       <div className='filter-type'>
         Filter
         <select value={type} onChange={handleFilterProducts}>
-          <option value='all'>All</option>
+          <option value=''>All</option>
           <option value='motherboard'>Motherboard</option>
           <option value='CPU'>CPU</option>
           <option value='GPU'>GPU</option>

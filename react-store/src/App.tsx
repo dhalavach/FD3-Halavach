@@ -8,19 +8,26 @@ import Filter from './components/Filter';
 import { orderObject, Product } from './types/Types';
 import Search from './components/Search';
 import Cart from './components/Cart';
+import { Link, useSearchParams } from 'react-router-dom';
+import useSearchParamsState from './components/hooks/useSearchParamsState';
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const [sort, setSort] = useState<string>('');
-  const [type, setType] = useState<string>('');
   const [cartProducts, setCartProducts] = useState<Product[]>(
     localStorage.getItem('cartProducts')
       ? JSON.parse(localStorage.getItem('cartProducts') as string)
       : []
   );
-  const [searchQuery, setSearchQuery] = useState<string>('');
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams({
+    type: '',
+    searchQuery: '',
+    sort: '',
+  });
+  const [type, setType] = useSearchParamsState('type', '');
+  const [searchQuery, setSearchQuery] = useSearchParamsState('searchQuery', '');
+  const [sort, setSort] = useSearchParamsState('sort', '');
 
   const fetchConfig = {
     URL: 'http://localhost:3000/products',
@@ -49,10 +56,11 @@ function App() {
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setType(e.target.value);
+    // searchParams.set('type': e.target.value );
+    // setSearchParams({ type: e.target.value });
   };
   const filterProducts = (type: string, arr: Product[]): Product[] => {
-    if (type !== 'all')
-      arr = arr.filter((product) => product.itemType === type);
+    arr = arr.filter((product) => product.itemType.includes(type));
     return arr;
   };
 
@@ -81,6 +89,7 @@ function App() {
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setSearchQuery(e.target.value);
+    // setSearchParams({ search: e.target.value });
   };
 
   const searchProducts = (searchQuery: string, arr: Product[]): Product[] => {
@@ -124,20 +133,21 @@ function App() {
     console.log(order);
   };
 
-  useEffect(() => {
-    let arr = [...allProducts];
-    if (type) arr = filterProducts(type, arr);
-    if (sort) arr = sortProducts(sort, arr);
-    if (searchQuery) arr = searchProducts(searchQuery, arr);
-    setProducts(arr);
-  }, [sort, type, searchQuery]);
+  // useEffect(() => {
+  //   let arr = [...allProducts];
+  //   if (type) arr = filterProducts(type, arr);
+  //   if (sort) arr = sortProducts(sort, arr);
+  //   if (searchQuery) arr = searchProducts(searchQuery, arr);
+  //   setProducts(arr);
+  // }, [type, searchQuery, sort]);
 
   return (
     <div className='wrapper'>
       <div className='grid-container'>
         <header className='header'>
+          <Link to={'/about'}>About</Link>
           <h1>Super-Duper Computer Store</h1>
-          <a href='/'>Cart</a>
+          <Link to={'/cart'}>Cart</Link>
         </header>
         <main>
           <div className='content'>
@@ -159,7 +169,20 @@ function App() {
                   />
                 </div>
               </div>
-              <Table products={products} add={add} />
+              <Table
+                products={products.filter(
+                  (p) =>
+                    p.itemType.includes(searchParams.get('type') as string) &&
+                    p.itemName
+                      .toLowerCase()
+                      .includes(
+                        (
+                          searchParams.get('searchQuery') as string
+                        ).toLowerCase()
+                      )
+                )}
+                add={add}
+              />
             </div>
 
             <div className='sidebar'>
