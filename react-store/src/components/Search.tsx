@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { setSearchQuery } from '../slices/searchQuerySlice';
 
-export default function Search(props: any) {
+export default function Search() {
   const dispatch = useDispatch();
   let searchQuery = useSelector((state: any) => state?.searchQuery)
   return (

@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setType } from '../slices/typeSlice';
 import { setSort } from '../slices/sortSlice';
 
-export default function Filter(props: any) {
+export default function Filter() {
   const dispatch = useDispatch();
   let type = useSelector((state: any) => state?.type);
   let sort = useSelector((state: any) => state?.sort);

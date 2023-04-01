@@ -102,9 +102,7 @@ function App() {
   //filtering
 
   //sorting
-  const handleSortProducts = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setSort(e.target.value);
-  };
+
   const sortProducts = (sort: string, arr: Product[]): Product[] => {
     if (sort === 'ascending') {
       arr = arr.sort((a, b) => a.itemPrice - b.itemPrice);
@@ -124,11 +122,6 @@ function App() {
   };
 
   //search
-  const handleSearchProducts = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setSearchQuery(e.target.value);
-  };
 
   const searchProducts = (searchQuery: string, arr: Product[]): Product[] => {
     arr = arr.filter((product: Product) => {
@@ -221,17 +214,10 @@ function App() {
             <div className='main'>
               <div className='controls'>
                 <div className='filter-order'>
-                  <Filter
-                    type={type}
-                    sort={sort}
-                    handleSortProducts={handleSortProducts}
-                  />
+                  <Filter />
                 </div>
                 <div className='search'>
-                  <Search
-                    searchQuery={searchQuery}
-                    handleSearchProducts={handleSearchProducts}
-                  />
+                  <Search />
                 </div>
               </div>
               <Table
@@ -239,8 +225,10 @@ function App() {
                   sort,
                   products.filter(
                     (p) =>
-                      p.itemType.includes(type) &&
-                      p.itemName.includes(searchQuery)
+                      p.itemType.toLowerCase().includes(type?.toLowerCase()) &&
+                      p.itemName
+                        .toLowerCase()
+                        .includes(searchQuery?.toLowerCase())
                   )
                 )}
                 add={add}
