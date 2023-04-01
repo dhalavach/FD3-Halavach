@@ -13,6 +13,8 @@ import useSearchParamsState from './hooks/useSearchParamsState';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setType } from './slices/typeSlice';
+import { setSearchQuery } from './slices/searchQuerySlice';
+import { setSort } from './slices/sortSlice';
 
 function App() {
   const dispatch = useDispatch();
@@ -23,20 +25,22 @@ function App() {
       ? JSON.parse(localStorage.getItem('cartProducts') as string)
       : []
   );
-  const type = useSelector((state: any) => state.type);
+  let type = useSelector((state: any) => state?.type);
+  let searchQuery = useSelector((state: any) => state?.searchQuery);
+  let sort = useSelector((state: any) => state?.sort);
 
   const [dataLoaded, setDataLoaded] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams({
-    filterByType: '',
-    searchQuery: '',
-    sort: '',
+    filterParam: '',
+    searchQueryParam: '',
+    sortParam: '',
   });
-  const [filterByType, setFilterByType] = useSearchParamsState(
-    'filterByType',
+  const [filterParam, setFilterParam] = useSearchParamsState('filterParam', '');
+  const [searchQueryParam, setSearchQueryParam] = useSearchParamsState(
+    'searchQueryParam',
     ''
   );
-  const [searchQuery, setSearchQuery] = useSearchParamsState('searchQuery', '');
-  const [sort, setSort] = useSearchParamsState('sort', '');
+  const [sortParam, setSortParam] = useSearchParamsState('sortParam', '');
 
   // load data
   const fetchConfig = {
@@ -60,12 +64,22 @@ function App() {
 
   useEffect(() => {
     loadData();
-    dispatch(setType(searchParams.get('filterByType')));
+    dispatch(setType(searchParams.get('filterParam')));
+    dispatch(setSearchQuery(searchParams.get('searchQueryParam')));
+    dispatch(setSort(searchParams.get('sortParam')));
   }, []);
 
   useEffect(() => {
-    setFilterByType(type);
+    setFilterParam(type);
   }, [type]);
+
+  useEffect(() => {
+    setSearchQueryParam(searchQuery);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    setSortParam(sort);
+  }, [sort]);
 
   //adaptive
   const TABLETWIDTH = 768;
@@ -222,17 +236,11 @@ function App() {
               </div>
               <Table
                 products={sortProducts(
-                  searchParams.get('sort') as string,
+                  sort,
                   products.filter(
                     (p) =>
                       p.itemType.includes(type) &&
-                      p.itemName
-                        .toLowerCase()
-                        .includes(
-                          (
-                            searchParams.get('searchQuery') as string
-                          ).toLowerCase()
-                        )
+                      p.itemName.includes(searchQuery)
                   )
                 )}
                 add={add}

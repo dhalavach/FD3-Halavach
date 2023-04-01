@@ -1,14 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 // import selectedClientSliceReducer from './selectedClientSlice';
 import typeReducer from '../slices/typeSlice';
+import searchQueryReducer from '../slices/searchQuerySlice';
+import sortReducer from '../slices/sortSlice';
 
 export default configureStore({
   reducer: {
     type: typeReducer,
-    // selectedClient: selectedClientSliceReducer,
-    // clients: setClientsReducer,
-    // displayedClients: setDisplayedClientsReducer,
-    // editFormOpen: setEditFormOpenReducer,
-    // addFormOpen: setAddFormOpenReducer,
+    searchQuery: searchQueryReducer,
+    sort: sortReducer,
   },
 });

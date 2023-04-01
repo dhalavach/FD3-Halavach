@@ -1,7 +1,11 @@
 import React, { FunctionComponent } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { setSearchQuery } from '../slices/searchQuerySlice';
 
 export default function Search(props: any) {
-  const { searchQuery, handleSearchProducts } = props;
+  const dispatch = useDispatch();
+  let searchQuery = useSelector((state: any) => state?.searchQuery)
   return (
     <div>
       Search{' '}
@@ -11,7 +15,7 @@ export default function Search(props: any) {
         type='search'
         placeholder='search products'
         value={searchQuery}
-        onChange={handleSearchProducts}
+        onChange={(e) => dispatch(setSearchQuery(e.target.value))}
       />
     </div>
   );

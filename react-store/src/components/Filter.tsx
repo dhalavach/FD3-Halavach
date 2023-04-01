@@ -1,15 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setType } from '../slices/typeSlice';
+import { setSort } from '../slices/sortSlice';
 
 export default function Filter(props: any) {
   const dispatch = useDispatch();
-  const { handleSortProducts, handleFilterProducts, sort } = props;
   let type = useSelector((state: any) => state?.type);
+  let sort = useSelector((state: any) => state?.sort);
+
   return (
     <div>
       <div className='filter-sort'>
         Order{' '}
-        <select value={sort} onChange={handleSortProducts}>
+        <select
+          value={sort}
+          onChange={(e) => dispatch(setSort(e.target.value))}
+        >
           <option value=''></option>
           <option value='az'>A-Z</option>
           <option value='za'>Z-A</option>
