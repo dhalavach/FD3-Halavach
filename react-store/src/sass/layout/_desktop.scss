@@ -1,10 +1,16 @@
-@media screen and (max-width: $desktop-width) {
+.sidebar {
+  display: flex;
 
+}
 
+.app__heading-desktop {
+  font-size: 2rem;
+}
 
+.app__link-about-desktop {
+  font-size: 1.5rem;
+}
 
-  .sidebar {
-    display: hidden;
-
-  }
+.app__link-cart-desktop {
+  font-size: 1.5rem;
 }

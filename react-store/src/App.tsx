@@ -29,6 +29,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useSearchParamsState('searchQuery', '');
   const [sort, setSort] = useSearchParamsState('sort', '');
 
+  // load data
   const fetchConfig = {
     URL: 'http://localhost:3000/products',
     method: 'GET',
@@ -52,18 +53,37 @@ function App() {
     loadData();
   }, []);
 
+  //adaptive
+  const TABLETWIDTH = 768;
+  const [matches, setMatches] = useState(
+    window.matchMedia(`(min-width: ${TABLETWIDTH}px)`).matches
+  );
+
+  useEffect(() => {
+    function set(e: any): any {
+      setMatches(e.matches);
+    }
+    window
+      .matchMedia(`(min-width: ${TABLETWIDTH}px)`)
+      .addEventListener('change', set);
+    return function cleanup() {
+      window.removeEventListener('change', set);
+    };
+  }, []);
+
+  //filtering
   const handleFilterProducts = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setType(e.target.value);
-    // searchParams.set('type': e.target.value );
-    // setSearchParams({ type: e.target.value });
   };
+
   const filterProducts = (type: string, arr: Product[]): Product[] => {
     arr = arr.filter((product) => product.itemType.includes(type));
     return arr;
   };
 
+  //sorting
   const handleSortProducts = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSort(e.target.value);
   };
@@ -85,11 +105,11 @@ function App() {
     return arr;
   };
 
+  //search
   const handleSearchProducts = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     setSearchQuery(e.target.value);
-    // setSearchParams({ search: e.target.value });
   };
 
   const searchProducts = (searchQuery: string, arr: Product[]): Product[] => {
@@ -102,6 +122,7 @@ function App() {
     return arr;
   };
 
+  //add
   const add = (product: Product) => {
     let newCartProducts = [...cartProducts];
     let inCart = false;
@@ -118,6 +139,7 @@ function App() {
     localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
   };
 
+  //remove
   const remove = (product: Product) => {
     let newCartProducts = [...cartProducts].filter(
       (item) => item.id !== product.id
@@ -126,6 +148,7 @@ function App() {
     localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
   };
 
+  //create order
   const createOrder = (order: orderObject) => {
     alert(
       `saving order for ${order.name.toString()} - to be implemented later...`
@@ -151,9 +174,29 @@ function App() {
     <div className='wrapper'>
       <div className='grid-container'>
         <header className='header'>
-          <Link to={'/about'}>About</Link>
-          <h1>Super-Duper Computer Store</h1>
-          <Link to={'/cart'}>Cart</Link>
+          <Link
+            to={'/about'}
+            className={`${
+              matches ? 'app__link-about-desktop' : 'app__link-about-tablet'
+            }`}
+          >
+            About
+          </Link>
+          <div
+            className={`${
+              matches ? 'app__heading-desktop' : 'app__heading-tablet'
+            }`}
+          >
+            <h1>Computer Store</h1>
+          </div>
+          <Link
+            to={'/cart'}
+            className={`${
+              matches ? 'app__link-cart-desktop' : 'app__link-cart-tablet'
+            }`}
+          >
+            Cart
+          </Link>
         </header>
         <main>
           <div className='content'>
@@ -193,7 +236,7 @@ function App() {
               />
             </div>
 
-            <div className='sidebar'>
+            <div className={`sidebar ${matches ? '' : 'hidden'}`}>
               <Cart
                 cartProducts={cartProducts}
                 remove={remove}

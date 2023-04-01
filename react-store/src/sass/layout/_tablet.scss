@@ -1,14 +1,18 @@
 // Tablet
 
-@media screen and (max-width: $tablet-width) {
 
+.sidebar {
+  display: hidden;
+}
 
+.app__heading-tablet {
+  font-size: 1rem;
+}
 
+.app__link-about-tablet {
+  font-size: 1rem;
+}
 
-  .sidebar {
-    display: hidden;
-
-
-
-  }
+.app__link-cart-tablet {
+  font-size: 1rem;
 }

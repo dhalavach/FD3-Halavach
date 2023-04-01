@@ -352,16 +352,38 @@ button {
   font-size: 1.6rem;
 }
 
-@media screen and (max-width: 1200px) {
-  .sidebar {
-    display: hidden;
-  }
+.sidebar {
+  display: flex;
 }
-@media screen and (max-width: 640px) {
-  .sidebar {
-    display: hidden;
-  }
+
+.app__heading-desktop {
+  font-size: 2rem;
 }
+
+.app__link-about-desktop {
+  font-size: 1.5rem;
+}
+
+.app__link-cart-desktop {
+  font-size: 1.5rem;
+}
+
+.sidebar {
+  display: hidden;
+}
+
+.app__heading-tablet {
+  font-size: 1rem;
+}
+
+.app__link-about-tablet {
+  font-size: 1rem;
+}
+
+.app__link-cart-tablet {
+  font-size: 1rem;
+}
+
 .grid-container {
   display: grid;
   grid-template-areas: "header" "main" "footer";
@@ -582,7 +604,7 @@ a:hover {
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 
 body,
