@@ -12,9 +12,10 @@ import { Link, useSearchParams } from 'react-router-dom';
 import useSearchParamsState from './hooks/useSearchParamsState';
 
 import { useSelector, useDispatch } from 'react-redux';
-
+import { setType } from './slices/typeSlice';
 
 function App() {
+  const dispatch = useDispatch();
   const [products, setProducts] = useState<Product[]>([]);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [cartProducts, setCartProducts] = useState<Product[]>(
@@ -22,14 +23,18 @@ function App() {
       ? JSON.parse(localStorage.getItem('cartProducts') as string)
       : []
   );
+  const type = useSelector((state: any) => state.type);
+
   const [dataLoaded, setDataLoaded] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams({
-    type: '',
+    filterByType: '',
     searchQuery: '',
     sort: '',
   });
-  const type = useSelector((state: any) => state.type)
-  // const [type, setType] = useSearchParamsState('type', '');
+  const [filterByType, setFilterByType] = useSearchParamsState(
+    'filterByType',
+    ''
+  );
   const [searchQuery, setSearchQuery] = useSearchParamsState('searchQuery', '');
   const [sort, setSort] = useSearchParamsState('sort', '');
 
@@ -55,7 +60,12 @@ function App() {
 
   useEffect(() => {
     loadData();
+    dispatch(setType(searchParams.get('filterByType')));
   }, []);
+
+  useEffect(() => {
+    setFilterByType(type);
+  }, [type]);
 
   //adaptive
   const TABLETWIDTH = 768;
@@ -76,9 +86,6 @@ function App() {
   }, []);
 
   //filtering
-
-
-
 
   //sorting
   const handleSortProducts = (e: React.ChangeEvent<HTMLInputElement>): void => {
