@@ -3,13 +3,24 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
 import CheckoutForm from '../components/CheckoutForm';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 test('Renders the component', () => {
-  expect(render(<CheckoutForm />)).toBeTruthy();
+  expect(
+    render(
+      <Router>
+        <CheckoutForm />
+      </Router>
+    )
+  ).toBeTruthy();
 });
 
 test('submit button is greyed-out on load', () => {
-  const form = render(<CheckoutForm />);
+  const form = render(
+    <Router>
+      <CheckoutForm />
+    </Router>
+  );
 
   expect(
     form.getByTestId('checkout__submit-button').classList.contains('grey-out')
@@ -17,7 +28,11 @@ test('submit button is greyed-out on load', () => {
 });
 
 test('submit button is greyed-out with invalid email', () => {
-  const form = render(<CheckoutForm />);
+  const form = render(
+    <Router>
+      <CheckoutForm />
+    </Router>
+  );
 
   userEvent.type(form.getByTestId('checkout__email'), 'a');
 
@@ -27,7 +42,11 @@ test('submit button is greyed-out with invalid email', () => {
 });
 
 test('submit button is not greyed-out with valid input', async () => {
-  const form = render(<CheckoutForm />);
+  const form = render(
+    <Router>
+      <CheckoutForm />
+    </Router>
+  );
   const email = form.getByTestId('checkout__email');
   const name = form.getByTestId('checkout__name');
   const address = form.getByTestId('checkout__address');
@@ -42,7 +61,11 @@ test('submit button is not greyed-out with valid input', async () => {
 });
 
 test('submit button is greyed-out with invalid input', async () => {
-  const form = render(<CheckoutForm />);
+  const form = render(
+    <Router>
+      <CheckoutForm />
+    </Router>
+  );
   const email = form.getByTestId('checkout__email');
   const name = form.getByTestId('checkout__name');
   const address = form.getByTestId('checkout__address');
@@ -56,13 +79,21 @@ test('submit button is greyed-out with invalid input', async () => {
 });
 
 test('submit button renders with correct text', () => {
-  const form = render(<CheckoutForm />);
+  const form = render(
+    <Router>
+      <CheckoutForm />
+    </Router>
+  );
   const submitButton = form.getByTestId('checkout__submit-button');
   expect(submitButton.textContent).toBe('Proceed to checkout');
 });
 
 test('error message is displayed when invalid email is entered', () => {
-  render(<CheckoutForm />);
+  render(
+    <Router>
+      <CheckoutForm />
+    </Router>
+  );
   const emailInput = screen.getByTestId('checkout__email');
   fireEvent.change(emailInput, { target: { value: 'qwerty' } });
   const errorMessage = screen.getByTestId('checkout__email-error-message');
@@ -70,7 +101,11 @@ test('error message is displayed when invalid email is entered', () => {
 });
 
 test('error message is displayed when invalid name is entered', () => {
-  render(<CheckoutForm />);
+  render(
+    <Router>
+      <CheckoutForm />
+    </Router>
+  );
   const nameInput = screen.getByTestId('checkout__name');
   fireEvent.change(nameInput, { target: { value: 'k' } });
   const errorMessage = screen.getByTestId('checkout__name-error-message');
@@ -78,7 +113,11 @@ test('error message is displayed when invalid name is entered', () => {
 });
 
 test('error message is displayed when invalid address is entered', () => {
-  render(<CheckoutForm />);
+  render(
+    <Router>
+      <CheckoutForm />
+    </Router>
+  );
   const addressInput = screen.getByTestId('checkout__address');
   fireEvent.change(addressInput, { target: { value: 1 } });
   const errorMessage = screen.getByTestId('checkout__address-error-message');

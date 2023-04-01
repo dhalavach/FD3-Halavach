@@ -161,7 +161,6 @@ function App() {
               <div className='controls'>
                 <div className='filter-order'>
                   <Filter
-                    count={products.length}
                     type={type}
                     sort={sort}
                     handleFilterProducts={handleFilterProducts}

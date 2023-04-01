@@ -352,6 +352,16 @@ button {
   font-size: 1.6rem;
 }
 
+@media screen and (max-width: 1200px) {
+  .sidebar {
+    display: hidden;
+  }
+}
+@media screen and (max-width: 640px) {
+  .sidebar {
+    display: hidden;
+  }
+}
 .grid-container {
   display: grid;
   grid-template-areas: "header" "main" "footer";

@@ -21,32 +21,27 @@ export default function Table(props: any) {
       <ul className='products'>
         {products?.map((product: Product) => {
           return (
-            <Fade direction={'up'} triggerOnce={true} key={product.id}>
-              <li>
-                <div
-                  className='product'
-                  data-testid='table__product'
-                  onClick={() => {
-                    openModal(product);
-                  }}
-                >
-                  <a href={'#' + product.id}>
-                    <img
-                      src={product.itemImage}
-                      alt={product.itemImageAlt}
-                    ></img>
-                    <p>{product.itemName}</p>
-                  </a>
-                </div>
+            <li>
+              <div
+                className='product'
+                data-testid='table__product'
+                onClick={() => {
+                  openModal(product);
+                }}
+              >
+                <a href={'#' + product.id}>
+                  <img src={product.itemImage} alt={product.itemImageAlt}></img>
+                  <p>{product.itemName}</p>
+                </a>
+              </div>
 
-                <div className='product-price'>
-                  <div>{formatMoney(product.itemPrice)}</div>
-                  <button className='btn primary' onClick={() => add(product)}>
-                    Add to Cart
-                  </button>
-                </div>
-              </li>
-            </Fade>
+              <div className='product-price'>
+                <div>{formatMoney(product.itemPrice)}</div>
+                <button className='btn primary' onClick={() => add(product)}>
+                  Add to Cart
+                </button>
+              </div>
+            </li>
           );
         })}
       </ul>

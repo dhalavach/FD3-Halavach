@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import data from './mocks/mockData.json';
 import '@testing-library/jest-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 beforeEach(() => {
   const mockIntersectionObserver = jest.fn();
@@ -15,27 +16,51 @@ beforeEach(() => {
 });
 
 test('renders table with props', () => {
-  expect(render(<Table products={data.products} />)).toBeTruthy();
+  expect(
+    render(
+      <Router>
+        <Table products={data.products} />
+      </Router>
+    )
+  ).toBeTruthy();
 });
 
 test('renders table without props', () => {
-  expect(render(<Table />)).toBeTruthy();
+  expect(
+    render(
+      <Router>
+        <Table />
+      </Router>
+    )
+  ).toBeTruthy();
 });
 
 test('add to cart button renders ', () => {
-  render(<Table products={data.products} />);
+  render(
+    <Router>
+      <Table products={data.products} />
+    </Router>
+  );
   const addButton = screen.getAllByText(/add to cart/i)[0];
   expect(addButton).toBeInTheDocument();
 });
 
 test('one add to cart button renders for each product', () => {
-  render(<Table products={data.products} />);
+  render(
+    <Router>
+      <Table products={data.products} />
+    </Router>
+  );
   const addButtons = screen.getAllByText(/add to cart/i);
   expect(addButtons.length).toBe(data.products.length);
 });
 
 test('modal window opens when user clicks on a product', async () => {
-  render(<Table products={data.products} />);
+  render(
+    <Router>
+      <Table products={data.products} />
+    </Router>
+  );
   const product = screen.getAllByTestId('table__product')[0];
   await userEvent.click(product);
   const modal = screen.getByTestId('table__modal');
@@ -43,7 +68,11 @@ test('modal window opens when user clicks on a product', async () => {
 });
 
 test('modal window closes when user clicks on a close button', async () => {
-  render(<Table products={data.products} />);
+  render(
+    <Router>
+      <Table products={data.products} />
+    </Router>
+  );
   const product = screen.getAllByTestId('table__product')[0];
   await userEvent.click(product);
   const modal = screen.getByTestId('table__modal');

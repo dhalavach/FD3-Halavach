@@ -1,11 +1,11 @@
 export default function Filter(props: any) {
-  const { count, type, handleSortProducts, handleFilterProducts, sort } = props;
+  const { type, handleSortProducts, handleFilterProducts, sort } = props;
   return (
     <div>
-      <div className='filter-result'>{count} Product(s)</div>
       <div className='filter-sort'>
         Order{' '}
         <select value={sort} onChange={handleSortProducts}>
+          <option value=''></option>
           <option value='az'>A-Z</option>
           <option value='za'>Z-A</option>
           <option value='ascending'>Price - ascending</option>
