@@ -141,6 +141,12 @@ function App() {
   //   setProducts(arr);
   // }, [type, searchQuery, sort]);
 
+  useEffect(() => {
+    let arr = [...allProducts];
+    if (sort) arr = sortProducts(sort, arr);
+    setProducts(arr);
+  }, [sort]);
+
   return (
     <div className='wrapper'>
       <div className='grid-container'>
