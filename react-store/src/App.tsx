@@ -176,16 +176,19 @@ function App() {
                 </div>
               </div>
               <Table
-                products={products.filter(
-                  (p) =>
-                    p.itemType.includes(searchParams.get('type') as string) &&
-                    p.itemName
-                      .toLowerCase()
-                      .includes(
-                        (
-                          searchParams.get('searchQuery') as string
-                        ).toLowerCase()
-                      )
+                products={sortProducts(
+                  searchParams.get('sort') as string,
+                  products.filter(
+                    (p) =>
+                      p.itemType.includes(searchParams.get('type') as string) &&
+                      p.itemName
+                        .toLowerCase()
+                        .includes(
+                          (
+                            searchParams.get('searchQuery') as string
+                          ).toLowerCase()
+                        )
+                  )
                 )}
                 add={add}
               />
