@@ -15,15 +15,22 @@ git clone git@github.com:dhalavach/FD3-Halavach.git
 ```
 cd react-store
 npm install
+npm install -g json-server
 ```
 
-3. View dev build:
+3. Run the json-server to simulate backend using mock data. On Windows, you have to run PowerShell or cmd as administrator
+
+```
+json-server db.json
+```
+
+4. View dev build:
 
 ```
 npm run dev
 ```
 
-4. View production build:
+5. View production build:
 
 ```
 npm run build
