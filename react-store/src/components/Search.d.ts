@@ -1,2 +1,2 @@
 /// <reference types="react" />
-export default function Search(props: any): JSX.Element;
+export default function Search(): JSX.Element;
