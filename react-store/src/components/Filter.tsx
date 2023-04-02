@@ -1,19 +1,23 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setType } from '../slices/typeSlice';
 import { setSort } from '../slices/sortSlice';
+import useSearchParamsState from '../hooks/useSearchParamsState';
 
 export default function Filter() {
-  const dispatch = useDispatch();
-  let type = useSelector((state: any) => state?.type);
-  let sort = useSelector((state: any) => state?.sort);
+  // const dispatch = useDispatch();
+  // let type = useSelector((state: any) => state?.type);
+  // let sort = useSelector((state: any) => state?.sort);
+
+  const [filterParam, setFilterParam] = useSearchParamsState('filterParam', '');
+  const [sortParam, setSortParam] = useSearchParamsState('sortParam', '');
 
   return (
     <div>
       <div className='filter-sort'>
         Order{' '}
         <select
-          value={sort}
-          onChange={(e) => dispatch(setSort(e.target.value))}
+          value={sortParam}
+          onChange={(e) => setSortParam(e.target.value)}
         >
           <option value=''></option>
           <option value='az'>A-Z</option>
@@ -26,8 +30,8 @@ export default function Filter() {
       <div className='filter-type'>
         Filter
         <select
-          value={type}
-          onChange={(e) => dispatch(setType(e.target.value))}
+          value={filterParam}
+          onChange={(e) => setFilterParam(e.target.value)}
         >
           <option value=''>All</option>
           <option value='motherboard'>Motherboard</option>

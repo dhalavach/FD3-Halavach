@@ -64,22 +64,19 @@ function App() {
 
   useEffect(() => {
     loadData();
-    dispatch(setType(filterParam));
-    dispatch(setSearchQuery(searchQueryParam));
-    dispatch(setSort(sortParam));
   }, []);
 
-  useEffect(() => {
-    setFilterParam(type);
-  }, [type]);
+  // useEffect(() => {
+  //   setFilterParam(type);
+  // }, [type]);
 
-  useEffect(() => {
-    setSearchQueryParam(searchQuery);
-  }, [searchQuery]);
+  // useEffect(() => {
+  //   setSearchQueryParam(searchQuery);
+  // }, [searchQuery]);
 
-  useEffect(() => {
-    setSortParam(sort);
-  }, [sort]);
+  // useEffect(() => {
+  //   dispatch(setSortParam());
+  // }, [sortParam]);
 
   //adaptive
   const TABLETWIDTH = 768;
@@ -222,13 +219,15 @@ function App() {
               </div>
               <Table
                 products={sortProducts(
-                  sort,
+                  sortParam,
                   products.filter(
                     (p) =>
-                      p.itemType.toLowerCase().includes(type?.toLowerCase()) &&
+                      p.itemType
+                        .toLowerCase()
+                        .includes(filterParam?.toLowerCase()) &&
                       p.itemName
                         .toLowerCase()
-                        .includes(searchQuery?.toLowerCase())
+                        .includes(searchQueryParam?.toLowerCase())
                   )
                 )}
                 add={add}
