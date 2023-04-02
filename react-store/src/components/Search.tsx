@@ -15,6 +15,7 @@ export default function Search() {
         type='search'
         placeholder='search products'
         value={searchQuery}
+        data-testid='search__input-field'
         onChange={(e) => dispatch(setSearchQuery(e.target.value))}
       />
     </div>
