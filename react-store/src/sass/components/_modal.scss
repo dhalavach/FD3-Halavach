@@ -17,3 +17,12 @@
 .modal__wrapper {
   max-width: 50%;
 }
+
+.modal__close-modal {
+  cursor: pointer;
+
+  &:hover {
+    border: 2px black solid;
+  }
+
+}

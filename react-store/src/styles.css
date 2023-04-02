@@ -555,6 +555,13 @@ a:hover {
 
 .cart__button-remove {
   background: gainsboro;
+  cursor: pointer;
+  padding: 0.1rem;
+  margin: 0.5rem;
+}
+.cart__button-remove:hover {
+  border: 2px black solid;
+  background-color: darkgray;
 }
 
 .removing img {
@@ -605,6 +612,13 @@ a:hover {
 
 .modal__wrapper {
   max-width: 50%;
+}
+
+.modal__close-modal {
+  cursor: pointer;
+}
+.modal__close-modal:hover {
+  border: 2px black solid;
 }
 
 .hidden {

@@ -94,7 +94,7 @@ export default function Table(props: any) {
               <Zoom>
                 <div className='modal__close-wrapper'>
                   <button
-                    className='close-modal'
+                    className='modal__close-modal'
                     onClick={closeModal}
                     data-testid='table__modal-close'
                   >
@@ -121,10 +121,16 @@ export default function Table(props: any) {
                   <div className='product-price'>
                     <div>{formatMoney(productInModal.itemPrice)}</div>
                     <button
-                      className='btn primary'
+                      className={`btn ${
+                        checkIfInCart(productInModal)
+                          ? 'table__button-in-cart'
+                          : 'table__button-add'
+                      }`}
                       onClick={() => addToCart(productInModal)}
                     >
-                      Add to Cart
+                      {checkIfInCart(productInModal)
+                        ? 'Product in Cart'
+                        : 'Add to Cart'}
                     </button>
                   </div>
                 </div>

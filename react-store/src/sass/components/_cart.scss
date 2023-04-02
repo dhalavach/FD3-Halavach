@@ -36,6 +36,14 @@
 
 .cart__button-remove {
   background: gainsboro;
+  cursor: pointer;
+  padding: 0.1rem;
+  margin: 0.5rem;
+
+  &:hover {
+    border: 2px black solid;
+    background-color: darkgray;
+  }
 }
 
 // .right {
