@@ -68,6 +68,10 @@
 
 
 
-.btn.primary {
+.table__button-add {
   background-color: $brand-main;
+}
+
+.table__button-in-cart {
+  background-color: $brand-selected;
 }

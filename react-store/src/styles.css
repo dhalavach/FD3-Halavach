@@ -498,14 +498,18 @@ a:hover {
   cursor: pointer;
   padding: 1rem;
   border: 0.1rem #f1f3f2 solid;
-  background-color: #f9804b;
+  background-color: rgb(255, 139, 0);
 }
 .btn:hover {
   border: 2px black solid;
 }
 
-.btn.primary {
-  background-color: #f9804b;
+.table__button-add {
+  background-color: rgb(255, 139, 0);
+}
+
+.table__button-in-cart {
+  background-color: #7dbf26;
 }
 
 .filter {

@@ -134,21 +134,7 @@ function App() {
   };
 
   //add
-  const add = (product: Product) => {
-    let newCartProducts = [...cartProducts];
-    let inCart = false;
-    for (const cartItem of newCartProducts) {
-      if (cartItem.id === product.id) {
-        if (cartItem.count) cartItem.count += 1;
-        inCart = true;
-      }
-    }
-    if (!inCart) {
-      newCartProducts.push({ ...product, count: 1 });
-    }
-    dispatch(setCartProducts(newCartProducts));
-    localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
-  };
+ 
 
   //remove
 
@@ -222,7 +208,6 @@ function App() {
                           .includes(searchQueryParam?.toLowerCase())
                     )
                   )}
-                  add={add}
                 />
               </div>
             </div>

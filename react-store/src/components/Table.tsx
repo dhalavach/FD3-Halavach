@@ -3,10 +3,16 @@ import { formatMoney } from '../util';
 import { Fade, Zoom } from 'react-awesome-reveal';
 import Modal from 'react-modal';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCartProducts } from '../slices/cartProductsSlice';
 
 export default function Table(props: any) {
-  const { products, add } = props;
+  const { products } = props;
+  const dispatch = useDispatch();
 
+  const cartProducts = localStorage.getItem('cartProducts')
+    ? JSON.parse(localStorage.getItem('cartProducts') as string)
+    : useSelector((state: any) => state.cartProducts);
   const [productInModal, setProductInModal] = useState<Product | null>(null);
 
   const openModal = (product: Product) => {
@@ -15,6 +21,26 @@ export default function Table(props: any) {
 
   const closeModal = () => {
     setProductInModal(null);
+  };
+
+  const addToCart = (product: Product) => {
+    let newCartProducts = [...cartProducts];
+    let inCart = false;
+    for (const cartItem of newCartProducts) {
+      if (cartItem.id === product.id) {
+        if (cartItem.count) cartItem.count += 1;
+        inCart = true;
+      }
+    }
+    if (!inCart) {
+      newCartProducts.push({ ...product, count: 1 });
+    }
+    dispatch(setCartProducts(newCartProducts));
+    localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
+  };
+
+  const checkIfInCart = (product: Product): boolean => {
+    return cartProducts.findIndex((p: Product) => p.id === product.id) !== -1;
   };
   return (
     <div>
@@ -41,8 +67,15 @@ export default function Table(props: any) {
 
                 <div className='product-price'>
                   <div>{formatMoney(product.itemPrice)}</div>
-                  <button className='btn primary' onClick={() => add(product)}>
-                    Add to Cart
+                  <button
+                    className={`btn ${
+                      checkIfInCart(product)
+                        ? 'table__button-in-cart'
+                        : 'table__button-add'
+                    }`}
+                    onClick={() => addToCart(product)}
+                  >
+                    {checkIfInCart(product) ? 'Product in Cart' : 'Add to Cart'}
                   </button>
                 </div>
               </li>
@@ -89,7 +122,7 @@ export default function Table(props: any) {
                     <div>{formatMoney(productInModal.itemPrice)}</div>
                     <button
                       className='btn primary'
-                      onClick={() => add(productInModal)}
+                      onClick={() => addToCart(productInModal)}
                     >
                       Add to Cart
                     </button>
