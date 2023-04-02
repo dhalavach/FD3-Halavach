@@ -16,19 +16,21 @@ import { setType } from './slices/typeSlice';
 import { setSearchQuery } from './slices/searchQuerySlice';
 import { setSort } from './slices/sortSlice';
 import { setProducts } from './slices/productsSlice';
+import { setCartProducts } from './slices/cartProductsSlice';
 
 function App() {
   const dispatch = useDispatch();
   // const [products, setProducts] = useState<Product[]>([]);
   // const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const [cartProducts, setCartProducts] = useState<Product[]>(
-    localStorage.getItem('cartProducts')
-      ? JSON.parse(localStorage.getItem('cartProducts') as string)
-      : []
-  );
+  // const [cartProducts, setCartProducts] = useState<Product[]>(
+  //   localStorage.getItem('cartProducts')
+  //     ? JSON.parse(localStorage.getItem('cartProducts') as string)
+  //     : []
+  // );
   // let type = useSelector((state: any) => state?.type);
   // let searchQuery = useSelector((state: any) => state?.searchQuery);
   // let sort = useSelector((state: any) => state?.sort);
+  const cartProducts = useSelector((state: any) => state.cartProducts);
   let products = useSelector((state: any) => state?.products);
 
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -144,26 +146,13 @@ function App() {
     if (!inCart) {
       newCartProducts.push({ ...product, count: 1 });
     }
-    setCartProducts(newCartProducts);
+    dispatch(setCartProducts(newCartProducts));
     localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
   };
 
   //remove
-  const remove = (product: Product) => {
-    let newCartProducts = [...cartProducts].filter(
-      (item) => item.id !== product.id
-    );
-    setCartProducts(newCartProducts);
-    localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
-  };
 
   //create order
-  const createOrder = (order: orderObject) => {
-    alert(
-      `saving order for ${order.name.toString()} - to be implemented later...`
-    );
-    console.log(order);
-  };
 
   // useEffect(() => {
   //   let arr = [...allProducts];
@@ -239,12 +228,7 @@ function App() {
             </div>
 
             <div className={`sidebar ${matches ? '' : 'hidden'}`}>
-              <Cart
-                cartProducts={cartProducts}
-                remove={remove}
-                createOrder={createOrder}
-                setCartProducts={setCartProducts}
-              />
+              <Cart />
             </div>
           </div>
         </main>
