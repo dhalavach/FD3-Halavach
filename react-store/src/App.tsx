@@ -15,19 +15,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setType } from './slices/typeSlice';
 import { setSearchQuery } from './slices/searchQuerySlice';
 import { setSort } from './slices/sortSlice';
+import { setProducts } from './slices/productsSlice';
 
 function App() {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  // const [products, setProducts] = useState<Product[]>([]);
+  // const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [cartProducts, setCartProducts] = useState<Product[]>(
     localStorage.getItem('cartProducts')
       ? JSON.parse(localStorage.getItem('cartProducts') as string)
       : []
   );
-  let type = useSelector((state: any) => state?.type);
-  let searchQuery = useSelector((state: any) => state?.searchQuery);
-  let sort = useSelector((state: any) => state?.sort);
+  // let type = useSelector((state: any) => state?.type);
+  // let searchQuery = useSelector((state: any) => state?.searchQuery);
+  // let sort = useSelector((state: any) => state?.sort);
+  let products = useSelector((state: any) => state?.products);
 
   const [dataLoaded, setDataLoaded] = useState(false);
   // const [searchParams, setSearchParams] = useSearchParams({
@@ -54,8 +56,7 @@ function App() {
   const loadData = async () => {
     try {
       const response = await axios.get(fetchConfig.URL);
-      setProducts(response.data);
-      setAllProducts(response.data);
+      dispatch(setProducts(response.data));
       setDataLoaded(true);
     } catch (error) {
       console.error(error);
@@ -217,21 +218,24 @@ function App() {
                   <Search />
                 </div>
               </div>
-              <Table
-                products={sortProducts(
-                  sortParam,
-                  products.filter(
-                    (p) =>
-                      p.itemType
-                        .toLowerCase()
-                        .includes(filterParam?.toLowerCase()) &&
-                      p.itemName
-                        .toLowerCase()
-                        .includes(searchQueryParam?.toLowerCase())
-                  )
-                )}
-                add={add}
-              />
+              <div>
+                {!dataLoaded ? 'Loading...' : ''}
+                <Table
+                  products={sortProducts(
+                    sortParam,
+                    products.filter(
+                      (p: Product) =>
+                        p.itemType
+                          .toLowerCase()
+                          .includes(filterParam?.toLowerCase()) &&
+                        p.itemName
+                          .toLowerCase()
+                          .includes(searchQueryParam?.toLowerCase())
+                    )
+                  )}
+                  add={add}
+                />
+              </div>
             </div>
 
             <div className={`sidebar ${matches ? '' : 'hidden'}`}>
