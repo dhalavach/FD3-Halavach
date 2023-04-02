@@ -17,6 +17,7 @@ import { setSearchQuery } from './slices/searchQuerySlice';
 import { setSort } from './slices/sortSlice';
 import { setProducts } from './slices/productsSlice';
 import { setCartProducts } from './slices/cartProductsSlice';
+import AppPagination from './components/AppPagination';
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,8 @@ function App() {
     ''
   );
   const [sortParam, setSortParam] = useSearchParamsState('sortParam', '');
+
+  const [displayedProducts, setDisplayedProducts] = useState([]);
 
   // load data
   const fetchConfig = {
@@ -134,7 +137,6 @@ function App() {
   };
 
   //add
- 
 
   //remove
 
@@ -194,20 +196,25 @@ function App() {
                 </div>
               </div>
               <div>
+                <AppPagination
+                  setDisplayedProducts={(p: any) => setDisplayedProducts(p)}
+                />
+
                 {!dataLoaded ? 'Loading...' : ''}
                 <Table
-                  products={sortProducts(
-                    sortParam,
-                    products.filter(
-                      (p: Product) =>
-                        p.itemType
-                          .toLowerCase()
-                          .includes(filterParam?.toLowerCase()) &&
-                        p.itemName
-                          .toLowerCase()
-                          .includes(searchQueryParam?.toLowerCase())
-                    )
-                  )}
+                  // products={sortProducts(
+                  //   sortParam,
+                  //   products.filter(
+                  //     (p: Product) =>
+                  //       p.itemType
+                  //         .toLowerCase()
+                  //         .includes(filterParam?.toLowerCase()) &&
+                  //       p.itemName
+                  //         .toLowerCase()
+                  //         .includes(searchQueryParam?.toLowerCase())
+                  //   )
+                  // )}
+                  products={displayedProducts}
                 />
               </div>
             </div>

@@ -6,10 +6,18 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCartProducts } from '../slices/cartProductsSlice';
 import AddToCartButton from './AddToCartButton';
+import Pagination from '@mui/material/Pagination';
+import AppPagination from './AppPagination';
 
 export default function Table(props: any) {
   const { products } = props;
   const dispatch = useDispatch();
+
+  // const [page, setPage] = useState(1);
+  // const handlePagination = (event: any, value: any) => {
+  //   setPage(value);
+  // };
+  // const [displayedProducts, setDisplayedProducts] = useState([])
 
   const cartProducts = localStorage.getItem('cartProducts')
     ? JSON.parse(localStorage.getItem('cartProducts') as string)
@@ -45,6 +53,8 @@ export default function Table(props: any) {
   };
   return (
     <div>
+      {/* <Pagination count={10} page={page} onChange={handlePagination} /> */}
+
       <ul className='products'>
         {products?.map((product: Product) => {
           return (

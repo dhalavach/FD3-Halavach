@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.15",
     "@ngneat/falso": "^6.4.0",
     "@reduxjs/toolkit": "^1.9.3",
     "axios": "^1.3.4",
