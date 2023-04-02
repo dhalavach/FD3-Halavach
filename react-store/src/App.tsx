@@ -61,6 +61,7 @@ function App() {
   const loadData = async () => {
     try {
       const response = await axios.get(fetchConfig.URL);
+      console.log(response);
       dispatch(setProducts(response.data));
       setDataLoaded(true);
     } catch (error) {

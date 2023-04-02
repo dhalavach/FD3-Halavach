@@ -1,11 +1,14 @@
+import axios from 'axios';
 import products from '../../db.json';
 
 const service = {
-  getData: (from: number, to: number) => {
+  getData: async (from: number, to: number) => {
+    const response = await axios.get('http://localhost:3000/products');
     return new Promise((resolve, reject) => {
-      const data = products.products.slice(from, to);
+      const data = response.data.slice(from, to);
+
       resolve({
-        count: products.products.length,
+        count: response.data.length,
         data: data,
       });
     });
