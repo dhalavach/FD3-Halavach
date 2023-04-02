@@ -30,11 +30,11 @@ function App() {
   let sort = useSelector((state: any) => state?.sort);
 
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams({
-    filterParam: '',
-    searchQueryParam: '',
-    sortParam: '',
-  });
+  // const [searchParams, setSearchParams] = useSearchParams({
+  //   filterParam: '',
+  //   searchQueryParam: '',
+  //   sortParam: '',
+  // });
   const [filterParam, setFilterParam] = useSearchParamsState('filterParam', '');
   const [searchQueryParam, setSearchQueryParam] = useSearchParamsState(
     'searchQueryParam',
@@ -64,9 +64,9 @@ function App() {
 
   useEffect(() => {
     loadData();
-    dispatch(setType(searchParams.get('filterParam')));
-    dispatch(setSearchQuery(searchParams.get('searchQueryParam')));
-    dispatch(setSort(searchParams.get('sortParam')));
+    dispatch(setType(filterParam));
+    dispatch(setSearchQuery(searchQueryParam));
+    dispatch(setSort(sortParam));
   }, []);
 
   useEffect(() => {
