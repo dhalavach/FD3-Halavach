@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCartProducts } from '../slices/cartProductsSlice';
+import AddToCartButton from './AddToCartButton';
 
 export default function Table(props: any) {
   const { products } = props;
@@ -23,7 +24,7 @@ export default function Table(props: any) {
     setProductInModal(null);
   };
 
-  const addToCart = (product: Product) => {
+  const add = (product: Product) => {
     let newCartProducts = [...cartProducts];
     let inCart = false;
     for (const cartItem of newCartProducts) {
@@ -67,16 +68,11 @@ export default function Table(props: any) {
 
                 <div className='product-price'>
                   <div>{formatMoney(product.itemPrice)}</div>
-                  <button
-                    className={`btn ${
-                      checkIfInCart(product)
-                        ? 'table__button-in-cart'
-                        : 'table__button-add'
-                    }`}
-                    onClick={() => addToCart(product)}
-                  >
-                    {checkIfInCart(product) ? 'Product in Cart' : 'Add to Cart'}
-                  </button>
+                  <AddToCartButton
+                    add={add}
+                    checkIfInCart={checkIfInCart}
+                    product={product}
+                  />
                 </div>
               </li>
             </Fade>
@@ -120,18 +116,11 @@ export default function Table(props: any) {
                   </div>
                   <div className='product-price'>
                     <div>{formatMoney(productInModal.itemPrice)}</div>
-                    <button
-                      className={`btn ${
-                        checkIfInCart(productInModal)
-                          ? 'table__button-in-cart'
-                          : 'table__button-add'
-                      }`}
-                      onClick={() => addToCart(productInModal)}
-                    >
-                      {checkIfInCart(productInModal)
-                        ? 'Product in Cart'
-                        : 'Add to Cart'}
-                    </button>
+                    <AddToCartButton
+                      add={add}
+                      checkIfInCart={checkIfInCart}
+                      product={productInModal}
+                    />
                   </div>
                 </div>
               </Zoom>
