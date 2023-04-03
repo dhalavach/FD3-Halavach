@@ -1,5 +1,4 @@
 import axios from 'axios';
-import products from '../../db.json';
 
 const service = {
   getData: async (from: number, to: number) => {

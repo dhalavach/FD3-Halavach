@@ -1,27 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Pagination } from '@mui/material';
 import service from '../services/service';
+import productsSlice from '../slices/productsSlice';
+import { useSelector } from 'react-redux';
+import useSearchParamsState from '../hooks/useSearchParamsState';
 
 export default function AppPagination(props: any) {
-  const { setDisplayedProducts } = props;
   const pageSize = 10;
-  const [pagination, setPagination] = useState({
-    count: 0,
-    from: 0,
-    to: pageSize,
-  });
+  const { setDisplayedProducts } = props;
+  const [pageParam, setPageParam] = useSearchParamsState('pageParam', '1');
+  const [fromParam, setFromParam] = useSearchParamsState('fromParam', '0');
+  const [toParam, setToParam] = useSearchParamsState(
+    'fromParam',
+    pageSize.toString()
+  );
+  const [countParam, setCountParam] = useSearchParamsState('countParam', '0');
+
+  // const [pagination, setPagination] = useState({
+  //   count: 0,
+  //   from: 0,
+  //   to: pageSize,
+  // });
+
+  const products = useSelector((state: any) => state.products);
+
+  // useEffect(() => {
+  //   setPagination({ ...pagination, count: products.length });
+  //   setDisplayedProducts(products.slice(pagination.from, pagination.to));
+  // }, [pagination.from, pagination.to, products]);
+
+  // const handlePageChange = (event: any, page: number) => {
+  //   const from = (page - 1) * pageSize;
+  //   const to = (page - 1) * pageSize + pageSize;
+  //   setPagination({ ...pagination, from: from, to: to });
+  // };
 
   useEffect(() => {
-    service.getData(pagination.from, pagination.to).then((response: any) => {
-      setPagination({ ...pagination, count: response.count });
-      setDisplayedProducts(response.data);
-      console.log(response);
-    });
-  }, [pagination.from, pagination.to]);
+    setCountParam(products.length.toString());
+    let newProducts = [...products];
+    setDisplayedProducts(
+      newProducts.slice(
+        (parseInt(pageParam) - 1) * pageSize,
+        (parseInt(pageParam) - 1) * pageSize + pageSize
+      )
+    );
+  }, [pageParam, products]);
+
   const handlePageChange = (event: any, page: number) => {
-    const from = (page - 1) * pageSize;
-    const to = (page - 1) * pageSize + pageSize;
-    setPagination({ ...pagination, from: from, to: to });
+    // const from = (page - 1) * pageSize;
+    // const to = (page - 1) * pageSize + pageSize;
+    // setFromParam(from.toString());
+    // setToParam(to.toString());
+    setPageParam(page.toString());
   };
 
   return (
@@ -35,7 +65,8 @@ export default function AppPagination(props: any) {
         }}
       ></Box>
       <Pagination
-        count={Math.ceil(pagination.count / pageSize)}
+        page={parseInt(pageParam)}
+        count={Math.ceil(parseInt(countParam) / pageSize)}
         onChange={handlePageChange}
       ></Pagination>
     </>
