@@ -352,6 +352,25 @@ button {
   font-size: 1.6rem;
 }
 
+input,
+select,
+textarea {
+  transition: all 0.3s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 5px rgb(81, 203, 238);
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgb(81, 203, 238);
+}
+
 .sidebar {
   display: block;
 }
