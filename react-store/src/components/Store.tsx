@@ -4,6 +4,7 @@ import typeReducer from '../slices/typeSlice';
 import searchQueryReducer from '../slices/searchQuerySlice';
 import sortReducer from '../slices/sortSlice';
 import productsReducer from '../slices/productsSlice';
+import filteredProductsReducer from '../slices/filteredProductsSlice';
 import cartProductsReducer from '../slices/cartProductsSlice';
 
 export default configureStore({
@@ -12,6 +13,7 @@ export default configureStore({
     searchQuery: searchQueryReducer,
     sort: sortReducer,
     products: productsReducer,
+    filteredProducts: filteredProductsReducer,
     cartProducts: cartProductsReducer,
   },
 });

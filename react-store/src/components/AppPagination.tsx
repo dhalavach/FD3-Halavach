@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Pagination } from '@mui/material';
 import service from '../services/service';
 import productsSlice from '../slices/productsSlice';
+import filteredProductsSlice from '../slices/filteredProductsSlice';
 import { useSelector } from 'react-redux';
 import useSearchParamsState from '../hooks/useSearchParamsState';
 
@@ -23,6 +24,7 @@ export default function AppPagination(props: any) {
   // });
 
   const products = useSelector((state: any) => state.products);
+  let filteredProducts = useSelector((state: any) => state.filteredProducts);
 
   // useEffect(() => {
   //   setPagination({ ...pagination, count: products.length });
@@ -36,15 +38,16 @@ export default function AppPagination(props: any) {
   // };
 
   useEffect(() => {
-    setCountParam(products.length.toString());
-    let newProducts = [...products];
+    setCountParam(filteredProducts.length.toString());
+    // let newProducts = [...products];
+    let newProducts = [...filteredProducts];
     setDisplayedProducts(
       newProducts.slice(
         (parseInt(pageParam) - 1) * pageSize,
         (parseInt(pageParam) - 1) * pageSize + pageSize
       )
     );
-  }, [pageParam, products]);
+  }, [pageParam, filteredProducts, products]);
 
   const handlePageChange = (event: any, page: number) => {
     // const from = (page - 1) * pageSize;

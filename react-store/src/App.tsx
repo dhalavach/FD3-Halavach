@@ -16,6 +16,7 @@ import { setType } from './slices/typeSlice';
 import { setSearchQuery } from './slices/searchQuerySlice';
 import { setSort } from './slices/sortSlice';
 import { setProducts } from './slices/productsSlice';
+import { setFilteredProducts } from './slices/filteredProductsSlice';
 import { setCartProducts } from './slices/cartProductsSlice';
 import AppPagination from './components/AppPagination';
 
@@ -33,6 +34,7 @@ function App() {
   // let sort = useSelector((state: any) => state?.sort);
   const cartProducts = useSelector((state: any) => state.cartProducts);
   let products = useSelector((state: any) => state?.products);
+  const filteredProducts = useSelector((state: any) => state.filteredProducts);
 
   const [dataLoaded, setDataLoaded] = useState(false);
   // const [searchParams, setSearchParams] = useSearchParams({
@@ -61,7 +63,6 @@ function App() {
   const loadData = async () => {
     try {
       const response = await axios.get(fetchConfig.URL);
-      console.log(response);
       dispatch(setProducts(response.data));
       setDataLoaded(true);
     } catch (error) {
@@ -72,18 +73,6 @@ function App() {
   useEffect(() => {
     loadData();
   }, []);
-
-  // useEffect(() => {
-  //   setFilterParam(type);
-  // }, [type]);
-
-  // useEffect(() => {
-  //   setSearchQueryParam(searchQuery);
-  // }, [searchQuery]);
-
-  // useEffect(() => {
-  //   dispatch(setSortParam());
-  // }, [sortParam]);
 
   //adaptive
   const TABLETWIDTH = 768;
@@ -137,25 +126,16 @@ function App() {
     return arr;
   };
 
-  //add
-
-  //remove
-
-  //create order
-
-  // useEffect(() => {
-  //   let arr = [...allProducts];
-  //   if (type) arr = filterProducts(type, arr);
-  //   if (sort) arr = sortProducts(sort, arr);
-  //   if (searchQuery) arr = searchProducts(searchQuery, arr);
-  //   setProducts(arr);
-  // }, [type, searchQuery, sort]);
-
-  // useEffect(() => {
-  //   let arr = [...allProducts];
-  //   if (sort) arr = sortProducts(sort, arr);
-  //   setProducts(arr);
-  // }, [sort]);
+  useEffect(() => {
+    let arr = [...products];
+    if (filterParam) arr = arr.filter((p) => p.itemType.includes(filterParam));
+    if (sortParam) arr = sortProducts(sortParam, arr);
+    if (searchQueryParam)
+      arr = arr.filter((p) =>
+        p.itemName.toLowerCase().includes(searchQueryParam.toLowerCase())
+      );
+    dispatch(setFilteredProducts(arr));
+  }, [products, filterParam, searchQueryParam, sortParam]);
 
   return (
     <div className='wrapper'>
@@ -202,21 +182,7 @@ function App() {
                 />
 
                 {!dataLoaded ? 'Loading...' : ''}
-                <Table
-                  // products={sortProducts(
-                  //   sortParam,
-                  //   products.filter(
-                  //     (p: Product) =>
-                  //       p.itemType
-                  //         .toLowerCase()
-                  //         .includes(filterParam?.toLowerCase()) &&
-                  //       p.itemName
-                  //         .toLowerCase()
-                  //         .includes(searchQueryParam?.toLowerCase())
-                  //   )
-                  // )}
-                  products={displayedProducts}
-                />
+                <Table products={displayedProducts} />
               </div>
             </div>
 
@@ -224,6 +190,9 @@ function App() {
               <Cart />
             </div>
           </div>
+          <AppPagination
+            setDisplayedProducts={(p: any) => setDisplayedProducts(p)}
+          />
         </main>
         <footer>2023</footer>
       </div>
