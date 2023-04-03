@@ -19,6 +19,7 @@ import { setProducts } from './slices/productsSlice';
 import { setFilteredProducts } from './slices/filteredProductsSlice';
 import { setCartProducts } from './slices/cartProductsSlice';
 import AppPagination from './components/AppPagination';
+import { setOrders } from './slices/ordersSlice';
 
 function App() {
   const dispatch = useDispatch();
@@ -53,16 +54,17 @@ function App() {
 
   // load data
   const fetchConfig = {
-    URL: 'http://localhost:3000/products',
+    PRODUCTS_URL: 'http://localhost:3000/products',
+    ORDERS_URL: 'http://localhost:3000/orders',
     method: 'GET',
     headers: {
       Accept: 'application/json',
     },
   };
 
-  const loadData = async () => {
+  const loadProducts = async () => {
     try {
-      const response = await axios.get(fetchConfig.URL);
+      const response = await axios.get(fetchConfig.PRODUCTS_URL);
       dispatch(setProducts(response.data));
       setDataLoaded(true);
     } catch (error) {
@@ -70,8 +72,9 @@ function App() {
     }
   };
 
+
   useEffect(() => {
-    loadData();
+    loadProducts();
   }, []);
 
   //adaptive
