@@ -1,6 +1,5 @@
 import './styles.css';
 import { useEffect, useState } from 'react';
-import Fade from 'react-awesome-reveal';
 import axios from 'axios';
 
 import Table from './components/Table';
@@ -22,7 +21,7 @@ import AppPagination from './components/AppPagination';
 import { setOrders } from './slices/ordersSlice';
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const [products, setProducts] = useState<Product[]>([]);
   // const [allProducts, setAllProducts] = useState<Product[]>([]);
   // const [cartProducts, setCartProducts] = useState<Product[]>(
@@ -33,49 +32,20 @@ function App() {
   // let type = useSelector((state: any) => state?.type);
   // let searchQuery = useSelector((state: any) => state?.searchQuery);
   // let sort = useSelector((state: any) => state?.sort);
-  const cartProducts = useSelector((state: any) => state.cartProducts);
-  let products = useSelector((state: any) => state?.products);
-  const filteredProducts = useSelector((state: any) => state.filteredProducts);
+  // const cartProducts = useSelector((state: any) => state.cartProducts);
+  // const filteredProducts = useSelector((state: any) => state.filteredProducts);
 
-  const [dataLoaded, setDataLoaded] = useState(false);
+  // const [dataLoaded, setDataLoaded] = useState(false);
   // const [searchParams, setSearchParams] = useSearchParams({
   //   filterParam: '',
   //   searchQueryParam: '',
   //   sortParam: '',
   // });
-  const [filterParam, setFilterParam] = useSearchParamsState('filterParam', '');
-  const [searchQueryParam, setSearchQueryParam] = useSearchParamsState(
-    'searchQueryParam',
-    ''
-  );
-  const [sortParam, setSortParam] = useSearchParamsState('sortParam', '');
 
-  const [displayedProducts, setDisplayedProducts] = useState([]);
+
 
   // load data
-  const fetchConfig = {
-    PRODUCTS_URL: 'http://localhost:3000/products',
-    ORDERS_URL: 'http://localhost:3000/orders',
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-    },
-  };
 
-  const loadProducts = async () => {
-    try {
-      const response = await axios.get(fetchConfig.PRODUCTS_URL);
-      dispatch(setProducts(response.data));
-      setDataLoaded(true);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-
-  useEffect(() => {
-    loadProducts();
-  }, []);
 
   //adaptive
   const TABLETWIDTH = 768;
@@ -99,23 +69,7 @@ function App() {
 
   //sorting
 
-  const sortProducts = (sort: string, arr: Product[]): Product[] => {
-    if (sort === 'ascending') {
-      arr = arr.sort((a, b) => a.itemPrice - b.itemPrice);
-    } else if (sort === 'descending') {
-      arr = arr.sort((a, b) => b.itemPrice - a.itemPrice);
-    } else if (sort === 'az') {
-      arr = arr.sort((a: Product, b: Product) => {
-        return a.itemName.localeCompare(b.itemName);
-      });
-    } else if (sort === 'za') {
-      arr = arr.sort((a: Product, b: Product) => {
-        return -a.itemName.localeCompare(b.itemName);
-      });
-    }
 
-    return arr;
-  };
 
   //search
 
@@ -129,16 +83,11 @@ function App() {
     return arr;
   };
 
+
+
   useEffect(() => {
-    let arr = [...products];
-    if (filterParam) arr = arr.filter((p) => p.itemType.includes(filterParam));
-    if (sortParam) arr = sortProducts(sortParam, arr);
-    if (searchQueryParam)
-      arr = arr.filter((p) =>
-        p.itemName.toLowerCase().includes(searchQueryParam.toLowerCase())
-      );
-    dispatch(setFilteredProducts(arr));
-  }, [products, filterParam, searchQueryParam, sortParam]);
+    console.log('App renders...');
+  });
 
   return (
     <div className='wrapper'>
@@ -188,12 +137,9 @@ function App() {
                 </div>
               </div>
               <div>
-                <AppPagination
-                  setDisplayedProducts={(p: any) => setDisplayedProducts(p)}
-                />
 
-                {!dataLoaded ? 'Loading...' : ''}
-                <Table products={displayedProducts} />
+                {/* {!dataLoaded ? 'Loading...' : ''} */}
+                <Table  />
               </div>
             </div>
 
@@ -201,9 +147,7 @@ function App() {
               <Cart />
             </div>
           </div>
-          <AppPagination
-            setDisplayedProducts={(p: any) => setDisplayedProducts(p)}
-          />
+
         </main>
         <footer>2023</footer>
       </div>

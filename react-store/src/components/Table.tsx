@@ -2,16 +2,21 @@ import { Product } from '../types/Types';
 import { formatMoney } from '../util';
 import { Fade, Zoom } from 'react-awesome-reveal';
 import Modal from 'react-modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCartProducts } from '../slices/cartProductsSlice';
 import AddToCartButton from './AddToCartButton';
 import Pagination from '@mui/material/Pagination';
 import AppPagination from './AppPagination';
+import axios from 'axios';
+import { setProducts } from '../slices/productsSlice';
+import useSearchParamsState from '../hooks/useSearchParamsState';
+import { setFilteredProducts } from '../slices/filteredProductsSlice';
 
-export default function Table(props: any) {
-  const { products } = props;
+export default function Table() {
   const dispatch = useDispatch();
+  let products = useSelector((state: any) => state?.products);
+
 
   // const [page, setPage] = useState(1);
   // const handlePagination = (event: any, value: any) => {
@@ -19,10 +24,71 @@ export default function Table(props: any) {
   // };
   // const [displayedProducts, setDisplayedProducts] = useState([])
 
+  const [displayedProducts, setDisplayedProducts] = useState([]);
+
   const cartProducts = localStorage.getItem('cartProducts')
     ? JSON.parse(localStorage.getItem('cartProducts') as string)
     : useSelector((state: any) => state.cartProducts);
   const [productInModal, setProductInModal] = useState<Product | null>(null);
+
+  const [filterParam, setFilterParam] = useSearchParamsState('filterParam', '');
+  const [searchQueryParam, setSearchQueryParam] = useSearchParamsState(
+    'searchQueryParam',
+    ''
+  );
+  const [sortParam, setSortParam] = useSearchParamsState('sortParam', '');
+
+  const fetchConfig = {
+    PRODUCTS_URL: 'http://localhost:3000/products',
+    ORDERS_URL: 'http://localhost:3000/orders',
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+    },
+  };
+
+  const loadProducts = async () => {
+    try {
+      const response = await axios.get(fetchConfig.PRODUCTS_URL);
+      dispatch(setProducts(response.data));
+      // setDataLoaded(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const sortProducts = (sort: string, arr: Product[]): Product[] => {
+    if (sort === 'ascending') {
+      arr = arr.sort((a, b) => a.itemPrice - b.itemPrice);
+    } else if (sort === 'descending') {
+      arr = arr.sort((a, b) => b.itemPrice - a.itemPrice);
+    } else if (sort === 'az') {
+      arr = arr.sort((a: Product, b: Product) => {
+        return a.itemName.localeCompare(b.itemName);
+      });
+    } else if (sort === 'za') {
+      arr = arr.sort((a: Product, b: Product) => {
+        return -a.itemName.localeCompare(b.itemName);
+      });
+    }
+
+    return arr;
+  };
+
+  useEffect(() => {
+    let arr = [...products];
+    if (filterParam) arr = arr.filter((p) => p.itemType.includes(filterParam));
+    if (sortParam) arr = sortProducts(sortParam, arr);
+    if (searchQueryParam)
+      arr = arr.filter((p) =>
+        p.itemName.toLowerCase().includes(searchQueryParam.toLowerCase())
+      );
+    dispatch(setFilteredProducts(arr));
+  }, [products, filterParam, searchQueryParam, sortParam]);
 
   const openModal = (product: Product) => {
     setProductInModal(product);
@@ -54,9 +120,11 @@ export default function Table(props: any) {
   return (
     <div>
       {/* <Pagination count={10} page={page} onChange={handlePagination} /> */}
-
+      <AppPagination
+        setDisplayedProducts={(p: any) => setDisplayedProducts(p)}
+      />
       <ul className='products'>
-        {products?.map((product: Product) => {
+        {displayedProducts?.map((product: Product) => {
           return (
             <Fade key={product.id} direction={'up'} triggerOnce={true}>
               <li>

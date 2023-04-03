@@ -15,7 +15,8 @@ export default function AppPagination(props: any) {
     'fromParam',
     pageSize.toString()
   );
-  const [countParam, setCountParam] = useSearchParamsState('countParam', '0');
+  // const [countParam, setCountParam] = useSearchParamsState('countParam', '0');
+  const [countParam, setCountParam] = useState('0');
 
   // const [pagination, setPagination] = useState({
   //   count: 0,
