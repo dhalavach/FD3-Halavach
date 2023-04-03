@@ -15,23 +15,12 @@ export default function Cart() {
   const [checkoutFormOpen, setCheckoutFormOpen] = useState(false);
   const [productToRemove, setProductToRemove] = useState<number>();
 
-  const order = (orderObj: any) => {
-    createOrder({ ...orderObj, products: cartProducts });
-  };
-
   const remove = (product: Product) => {
     let newCartProducts = [...cartProducts].filter(
       (item) => item.id !== product.id
     );
     dispatch(setCartProducts(newCartProducts));
     localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
-  };
-
-  const createOrder = (order: orderObject) => {
-    alert(
-      `saving order for ${order.name.toString()} - to be implemented later...`
-    );
-    console.log(order);
   };
 
   useEffect(() => {
@@ -109,7 +98,7 @@ export default function Cart() {
           </button>
         </div>
       )}
-      {checkoutFormOpen && <CheckoutForm order={order} />}
+      {checkoutFormOpen && <CheckoutForm />}
     </>
   );
 }

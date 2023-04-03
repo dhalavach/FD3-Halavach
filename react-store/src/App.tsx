@@ -157,6 +157,14 @@ function App() {
             <h1>Computer Store</h1>
           </div>
           <Link
+            to={'/ordersList'}
+            className={`${
+              matches ? 'app__link-cart-desktop' : 'app__link-cart-tablet'
+            }`}
+          >
+            Orders
+          </Link>
+          <Link
             to={'/cart'}
             className={`${
               matches ? 'app__link-cart-desktop' : 'app__link-cart-tablet'

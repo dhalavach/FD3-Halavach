@@ -9,6 +9,7 @@ import About from './routes/about';
 import Cart from './routes/cart';
 import store from './components/Store';
 import { Provider } from 'react-redux';
+import OrdersList from './components/OrdersList';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     element: <About />,
   },
   {
+    path: '/ordersList',
+    element: <OrdersList />,
+  },
+  {
     path: '/cart',
     element: <Cart />,
   },
@@ -27,8 +32,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Provider store={store}> 
+    <Provider store={store}>
       <RouterProvider router={router} />
-      </Provider>
+    </Provider>
   </React.StrictMode>
 );

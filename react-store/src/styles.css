@@ -640,6 +640,18 @@ a:hover {
   border: 2px black solid;
 }
 
+.orders-list__order-container ul li {
+  list-style-type: none;
+}
+
+.orders-list__order-container {
+  background-color: gainsboro;
+  margin: 1rem;
+  padding: 1rem;
+  max-width: 60%;
+  border-radius: 1rem;
+}
+
 .hidden {
   display: none;
 }

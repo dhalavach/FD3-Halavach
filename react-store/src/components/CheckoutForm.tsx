@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Product } from '../types/Types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOrders } from '../slices/ordersSlice';
 
 export default function CheckoutForm(props: any) {
-  const { order } = props;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
@@ -16,6 +16,7 @@ export default function CheckoutForm(props: any) {
     name: false,
     address: false,
   });
+  const dispatch = useDispatch();
   const cartProducts = useSelector((state: any) => state.cartProducts);
 
   const postConfig = {
@@ -73,6 +74,8 @@ export default function CheckoutForm(props: any) {
     address: string;
     orderedProducts: Product[];
   }) => {
+    dispatch(setOrders(data));
+
     try {
       axios.post(postConfig.URL, data).then((response) => {
         console.log(response.status, response.data);
@@ -159,11 +162,6 @@ export default function CheckoutForm(props: any) {
               onClick={(e) => {
                 e.preventDefault();
                 if (validateBeforeSubmit()) {
-                  order({
-                    name: name,
-                    email: email,
-                    address: address,
-                  });
                   postOrder({
                     name: name,
                     email: email,

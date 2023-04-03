@@ -6,6 +6,7 @@ import sortReducer from '../slices/sortSlice';
 import productsReducer from '../slices/productsSlice';
 import filteredProductsReducer from '../slices/filteredProductsSlice';
 import cartProductsReducer from '../slices/cartProductsSlice';
+import ordersReducer from '../slices/ordersSlice';
 
 export default configureStore({
   reducer: {
@@ -15,5 +16,6 @@ export default configureStore({
     products: productsReducer,
     filteredProducts: filteredProductsReducer,
     cartProducts: cartProductsReducer,
+    orders: ordersReducer,
   },
 });
