@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Product } from '../types/Types';
 import axios from 'axios';
 import { setOrders } from '../slices/ordersSlice';
+import OrderListContainer from './OrderListContainer';
 
 export default function OrdersList() {
   const dispatch = useDispatch();
   // const orders = useSelector((state: any) => state.orders.ordersArr);
   //const orders = useSelector((state: any) => state.orders.ordersArr) || [];
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<any[]>([]);
   const [ordersLoaded, setOrdersLoaded] = useState(false);
 
   const fetchConfig = {
@@ -24,7 +25,7 @@ export default function OrdersList() {
       const response = await axios.get(fetchConfig.ORDERS_URL);
       // dispatch(setOrders(response.data));
       setOrders(response.data);
-      console.log(response.data);
+      // console.log(response.data);
       setOrdersLoaded(true);
     } catch (error) {
       console.error(error);
@@ -38,34 +39,9 @@ export default function OrdersList() {
   return (
     <>
       <h3 className='orders-list__heading'>List of orders</h3>
-      <div>
-        {!ordersLoaded ? (
-          'Loading...'
-        ) : (
-          <div className='orders-list__order-box'>
-            {orders?.map((order: any) => {
-              return (
-                <div className='orders-list__order-container' key={order?.id}>
-                  <ul>
-                    <li>Name: {order?.name}</li>
-                    <li>Email: {order?.email}</li>
-                    <li>Address: {order?.address}</li>
-                    <li>
-                      {order?.orderedProducts?.map((p: Product) => {
-                        return (
-                          <div>
-                            {p?.itemName} x {p?.count}
-                          </div>
-                        );
-                      })}
-                    </li>
-                  </ul>
-                </div>
-              );
+        {!ordersLoaded ? 'Loading...' : orders.map((order: any) => {
+              return <OrderListContainer order={order} key={order.id} />;
             })}
-          </div>
-        )}
-      </div>
     </>
   );
 }

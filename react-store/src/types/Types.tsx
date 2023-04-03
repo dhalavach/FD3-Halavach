@@ -18,3 +18,8 @@ export type orderObject = {
   address: string;
   products: Product[];
 };
+
+export type Order = {
+  
+
+}
