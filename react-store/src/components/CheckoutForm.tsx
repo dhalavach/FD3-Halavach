@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Product } from '../types/Types';
+import { useSelector } from 'react-redux';
 
 export default function CheckoutForm(props: any) {
   const { order } = props;
@@ -15,10 +16,11 @@ export default function CheckoutForm(props: any) {
     name: false,
     address: false,
   });
+  const cartProducts = useSelector((state: any) => state.cartProducts);
 
-  const fetchConfig = {
-    URL: 'http://localhost:3000/products',
-    method: 'GET',
+  const postConfig = {
+    URL: 'http://localhost:3000/orders',
+    method: 'POST',
     headers: {
       Accept: 'application/json',
     },
@@ -65,9 +67,14 @@ export default function CheckoutForm(props: any) {
     }
   };
 
-  const postOrder = (data: Product) => {
+  const postOrder = (data: {
+    name: string;
+    email: string;
+    address: string;
+    orderedProducts: Product[];
+  }) => {
     try {
-      axios.post(fetchConfig.URL, data).then((response) => {
+      axios.post(postConfig.URL, data).then((response) => {
         console.log(response.status, response.data);
       });
     } catch (error) {
@@ -156,6 +163,12 @@ export default function CheckoutForm(props: any) {
                     name: name,
                     email: email,
                     address: address,
+                  });
+                  postOrder({
+                    name: name,
+                    email: email,
+                    address: address,
+                    orderedProducts: cartProducts,
                   });
                 }
               }}

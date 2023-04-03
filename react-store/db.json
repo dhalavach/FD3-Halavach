@@ -1,4 +1,40 @@
 {
+  "orders": [
+    {
+      "name": "Dzmitry Halavach",
+      "email": "halawacz@gmail.com",
+      "address": "Hallam Street, 170",
+      "orderedProducts": [
+        {
+          "id": 4,
+          "className": "Item",
+          "itemType": "CPU",
+          "itemName": "Ryzen 5800X3D",
+          "itemPrice": 1200,
+          "itemImage": "/assets/images/ryzen5800x3d.jpg",
+          "itemImageURL": "https://uni.by/files/ItemsImages/137010_r300.jpg",
+          "itemImageAlt": "Ryzen 5800X3D",
+          "itemQuantity": 1,
+          "itemDescription": "The AMD Ryzen™ 7 5800X3D is the first desktop processor with stacked L3 cache, delivering unmatched 96MB of L3 cache paired with incredibly fast cores to create the world’s fastest gaming desktop processor.",
+          "count": 1
+        },
+        {
+          "id": 1,
+          "className": "Item",
+          "itemType": "motherboard",
+          "itemName": "ASUS ROG STRIX B550-I GAMING",
+          "itemPrice": 730,
+          "itemImage": "/assets/images/asusb550i.jpg",
+          "itemImageURL": "https://uni.by/files/ItemsImages/116378_r300.jpg",
+          "itemImageAlt": "ASUS B550-I",
+          "itemQuantity": 2,
+          "itemDescription": "",
+          "count": 1
+        }
+      ],
+      "id": 1
+    }
+  ],
   "products": [
     {
       "id": 1,
@@ -48,7 +84,6 @@
       "itemQuantity": 1,
       "itemDescription": "The AMD Ryzen™ 7 5800X3D is the first desktop processor with stacked L3 cache, delivering unmatched 96MB of L3 cache paired with incredibly fast cores to create the world’s fastest gaming desktop processor."
     },
-
     {
       "id": 5,
       "className": "Item",
