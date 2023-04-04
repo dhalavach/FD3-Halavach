@@ -5,8 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 export const cartProductsSlice = createSlice({
   name: 'cartProducts',
   initialState: localStorage.getItem('cartProducts')
-    ? JSON.parse(localStorage.getItem('cartProducts') as string)
-    : [],
+  ? JSON.parse(localStorage.getItem('cartProducts') as string) : [],
 
   reducers: {
     setCartProducts: (state, param) => {

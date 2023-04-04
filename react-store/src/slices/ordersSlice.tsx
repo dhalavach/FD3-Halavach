@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { orderObject } from '../types/Types';
 
-const arr: any[] = [];
+const arr: orderObject[] = [];
 
 export const ordersSlice = createSlice({
   name: 'orders',

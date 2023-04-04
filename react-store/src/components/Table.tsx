@@ -26,9 +26,7 @@ export default function Table() {
 
   const [displayedProducts, setDisplayedProducts] = useState([]);
 
-  const cartProducts = localStorage.getItem('cartProducts')
-    ? JSON.parse(localStorage.getItem('cartProducts') as string)
-    : useSelector((state: any) => state.cartProducts);
+  const cartProducts =  useSelector((state: any) => state.cartProducts);
   const [productInModal, setProductInModal] = useState<Product | null>(null);
 
   const [filterParam, setFilterParam] = useSearchParamsState('filterParam', '');
@@ -114,9 +112,7 @@ export default function Table() {
     localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
   };
 
-  const checkIfInCart = (product: Product): boolean => {
-    return cartProducts.findIndex((p: Product) => p.id === product.id) !== -1;
-  };
+
   return (
     <div>
       {/* <Pagination count={10} page={page} onChange={handlePagination} /> */}
@@ -148,8 +144,8 @@ export default function Table() {
                   <div>{formatMoney(product.itemPrice)}</div>
                   <AddToCartButton
                     add={add}
-                    checkIfInCart={checkIfInCart}
                     product={product}
+                    cartProducts={cartProducts}
                   />
                 </div>
               </li>
@@ -196,7 +192,6 @@ export default function Table() {
                     <div>{formatMoney(productInModal.itemPrice)}</div>
                     <AddToCartButton
                       add={add}
-                      checkIfInCart={checkIfInCart}
                       product={productInModal}
                     />
                   </div>

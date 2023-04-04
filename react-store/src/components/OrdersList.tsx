@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Product } from '../types/Types';
+import { Product, orderObject } from '../types/Types';
 import axios from 'axios';
 import { setOrders } from '../slices/ordersSlice';
 import OrderListContainer from './OrderListContainer';
@@ -9,7 +9,7 @@ export default function OrdersList() {
   const dispatch = useDispatch();
   // const orders = useSelector((state: any) => state.orders.ordersArr);
   //const orders = useSelector((state: any) => state.orders.ordersArr) || [];
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<orderObject[]>([]);
   const [ordersLoaded, setOrdersLoaded] = useState(false);
 
   const fetchConfig = {

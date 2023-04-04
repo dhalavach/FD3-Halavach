@@ -13,13 +13,14 @@ export type Product = {
 };
 
 export type orderObject = {
+  id: number,
   name: string;
   email: string;
   address: string;
-  products: Product[];
+  orderedProducts: Product[];
 };
 
 export type Order = {
-  
+
 
 }
