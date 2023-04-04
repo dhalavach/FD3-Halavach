@@ -103,7 +103,7 @@ export default function Cart() {
           </button>
         </div>
       )}
-      {checkoutFormOpen && <CheckoutForm />}
+      {checkoutFormOpen && <CheckoutForm setCheckoutFormOpen={ setCheckoutFormOpen} />}
     </>
   );
 }

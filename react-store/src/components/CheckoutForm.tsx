@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { Product } from '../types/Types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOrders } from '../slices/ordersSlice';
+import { setCartProducts } from '../slices/cartProductsSlice';
 
 export default function CheckoutForm(props: any) {
+  const { setCheckoutFormOpen } = props;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
@@ -68,7 +70,7 @@ export default function CheckoutForm(props: any) {
     }
   };
 
-  const postOrder = (data: {
+  const postOrder = async (data: {
     name: string;
     email: string;
     address: string;
@@ -77,7 +79,7 @@ export default function CheckoutForm(props: any) {
     dispatch(setOrders(data));
 
     try {
-      axios.post(postConfig.URL, data).then((response) => {
+      await axios.post(postConfig.URL, data).then((response) => {
         console.log(response.status, response.data);
       });
     } catch (error) {
@@ -159,16 +161,20 @@ export default function CheckoutForm(props: any) {
                 validateBeforeSubmit() ? '' : 'grey-out'
               }`}
               type='submit'
-              onClick={(e) => {
+              onClick={async (e) => {
                 e.preventDefault();
                 if (validateBeforeSubmit()) {
-                  postOrder({
+                  await postOrder({
                     name: name,
                     email: email,
                     address: address,
                     orderedProducts: cartProducts,
                   });
                 }
+                dispatch(setCartProducts([]));
+                localStorage.setItem('cartProducts', '');
+                setCheckoutFormOpen(false);
+                alert('order posted!');
               }}
               data-testid='checkout__submit-button'
             >
