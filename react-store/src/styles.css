@@ -640,6 +640,15 @@ a:hover {
   border: 2px black solid;
 }
 
+.checkout-form__modal-buttons {
+  display: flex;
+  justify-content: center;
+}
+.checkout-form__modal-buttons button {
+  padding: 1rem;
+  margin: 2rem;
+}
+
 .orders-list__order-container ul li {
   list-style-type: none;
 }

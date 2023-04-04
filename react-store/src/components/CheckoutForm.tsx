@@ -4,6 +4,9 @@ import { Product } from '../types/Types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOrders } from '../slices/ordersSlice';
 import { setCartProducts } from '../slices/cartProductsSlice';
+import Modal from 'react-modal';
+import { Zoom } from 'react-awesome-reveal';
+import { useNavigate } from 'react-router-dom';
 
 export default function CheckoutForm(props: any) {
   const { setCheckoutFormOpen } = props;
@@ -18,7 +21,9 @@ export default function CheckoutForm(props: any) {
     name: false,
     address: false,
   });
+  const [postOrderModalOpen, setPostOrderModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartProducts = useSelector((state: any) => state.cartProducts);
 
   const postConfig = {
@@ -173,8 +178,9 @@ export default function CheckoutForm(props: any) {
                 }
                 dispatch(setCartProducts([]));
                 localStorage.setItem('cartProducts', '');
-                setCheckoutFormOpen(false);
-                alert('order posted!');
+                // alert('order posted!');
+                setPostOrderModalOpen(true);
+                // setCheckoutFormOpen(false);
               }}
               data-testid='checkout__submit-button'
             >
@@ -183,6 +189,56 @@ export default function CheckoutForm(props: any) {
           </li>
         </ul>
       </form>
+      <div>
+        {postOrderModalOpen && (
+          <div className='modal__wrapper' data-testid='checkout-form__modal'>
+            <Modal
+              isOpen={true}
+              onRequestClose={() => {
+                setPostOrderModalOpen(false);
+              }}
+              ariaHideApp={false}
+            >
+              <Zoom>
+                <div className='modal__close-wrapper'>
+                  <button
+                    className='modal__close-modal'
+                    onClick={() => {
+                      setCheckoutFormOpen(false);
+                      setPostOrderModalOpen(false);
+                    }}
+                    data-testid='checkout-form__modal-close'
+                  >
+                    x
+                  </button>
+                </div>
+                <div className='checkout-form__modal-heading'>
+                  <h4>Order successfully placed!</h4>
+                </div>
+                <div className='checkout-form__modal-buttons'>
+                  <button
+                    onClick={() => {
+                      setCheckoutFormOpen(false);
+                      setPostOrderModalOpen(false);
+                    }}
+                  >
+                    Continue shopping
+                  </button>
+                  <button
+                    onClick={() => {
+                      navigate('/ordersList');
+                      setCheckoutFormOpen(false);
+                      setPostOrderModalOpen(false);
+                    }}
+                  >
+                    View orders
+                  </button>
+                </div>
+              </Zoom>
+            </Modal>
+          </div>
+        )}
+      </div>
     </>
   );
 }

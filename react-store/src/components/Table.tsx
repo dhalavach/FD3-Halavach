@@ -17,16 +17,16 @@ export default function Table() {
   const dispatch = useDispatch();
   let products = useSelector((state: any) => state?.products);
 
-
   // const [page, setPage] = useState(1);
   // const handlePagination = (event: any, value: any) => {
   //   setPage(value);
   // };
   // const [displayedProducts, setDisplayedProducts] = useState([])
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   const [displayedProducts, setDisplayedProducts] = useState([]);
 
-  const cartProducts =  useSelector((state: any) => state.cartProducts);
+  const cartProducts = useSelector((state: any) => state.cartProducts);
   const [productInModal, setProductInModal] = useState<Product | null>(null);
 
   const [filterParam, setFilterParam] = useSearchParamsState('filterParam', '');
@@ -49,7 +49,7 @@ export default function Table() {
     try {
       const response = await axios.get(fetchConfig.PRODUCTS_URL);
       dispatch(setProducts(response.data));
-      // setDataLoaded(true);
+      setDataLoaded(true);
     } catch (error) {
       console.error(error);
     }
@@ -112,9 +112,9 @@ export default function Table() {
     localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
   };
 
-
   return (
     <div>
+      {!dataLoaded && <span>Loading...</span>}
       {/* <Pagination count={10} page={page} onChange={handlePagination} /> */}
       <AppPagination
         setDisplayedProducts={(p: any) => setDisplayedProducts(p)}
@@ -190,10 +190,7 @@ export default function Table() {
                   </div>
                   <div className='product-price'>
                     <div>{formatMoney(productInModal.itemPrice)}</div>
-                    <AddToCartButton
-                      add={add}
-                      product={productInModal}
-                    />
+                    <AddToCartButton add={add} product={productInModal} />
                   </div>
                 </div>
               </Zoom>
