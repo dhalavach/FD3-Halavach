@@ -8,8 +8,8 @@ export type Product = {
     itemImageURL: string;
     itemImageAlt: string;
     itemQuantity: number;
-    itemDescription?: string;
-    count?: number;
+    itemDescription: string;
+    count: number;
 };
 export type orderObject = {
     id: number;

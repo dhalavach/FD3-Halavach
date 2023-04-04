@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component matches the snapshot 1`] = `
+[
+  <div
+    className="cart"
+  >
+    CheckoutForm
+  </div>,
+  <form>
+    <ul
+      className="form-container"
+    >
+      <li>
+        <label>
+          Email
+        </label>
+        <input
+          data-testid="checkout__email"
+          name="email"
+          onChange={[Function]}
+          required={true}
+          type="email"
+          value=""
+        />
+        <span
+          className="message-error"
+          data-testid="checkout__email-error-message"
+        />
+      </li>
+      <li>
+        <label>
+          First and last name
+        </label>
+        <input
+          data-testid="checkout__name"
+          name="name"
+          onChange={[Function]}
+          required={true}
+          type="text"
+          value=""
+        />
+        <span
+          className="message-error"
+          data-testid="checkout__name-error-message"
+        />
+      </li>
+      <li>
+        <label>
+          Delivery address
+        </label>
+        <input
+          data-testid="checkout__address"
+          name="address"
+          onChange={[Function]}
+          required={true}
+          type="text"
+          value=""
+        />
+        <span
+          className="message-error"
+          data-testid="checkout__address-error-message"
+        />
+      </li>
+      <li>
+        <button
+          className="btn primary btn-submit grey-out"
+          data-testid="checkout__submit-button"
+          onClick={[Function]}
+          type="submit"
+        >
+          Proceed to checkout
+        </button>
+      </li>
+    </ul>
+  </form>,
+]
+`;

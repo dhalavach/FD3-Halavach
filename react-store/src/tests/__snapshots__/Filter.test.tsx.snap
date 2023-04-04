@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component matches the snapshot 1`] = `
+<div>
+  <div
+    className="filter-sort"
+  >
+    Order
+     
+    <select
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value=""
+      />
+      <option
+        value="az"
+      >
+        A-Z
+      </option>
+      <option
+        value="za"
+      >
+        Z-A
+      </option>
+      <option
+        value="ascending"
+      >
+        Price - ascending
+      </option>
+      <option
+        value="descending"
+      >
+        Price - descending
+      </option>
+    </select>
+  </div>
+  <div
+    className="filter-type"
+  >
+    Filter
+    <select
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        value=""
+      >
+        All
+      </option>
+      <option
+        value="motherboard"
+      >
+        Motherboard
+      </option>
+      <option
+        value="CPU"
+      >
+        CPU
+      </option>
+      <option
+        value="GPU"
+      >
+        GPU
+      </option>
+      <option
+        value="PSU"
+      >
+        PSU
+      </option>
+    </select>
+  </div>
+</div>
+`;

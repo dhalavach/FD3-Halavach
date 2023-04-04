@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component matches the snapshot 1`] = `
+<div>
+  Search
+   
+  <input
+    data-testid="search__input-field"
+    id="search-box"
+    name="search"
+    onChange={[Function]}
+    placeholder="search products"
+    type="search"
+    value="qwerty"
+  />
+</div>
+`;

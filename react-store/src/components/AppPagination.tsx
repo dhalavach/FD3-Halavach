@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Pagination } from '@mui/material';
-import service from '../services/service';
 import productsSlice from '../slices/productsSlice';
 import filteredProductsSlice from '../slices/filteredProductsSlice';
 import { useSelector } from 'react-redux';

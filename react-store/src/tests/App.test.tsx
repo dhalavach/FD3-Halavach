@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../components/Store';
+import renderer from 'react-test-renderer';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -42,4 +43,17 @@ test('renders link to cart', () => {
   );
   const cart = screen.getByText(/cart/i);
   expect(cart).toBeInTheDocument();
+});
+
+test('component matches the snapshot', () => {
+  const tree = renderer
+    .create(
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });

@@ -1,0 +1,252 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component matches the snapshot 1`] = `
+<div
+  className="wrapper"
+>
+  <div
+    className="grid-container"
+  >
+    <header
+      className="header"
+    >
+      <a
+        className="app__link-about-tablet"
+        href="/about"
+        onClick={[Function]}
+      >
+        About
+      </a>
+      <div
+        className="app__heading-tablet"
+      >
+        <h1>
+          Computer Store
+        </h1>
+      </div>
+      <a
+        className="app__link-cart-tablet"
+        href="/ordersList"
+        onClick={[Function]}
+      >
+        Orders
+      </a>
+      <a
+        className="app__link-cart-tablet"
+        href="/cart"
+        onClick={[Function]}
+      >
+        Cart
+      </a>
+    </header>
+    <main>
+      <div
+        className="content"
+      >
+        <div
+          className="main"
+        >
+          <div
+            className="controls"
+          >
+            <div
+              className="filter-order"
+            >
+              <div>
+                <div
+                  className="filter-sort"
+                >
+                  Order
+                   
+                  <select
+                    onChange={[Function]}
+                    value=""
+                  >
+                    <option
+                      value=""
+                    />
+                    <option
+                      value="az"
+                    >
+                      A-Z
+                    </option>
+                    <option
+                      value="za"
+                    >
+                      Z-A
+                    </option>
+                    <option
+                      value="ascending"
+                    >
+                      Price - ascending
+                    </option>
+                    <option
+                      value="descending"
+                    >
+                      Price - descending
+                    </option>
+                  </select>
+                </div>
+                <div
+                  className="filter-type"
+                >
+                  Filter
+                  <select
+                    onChange={[Function]}
+                    value=""
+                  >
+                    <option
+                      value=""
+                    >
+                      All
+                    </option>
+                    <option
+                      value="motherboard"
+                    >
+                      Motherboard
+                    </option>
+                    <option
+                      value="CPU"
+                    >
+                      CPU
+                    </option>
+                    <option
+                      value="GPU"
+                    >
+                      GPU
+                    </option>
+                    <option
+                      value="PSU"
+                    >
+                      PSU
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div
+              className="search"
+            >
+              <div>
+                Search
+                 
+                <input
+                  data-testid="search__input-field"
+                  id="search-box"
+                  name="search"
+                  onChange={[Function]}
+                  placeholder="search products"
+                  type="search"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div
+                className="MuiBox-root css-1mdvpvv"
+              />
+              <nav
+                aria-label="pagination navigation"
+                className="MuiPagination-root MuiPagination-text css-1oj2twp-MuiPagination-root"
+              >
+                <ul
+                  className="MuiPagination-ul css-wjh20t-MuiPagination-ul"
+                >
+                  <li>
+                    <button
+                      aria-label="Go to previous page"
+                      className="MuiButtonBase-root Mui-disabled MuiPaginationItem-root MuiPaginationItem-sizeMedium MuiPaginationItem-text MuiPaginationItem-circular Mui-disabled MuiPaginationItem-previousNext css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root"
+                      disabled={true}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      tabIndex={-1}
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiPaginationItem-icon css-g2z002-MuiSvgIcon-root-MuiPaginationItem-icon"
+                        data-testid="NavigateBeforeIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      aria-label="Go to next page"
+                      className="MuiButtonBase-root Mui-disabled MuiPaginationItem-root MuiPaginationItem-sizeMedium MuiPaginationItem-text MuiPaginationItem-circular Mui-disabled MuiPaginationItem-previousNext css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root"
+                      disabled={true}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      tabIndex={-1}
+                      type="button"
+                    >
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiPaginationItem-icon css-g2z002-MuiSvgIcon-root-MuiPaginationItem-icon"
+                        data-testid="NavigateNextIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+              <ul
+                className="products"
+              />
+              <div />
+            </div>
+          </div>
+        </div>
+        <div
+          className="sidebar hidden"
+        >
+          <div>
+            <div
+              className="cart cart-header"
+            >
+              Empty
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      2023
+    </footer>
+  </div>
+</div>
+`;

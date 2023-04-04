@@ -1,11 +1,13 @@
 import Table from '../components/Table';
-import { render, screen, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import data from './mocks/mockData.json';
 import '@testing-library/jest-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../components/Store';
+import axios from 'axios';
+import renderer from 'react-test-renderer';
 
 const testStore = {
   ...store,
@@ -24,9 +26,11 @@ beforeEach(() => {
     disconnect: () => null,
   });
   window.IntersectionObserver = mockIntersectionObserver;
+  jest.mock('axios');
+  // jest.spyOn(axios, 'get').mockResolvedValueOnce(data);
 });
 
-
+afterEach(cleanup);
 
 test('renders table', () => {
   expect(
@@ -39,18 +43,6 @@ test('renders table', () => {
     )
   ).toBeTruthy();
 });
-
-// test('renders table without props', () => {
-//   expect(
-//     render(
-//       <Provider store={store}>
-//         <Router>
-//           <Table />
-//         </Router>
-//       </Provider>
-//     )
-//   ).toBeTruthy();
-// });
 
 test('add to cart button renders ', async () => {
   render(
@@ -117,4 +109,17 @@ test('modal window closes when user clicks on a close button', async () => {
   const closeModalButton = screen.getByTestId('table__modal-close');
   await userEvent.click(closeModalButton);
   expect(modal).not.toBeVisible;
+});
+
+test('component matches the snapshot', () => {
+  const tree = renderer
+    .create(
+      <Provider store={testStore}>
+        <Router>
+          <Table />
+        </Router>
+      </Provider>
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });

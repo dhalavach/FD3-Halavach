@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component matches the snapshot 1`] = `
+[
+  <h3
+    className="orders-list__heading"
+  >
+    List of orders
+  </h3>,
+  "Loading...",
+]
+`;

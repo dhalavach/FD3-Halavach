@@ -8,19 +8,16 @@ export type Product = {
   itemImageURL: string;
   itemImageAlt: string;
   itemQuantity: number;
-  itemDescription?: string;
-  count?: number;
+  itemDescription: string;
+  count: number;
 };
 
 export type orderObject = {
-  id: number,
+  id: number;
   name: string;
   email: string;
   address: string;
   orderedProducts: Product[];
 };
 
-export type Order = {
-
-
-}
+export type Order = {};

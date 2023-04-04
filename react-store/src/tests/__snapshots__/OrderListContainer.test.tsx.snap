@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component matches the snapshot 1`] = `
+[
+  <div
+    className="orders-list__order-container"
+  >
+    <ul>
+      <li>
+        Name: 
+        John Doe
+      </li>
+      <li>
+        Email: 
+        foo@gmail.com
+      </li>
+      <li>
+        Address: 
+        Some Street 7, 1414
+      </li>
+      <li>
+        <div>
+          ASUS PRIME Z790-P D4
+           x 
+          1
+        </div>
+        <div>
+          Intel 13700k
+           x 
+          1
+        </div>
+      </li>
+    </ul>
+  </div>,
+  " ",
+]
+`;

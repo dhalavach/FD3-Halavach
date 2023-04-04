@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component matches the snapshot 1`] = `
+<button
+  className="btn table__button-add"
+  data-testid="add-to-cart-button"
+  onClick={[Function]}
+>
+  Add to Cart
+</button>
+`;

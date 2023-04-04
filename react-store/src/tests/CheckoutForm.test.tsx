@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
@@ -6,6 +6,9 @@ import CheckoutForm from '../components/CheckoutForm';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../components/Store';
+import renderer from 'react-test-renderer';
+
+afterEach(cleanup);
 
 test('Renders the component', () => {
   expect(
@@ -142,4 +145,17 @@ test('error message is displayed when invalid address is entered', () => {
   fireEvent.change(addressInput, { target: { value: 1 } });
   const errorMessage = screen.getByTestId('checkout__address-error-message');
   expect(errorMessage).toBeVisible();
+});
+
+test('component matches the snapshot', () => {
+  const tree = renderer
+    .create(
+      <Provider store={store}>
+        <Router>
+          <CheckoutForm />
+        </Router>
+      </Provider>
+    )
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });
