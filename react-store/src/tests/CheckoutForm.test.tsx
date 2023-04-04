@@ -4,22 +4,28 @@ import '@testing-library/jest-dom';
 
 import CheckoutForm from '../components/CheckoutForm';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../components/Store';
 
 test('Renders the component', () => {
   expect(
     render(
-      <Router>
-        <CheckoutForm />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <CheckoutForm />
+        </Router>
+      </Provider>
     )
   ).toBeTruthy();
 });
 
 test('submit button is greyed-out on load', () => {
   const form = render(
-    <Router>
-      <CheckoutForm />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <CheckoutForm />
+      </Router>
+    </Provider>
   );
 
   expect(
@@ -29,9 +35,11 @@ test('submit button is greyed-out on load', () => {
 
 test('submit button is greyed-out with invalid email', () => {
   const form = render(
-    <Router>
-      <CheckoutForm />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <CheckoutForm />
+      </Router>
+    </Provider>
   );
 
   userEvent.type(form.getByTestId('checkout__email'), 'a');
@@ -43,9 +51,11 @@ test('submit button is greyed-out with invalid email', () => {
 
 test('submit button is not greyed-out with valid input', async () => {
   const form = render(
-    <Router>
-      <CheckoutForm />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <CheckoutForm />
+      </Router>
+    </Provider>
   );
   const email = form.getByTestId('checkout__email');
   const name = form.getByTestId('checkout__name');
@@ -62,9 +72,11 @@ test('submit button is not greyed-out with valid input', async () => {
 
 test('submit button is greyed-out with invalid input', async () => {
   const form = render(
-    <Router>
-      <CheckoutForm />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <CheckoutForm />
+      </Router>
+    </Provider>
   );
   const email = form.getByTestId('checkout__email');
   const name = form.getByTestId('checkout__name');
@@ -80,9 +92,11 @@ test('submit button is greyed-out with invalid input', async () => {
 
 test('submit button renders with correct text', () => {
   const form = render(
-    <Router>
-      <CheckoutForm />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <CheckoutForm />
+      </Router>
+    </Provider>
   );
   const submitButton = form.getByTestId('checkout__submit-button');
   expect(submitButton.textContent).toBe('Proceed to checkout');
@@ -90,9 +104,11 @@ test('submit button renders with correct text', () => {
 
 test('error message is displayed when invalid email is entered', () => {
   render(
-    <Router>
-      <CheckoutForm />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <CheckoutForm />
+      </Router>
+    </Provider>
   );
   const emailInput = screen.getByTestId('checkout__email');
   fireEvent.change(emailInput, { target: { value: 'qwerty' } });
@@ -102,9 +118,11 @@ test('error message is displayed when invalid email is entered', () => {
 
 test('error message is displayed when invalid name is entered', () => {
   render(
-    <Router>
-      <CheckoutForm />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <CheckoutForm />
+      </Router>
+    </Provider>
   );
   const nameInput = screen.getByTestId('checkout__name');
   fireEvent.change(nameInput, { target: { value: 'k' } });
@@ -114,9 +132,11 @@ test('error message is displayed when invalid name is entered', () => {
 
 test('error message is displayed when invalid address is entered', () => {
   render(
-    <Router>
-      <CheckoutForm />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <CheckoutForm />
+      </Router>
+    </Provider>
   );
   const addressInput = screen.getByTestId('checkout__address');
   fireEvent.change(addressInput, { target: { value: 1 } });
