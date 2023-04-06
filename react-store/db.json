@@ -1,6 +1,100 @@
 {
-"orders" : [],
-
+  "orders": [
+    {
+      "name": "Jane Doe",
+      "email": "test@email.com",
+      "address": "Some Street 1",
+      "orderedProducts": [
+        {
+          "id": 1,
+          "className": "Item",
+          "itemType": "motherboard",
+          "itemName": "ASUS ROG STRIX B550-I GAMING",
+          "itemPrice": 730,
+          "itemImage": "/assets/images/asusb550i.jpg",
+          "itemImageURL": "https://uni.by/files/ItemsImages/116378_r300.jpg",
+          "itemImageAlt": "ASUS B550-I",
+          "itemQuantity": 2,
+          "itemDescription": "",
+          "count": 1
+        },
+        {
+          "id": 4,
+          "className": "Item",
+          "itemType": "CPU",
+          "itemName": "Ryzen 5800X3D",
+          "itemPrice": 1200,
+          "itemImage": "/assets/images/ryzen5800x3d.jpg",
+          "itemImageURL": "https://uni.by/files/ItemsImages/137010_r300.jpg",
+          "itemImageAlt": "Ryzen 5800X3D",
+          "itemQuantity": 1,
+          "itemDescription": "The AMD Ryzen™ 7 5800X3D is the first desktop processor with stacked L3 cache, delivering unmatched 96MB of L3 cache paired with incredibly fast cores to create the world’s fastest gaming desktop processor.",
+          "count": 1
+        }
+      ],
+      "id": 1
+    },
+    {
+      "name": "John Doe",
+      "email": "test2@mail.edu",
+      "address": "Another Street 2",
+      "orderedProducts": [
+        {
+          "id": 14,
+          "className": "Item",
+          "itemType": "CPU",
+          "itemName": "Intel 13700k",
+          "itemPrice": "699",
+          "itemImage": "/assets/images/13700k.jpg",
+          "itemImageURL": null,
+          "itemImageAlt": "13700k",
+          "itemQuantity": "7",
+          "itemDescription": "s-1700| 16C/24T (8P 3.4/5.4GHz + 8E 2.5/4.2GHz) 30MB 253W Intel UHD 770",
+          "count": 1
+        },
+        {
+          "id": 13,
+          "className": "Item",
+          "itemType": "motherboard",
+          "itemName": "ASRock Z790 Pro RS",
+          "itemPrice": "400",
+          "itemImage": "/assets/images/asrockz790.jpg",
+          "itemImageURL": null,
+          "itemImageAlt": "Asrock Z790",
+          "itemQuantity": "1",
+          "itemDescription": "s-1700| Z790 4xDDR5 6800MHz 2xPCI-E 5.0x16 2xPCI-E 5.0x1 4xM.2 DP+HDMI ATX",
+          "count": 1
+        },
+        {
+          "id": 5,
+          "className": "Item",
+          "itemType": "GPU",
+          "itemName": "MSI 4090 Suprim Classic 24G",
+          "itemPrice": "2200",
+          "itemImage": "/assets/images/msi4090.jpg",
+          "itemImageURL": null,
+          "itemImageAlt": "MSI 4090",
+          "itemQuantity": "4",
+          "itemDescription": "24Gb PCX | RTX 4090 Suprim Classic 24G GDDR6X, 2230/2520 MHz, 384 bit, 3xFan, 1xHDMI, 3xDP",
+          "count": 1
+        },
+        {
+          "id": 6,
+          "className": "Item",
+          "itemType": "PSU",
+          "itemName": "Fractal Design 860W FD-P-IA2P-860 ION+ 2 Platinum",
+          "itemPrice": "250",
+          "itemImage": "/assets/images/fractal860.jpg",
+          "itemImageURL": null,
+          "itemImageAlt": "Fractal Design 860W",
+          "itemQuantity": "3",
+          "itemDescription": "860W| 12V 71.6 А, 24pin, CPU 4+2x8pin, 4xMolex, 10xSATA, PCIe 6+6x8pin, 140mm, 1xFan, APFC, 80+ Platinum",
+          "count": 1
+        }
+      ],
+      "id": 2
+    }
+  ],
   "products": [
     {
       "id": 1,

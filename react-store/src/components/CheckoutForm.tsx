@@ -92,6 +92,12 @@ export default function CheckoutForm(props: any) {
     }
   };
 
+  const postOrderCleanUp = () => {
+    dispatch(setCartProducts([]));
+    localStorage.setItem('cartProducts', '');
+    setCheckoutFormOpen(false);
+    setPostOrderModalOpen(false);
+  };
   return (
     <>
       <div className='cart'>CheckoutForm</div>
@@ -176,11 +182,9 @@ export default function CheckoutForm(props: any) {
                     orderedProducts: cartProducts,
                   });
                 }
-                dispatch(setCartProducts([]));
-                localStorage.setItem('cartProducts', '');
-                // alert('order posted!');
                 setPostOrderModalOpen(true);
-                // setCheckoutFormOpen(false);
+                // dispatch(setCartProducts([]));
+                // localStorage.setItem('cartProducts', '');
               }}
               data-testid='checkout__submit-button'
             >
@@ -194,19 +198,14 @@ export default function CheckoutForm(props: any) {
           <div className='modal__wrapper' data-testid='checkout-form__modal'>
             <Modal
               isOpen={true}
-              onRequestClose={() => {
-                setPostOrderModalOpen(false);
-              }}
+              onRequestClose={postOrderCleanUp}
               ariaHideApp={false}
             >
               <Zoom>
                 <div className='modal__close-wrapper'>
                   <button
                     className='modal__close-modal'
-                    onClick={() => {
-                      setCheckoutFormOpen(false);
-                      setPostOrderModalOpen(false);
-                    }}
+                    onClick={postOrderCleanUp}
                     data-testid='checkout-form__modal-close'
                   >
                     x
@@ -216,19 +215,11 @@ export default function CheckoutForm(props: any) {
                   <h4>Order successfully placed!</h4>
                 </div>
                 <div className='checkout-form__modal-buttons'>
-                  <button
-                    onClick={() => {
-                      setCheckoutFormOpen(false);
-                      setPostOrderModalOpen(false);
-                    }}
-                  >
-                    Continue shopping
-                  </button>
+                  <button onClick={postOrderCleanUp}>Continue shopping</button>
                   <button
                     onClick={() => {
                       navigate('/ordersList');
-                      setCheckoutFormOpen(false);
-                      setPostOrderModalOpen(false);
+                      postOrderCleanUp();
                     }}
                   >
                     View orders
