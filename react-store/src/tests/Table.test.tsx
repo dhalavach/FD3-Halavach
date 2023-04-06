@@ -1,7 +1,7 @@
 import Table from '../components/Table';
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import data from './mocks/mockData.json';
+import products from './mocks/mockData.json';
 import '@testing-library/jest-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -27,7 +27,7 @@ beforeEach(() => {
   });
   window.IntersectionObserver = mockIntersectionObserver;
   jest.mock('axios');
-  // jest.spyOn(axios, 'get').mockResolvedValueOnce(data);
+  // jest.spyOn(axios, 'get').mockResolvedValue({ data: products });
 });
 
 afterEach(cleanup);
