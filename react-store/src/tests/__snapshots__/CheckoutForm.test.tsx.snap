@@ -74,5 +74,6 @@ exports[`component matches the snapshot 1`] = `
       </li>
     </ul>
   </form>,
+  <div />,
 ]
 `;

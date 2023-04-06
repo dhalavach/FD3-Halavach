@@ -12,7 +12,7 @@
     "build:experimental": "npm run build:types && vite build && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel dist --out-dir dist --extensions \".js,.jsx\" --source-maps inline",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",

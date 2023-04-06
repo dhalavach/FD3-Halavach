@@ -1,12 +1,6 @@
-import React, { FunctionComponent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { setSearchQuery } from '../slices/searchQuerySlice';
 import useSearchParamsState from '../hooks/useSearchParamsState';
 
 export default function Search() {
-  // const dispatch = useDispatch();
-  // let searchQuery = useSelector((state: any) => state?.searchQuery)
   const [searchQueryParam, setSearchQueryParam] = useSearchParamsState(
     'searchQueryParam',
     ''

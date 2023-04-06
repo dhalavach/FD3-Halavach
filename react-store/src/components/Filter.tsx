@@ -1,13 +1,6 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { setType } from '../slices/typeSlice';
-import { setSort } from '../slices/sortSlice';
 import useSearchParamsState from '../hooks/useSearchParamsState';
 
 export default function Filter() {
-  // const dispatch = useDispatch();
-  // let type = useSelector((state: any) => state?.type);
-  // let sort = useSelector((state: any) => state?.sort);
-
   const [filterParam, setFilterParam] = useSearchParamsState('filterParam', '');
   const [sortParam, setSortParam] = useSearchParamsState('sortParam', '');
 

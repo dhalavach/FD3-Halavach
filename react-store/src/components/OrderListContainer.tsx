@@ -1,4 +1,3 @@
-import React from 'react';
 import { Product, orderObject } from '../types/Types';
 
 export default function OrderListContainer(props: { order: orderObject }) {

@@ -144,6 +144,9 @@ exports[`component matches the snapshot 1`] = `
           </div>
           <div>
             <div>
+              <span>
+                Loading...
+              </span>
               <div
                 className="MuiBox-root css-1mdvpvv"
               />

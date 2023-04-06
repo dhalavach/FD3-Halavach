@@ -32,6 +32,10 @@ export default function Cart() {
     dispatch(setCartProducts(cartProducts));
   }, [productToRemove]);
 
+  useEffect(() => {
+    if (cartProducts.length === 0) setCheckoutFormOpen(false);
+  }, [cartProducts]);
+
   return (
     <>
       <div>
@@ -103,7 +107,9 @@ export default function Cart() {
           </button>
         </div>
       )}
-      {checkoutFormOpen && <CheckoutForm setCheckoutFormOpen={ setCheckoutFormOpen} />}
+      {checkoutFormOpen && (
+        <CheckoutForm setCheckoutFormOpen={setCheckoutFormOpen} />
+      )}
     </>
   );
 }

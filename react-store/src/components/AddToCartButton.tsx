@@ -5,9 +5,7 @@ import { useSelector } from 'react-redux';
 export default function AddToCartButton(props: any) {
   const { add, product } = props;
   const [inCart, setInCart] = useState(false);
-  
   const cartProducts = useSelector((state: any) => state.cartProducts);
-
   const checkIfInCart = (product: Product): boolean => {
     return cartProducts.findIndex((p: Product) => p.id === product.id) !== -1;
   };

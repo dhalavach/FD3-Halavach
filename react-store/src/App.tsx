@@ -10,41 +10,9 @@ import Cart from './components/Cart';
 import { Link, useSearchParams } from 'react-router-dom';
 import useSearchParamsState from './hooks/useSearchParamsState';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { setType } from './slices/typeSlice';
-import { setSearchQuery } from './slices/searchQuerySlice';
-import { setSort } from './slices/sortSlice';
-import { setProducts } from './slices/productsSlice';
-import { setFilteredProducts } from './slices/filteredProductsSlice';
-import { setCartProducts } from './slices/cartProductsSlice';
-import AppPagination from './components/AppPagination';
-import { setOrders } from './slices/ordersSlice';
+
 
 function App() {
-  // const dispatch = useDispatch();
-  // const [products, setProducts] = useState<Product[]>([]);
-  // const [allProducts, setAllProducts] = useState<Product[]>([]);
-  // const [cartProducts, setCartProducts] = useState<Product[]>(
-  //   localStorage.getItem('cartProducts')
-  //     ? JSON.parse(localStorage.getItem('cartProducts') as string)
-  //     : []
-  // );
-  // let type = useSelector((state: any) => state?.type);
-  // let searchQuery = useSelector((state: any) => state?.searchQuery);
-  // let sort = useSelector((state: any) => state?.sort);
-  // const cartProducts = useSelector((state: any) => state.cartProducts);
-  // const filteredProducts = useSelector((state: any) => state.filteredProducts);
-
-  // const [dataLoaded, setDataLoaded] = useState(false);
-  // const [searchParams, setSearchParams] = useSearchParams({
-  //   filterParam: '',
-  //   searchQueryParam: '',
-  //   sortParam: '',
-  // });
-
-
-
-  // load data
 
 
   //adaptive
@@ -65,24 +33,7 @@ function App() {
     };
   }, []);
 
-  //filtering
-
-  //sorting
-
-
-
   //search
-
-  const searchProducts = (searchQuery: string, arr: Product[]): Product[] => {
-    arr = arr.filter((product: Product) => {
-      return product.itemName
-        .toString()
-        .toLowerCase()
-        .includes(searchQuery.toString().toLowerCase());
-    });
-    return arr;
-  };
-
 
 
   useEffect(() => {
@@ -137,8 +88,6 @@ function App() {
                 </div>
               </div>
               <div>
-
-                {/* {!dataLoaded ? 'Loading...' : ''} */}
                 <Table  />
               </div>
             </div>

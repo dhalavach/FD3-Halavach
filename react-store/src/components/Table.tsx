@@ -16,16 +16,8 @@ import { setFilteredProducts } from '../slices/filteredProductsSlice';
 export default function Table() {
   const dispatch = useDispatch();
   let products = useSelector((state: any) => state?.products);
-
-  // const [page, setPage] = useState(1);
-  // const handlePagination = (event: any, value: any) => {
-  //   setPage(value);
-  // };
-  // const [displayedProducts, setDisplayedProducts] = useState([])
   const [dataLoaded, setDataLoaded] = useState(false);
-
   const [displayedProducts, setDisplayedProducts] = useState([]);
-
   const cartProducts = useSelector((state: any) => state.cartProducts);
   const [productInModal, setProductInModal] = useState<Product | null>(null);
 
@@ -115,7 +107,6 @@ export default function Table() {
   return (
     <div>
       {!dataLoaded && <span>Loading...</span>}
-      {/* <Pagination count={10} page={page} onChange={handlePagination} /> */}
       <AppPagination
         setDisplayedProducts={(p: any) => setDisplayedProducts(p)}
       />

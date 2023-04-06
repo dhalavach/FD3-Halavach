@@ -7,8 +7,6 @@ import OrderListContainer from './OrderListContainer';
 
 export default function OrdersList() {
   const dispatch = useDispatch();
-  // const orders = useSelector((state: any) => state.orders.ordersArr);
-  //const orders = useSelector((state: any) => state.orders.ordersArr) || [];
   const [orders, setOrders] = useState<orderObject[]>([]);
   const [ordersLoaded, setOrdersLoaded] = useState(false);
 
