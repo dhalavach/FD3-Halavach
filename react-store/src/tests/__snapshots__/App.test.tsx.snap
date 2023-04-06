@@ -93,6 +93,7 @@ exports[`component matches the snapshot 1`] = `
                   Filter
                    
                   <select
+                    data-testid="filter-input"
                     onChange={[Function]}
                     value=""
                   >

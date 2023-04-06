@@ -25,12 +25,14 @@ export default function Filter() {
         <select
           value={filterParam}
           onChange={(e) => setFilterParam(e.target.value)}
+          data-testid='filter-input'
         >
           <option value=''>All</option>
           <option value='motherboard'>Motherboard</option>
           <option value='CPU'>CPU</option>
           <option value='GPU'>GPU</option>
           <option value='PSU'>PSU</option>
+          
         </select>
       </div>
     </div>
