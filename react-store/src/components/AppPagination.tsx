@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Pagination } from '@mui/material';
+// import { Box, Pagination } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
+import Box from '@mui/material/Box';
+
 import { useSelector } from 'react-redux';
 import useSearchParamsState from '../hooks/useSearchParamsState';
 
@@ -8,8 +11,6 @@ export default function AppPagination(props: any) {
   const { setDisplayedProducts } = props;
   const [pageParam, setPageParam] = useSearchParamsState('pageParam', '1');
   const [countParam, setCountParam] = useState('0');
-
-
 
   const products = useSelector((state: any) => state.products);
   let filteredProducts = useSelector((state: any) => state.filteredProducts);
