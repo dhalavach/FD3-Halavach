@@ -40,6 +40,7 @@ exports[`component matches the snapshot 1`] = `
     className="filter-type"
   >
     Filter
+     
     <select
       onChange={[Function]}
       value=""

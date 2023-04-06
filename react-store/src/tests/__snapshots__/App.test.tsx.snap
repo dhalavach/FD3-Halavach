@@ -47,7 +47,7 @@ exports[`component matches the snapshot 1`] = `
           className="main"
         >
           <div
-            className="controls"
+            className="controls-tablet"
           >
             <div
               className="filter-order"
@@ -91,6 +91,7 @@ exports[`component matches the snapshot 1`] = `
                   className="filter-type"
                 >
                   Filter
+                   
                   <select
                     onChange={[Function]}
                     value=""
