@@ -21,7 +21,7 @@ export default function Filter() {
       </div>
 
       <div className='filter-type'>
-        Filter
+        Filter{' '}
         <select
           value={filterParam}
           onChange={(e) => setFilterParam(e.target.value)}

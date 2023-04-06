@@ -10,11 +10,7 @@ import Cart from './components/Cart';
 import { Link, useSearchParams } from 'react-router-dom';
 import useSearchParamsState from './hooks/useSearchParamsState';
 
-
-
 function App() {
-
-
   //adaptive
   const TABLETWIDTH = 768;
   const [matches, setMatches] = useState(
@@ -34,7 +30,6 @@ function App() {
   }, []);
 
   //search
-
 
   useEffect(() => {
     console.log('App renders...');
@@ -79,7 +74,7 @@ function App() {
         <main>
           <div className='content'>
             <div className='main'>
-              <div className='controls'>
+              <div className={`${matches ? 'controls' : 'controls-tablet'}`}>
                 <div className='filter-order'>
                   <Filter />
                 </div>
@@ -88,7 +83,7 @@ function App() {
                 </div>
               </div>
               <div>
-                <Table  />
+                <Table />
               </div>
             </div>
 
@@ -96,7 +91,6 @@ function App() {
               <Cart />
             </div>
           </div>
-
         </main>
         <footer>2023</footer>
       </div>

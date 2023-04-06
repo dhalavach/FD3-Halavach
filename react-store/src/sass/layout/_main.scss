@@ -3,19 +3,25 @@ main {
 }
 
 .content {
-display: flex;
-flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.main{
-flex: 3 60rem;
+.main {
+  flex: 3 60rem;
 }
 
-.sidebar{
-flex: 1 20rem;
+.sidebar {
+  flex: 1 20rem;
 }
 
 .controls {
-display:flex;
-justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.controls-table {
+  display: flex;
+  flex-direction: column;
 }
