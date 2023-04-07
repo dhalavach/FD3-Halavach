@@ -1,16 +1,15 @@
 import './styles.css';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-
-import Table from './components/Table';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import Filter from './components/Filter';
-import { orderObject, Product } from './types/Types';
 import Search from './components/Search';
 import Cart from './components/Cart';
-import { Link, useSearchParams } from 'react-router-dom';
-import useSearchParamsState from './hooks/useSearchParamsState';
+import { Link } from 'react-router-dom';
+import Spinner from './components/Spinner';
+const Table = lazy(() => import('./components/Table'));
+const Footer = lazy(() => import('./components/Footer'));
 
 function App() {
+
   //adaptive
   const TABLETWIDTH = 768;
   const [matches, setMatches] = useState(
@@ -29,11 +28,11 @@ function App() {
     };
   }, []);
 
-  //search
+  //re-render logging
 
-  useEffect(() => {
-    console.log('App renders...');
-  });
+  // useEffect(() => {
+  //   console.log('App renders...');
+  // });
 
   return (
     <div className='wrapper'>
@@ -83,7 +82,9 @@ function App() {
                 </div>
               </div>
               <div>
-                <Table />
+                <Suspense fallback={<Spinner />}>
+                  <Table />
+                </Suspense>
               </div>
             </div>
 
@@ -92,7 +93,7 @@ function App() {
             </div>
           </div>
         </main>
-        <footer>2023</footer>
+        <Footer />
       </div>
     </div>
   );

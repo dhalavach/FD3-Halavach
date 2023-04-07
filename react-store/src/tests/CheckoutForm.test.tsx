@@ -7,20 +7,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../components/Store';
 import renderer from 'react-test-renderer';
-import { useState as useStateMock } from 'react';
-// import { checkoutFormOpen, setCheckoutFormOpen } from './mocks/mockHooks';
-
-// jest.mock('react', () => ({
-//   ...jest.requireActual('react'),
-//   useState: jest.fn(),
-// }));
-// const setState = jest.fn();
-
-// const [checkoutFormOpen, setCheckoutFormOpen] = useStateMock(false)
-
-// beforeEach(() => {
-//   useStateMock((init: any): any => [init, setState])
-// })
 
 afterEach(cleanup);
 

@@ -16,7 +16,6 @@ import { setFilteredProducts } from '../slices/filteredProductsSlice';
 export default function Table() {
   const dispatch = useDispatch();
   let products = useSelector((state: RootState) => state.products);
-  const [dataLoaded, setDataLoaded] = useState(false);
   const [displayedProducts, setDisplayedProducts] = useState<Product[]>([]);
   const cartProducts = useSelector((state: RootState) => state.cartProducts);
   const [productInModal, setProductInModal] = useState<Product | null>(null);
@@ -41,7 +40,6 @@ export default function Table() {
     try {
       const response = await axios.get(fetchConfig.PRODUCTS_URL);
       dispatch(setProducts(response.data));
-      setDataLoaded(true);
     } catch (error) {
       console.error(error);
     }
@@ -71,7 +69,8 @@ export default function Table() {
 
   useEffect(() => {
     let arr = [...products] as Product[];
-    if (filterParam) arr = arr.filter((p: Product) => p.itemType.includes(filterParam));
+    if (filterParam)
+      arr = arr.filter((p: Product) => p.itemType.includes(filterParam));
     if (sortParam) arr = sortProducts(sortParam, arr);
     if (searchQueryParam)
       arr = arr.filter((p: Product) =>
@@ -106,40 +105,31 @@ export default function Table() {
 
   return (
     <div>
-      {!dataLoaded && <span>Loading...</span>}
       <AppPagination
         setDisplayedProducts={(p: Product[]) => setDisplayedProducts(p)}
       />
       <ul className='products'>
         {displayedProducts?.map((product: Product) => {
           return (
-            <Fade key={product.id} direction={'up'} triggerOnce={true}>
-              <li>
-                <div
-                  className='product'
-                  data-testid='table__product'
-                  onClick={() => {
-                    openModal(product);
-                  }}
-                >
-                  <a href={'#' + product.id}>
-                    <img
-                      src={product.itemImage}
-                      alt={product.itemImageAlt}
-                    ></img>
-                    <p>{product.itemName}</p>
-                  </a>
-                </div>
+            <li>
+              <div
+                className='product'
+                data-testid='table__product'
+                onClick={() => {
+                  openModal(product);
+                }}
+              >
+                <a href={'#' + product.id}>
+                  <img src={product.itemImage} alt={product.itemImageAlt}></img>
+                  <p>{product.itemName}</p>
+                </a>
+              </div>
 
-                <div className='product-price'>
-                  <div>{formatMoney(product.itemPrice)}</div>
-                  <AddToCartButton
-                    add={add}
-                    product={product}
-                  />
-                </div>
-              </li>
-            </Fade>
+              <div className='product-price'>
+                <div>{formatMoney(product.itemPrice)}</div>
+                <AddToCartButton add={add} product={product} />
+              </div>
+            </li>
           );
         })}
       </ul>
