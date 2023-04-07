@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import useSearchParamsState from '../hooks/useSearchParamsState';
 
 export default function Search() {
@@ -15,7 +16,7 @@ export default function Search() {
         placeholder='search products'
         value={searchQueryParam}
         data-testid='search__input-field'
-        onChange={(e) => setSearchQueryParam(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => setSearchQueryParam(e.target.value)}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Fade } from 'react-awesome-reveal';
-import { Product, orderObject } from '../types/Types';
+import { Product, RootState, orderObject } from '../types/Types';
 import { formatMoney } from '../util';
 import CheckoutForm from './CheckoutForm';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,10 +9,10 @@ import { setCartProducts } from '../slices/cartProductsSlice';
 
 export default function Cart() {
   const dispatch = useDispatch();
-  const cartProducts = useSelector((state: any) => state.cartProducts);
+  const cartProducts = useSelector((state: RootState) => state.cartProducts);
 
-  const [checkoutFormOpen, setCheckoutFormOpen] = useState(false);
-  const [productToRemove, setProductToRemove] = useState<number>();
+   const [checkoutFormOpen, setCheckoutFormOpen] = useState(false);
+  const [productToRemove, setProductToRemove] = useState<number | null>();
 
   // useEffect(() => {
   //   if (localStorage.getItem('cartProducts')) {
@@ -20,7 +20,7 @@ export default function Cart() {
   //   }
   // }, []);
 
-  const remove = (product: Product) => {
+  const remove = (product: Product): void => {
     let newCartProducts = [...cartProducts].filter(
       (item) => item.id !== product.id
     );
@@ -76,7 +76,7 @@ export default function Cart() {
                             setProductToRemove(product.id);
                             setTimeout(() => {
                               remove(product);
-                              setProductToRemove(undefined);
+                              setProductToRemove(null);
                             }, 1000);
                           }}
                         >

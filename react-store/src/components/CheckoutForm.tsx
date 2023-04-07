@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { Product } from '../types/Types';
+import { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useState } from 'react';
+import { Product, RootState } from '../types/Types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOrders } from '../slices/ordersSlice';
 import { setCartProducts } from '../slices/cartProductsSlice';
@@ -8,7 +8,9 @@ import Modal from 'react-modal';
 import { Zoom } from 'react-awesome-reveal';
 import { useNavigate } from 'react-router-dom';
 
-export default function CheckoutForm(props: any) {
+export default function CheckoutForm(props: {
+  setCheckoutFormOpen: Dispatch<SetStateAction<boolean>>;
+}) {
   const { setCheckoutFormOpen } = props;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -24,7 +26,7 @@ export default function CheckoutForm(props: any) {
   const [postOrderModalOpen, setPostOrderModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const cartProducts = useSelector((state: any) => state.cartProducts);
+  const cartProducts = useSelector((state: RootState) => state.cartProducts);
 
   const postConfig = {
     URL: 'http://localhost:3000/orders',
@@ -34,7 +36,7 @@ export default function CheckoutForm(props: any) {
     },
   };
 
-  const validateName = (name: string) => {
+  const validateName = (name: string): void => {
     const message =
       'Name must be longer or equal than 3 and shorter or equal than 100 characters!';
     if (!name) setNameError(message);
@@ -43,7 +45,7 @@ export default function CheckoutForm(props: any) {
     } else setNameError(message);
   };
 
-  const validateEmail = (email: string) => {
+  const validateEmail = (email: string): void => {
     const message = 'Enter valid email address!';
     const emailRegex = new RegExp(
       /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
@@ -53,7 +55,7 @@ export default function CheckoutForm(props: any) {
     else setEmailError(message);
   };
 
-  const validateAddress = (address: string) => {
+  const validateAddress = (address: string): void => {
     const message = 'Enter valid shipping address!';
     const addressRegex = new RegExp(/[A-Za-z0-9'\.\-\s\,]/);
     if (!address) setAddressError(message);
@@ -92,7 +94,7 @@ export default function CheckoutForm(props: any) {
     }
   };
 
-  const postOrderCleanUp = () => {
+  const postOrderCleanUp = (): void => {
     dispatch(setCartProducts([]));
     localStorage.setItem('cartProducts', '');
     setCheckoutFormOpen(false);
@@ -111,7 +113,7 @@ export default function CheckoutForm(props: any) {
               required
               value={email}
               data-testid='checkout__email'
-              onChange={(e) => {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 setEmail(e.target.value);
                 validateEmail(e.target.value);
                 setUserInputPresent({ ...userInputPresent, email: true });
@@ -132,7 +134,7 @@ export default function CheckoutForm(props: any) {
               required
               value={name}
               data-testid='checkout__name'
-              onChange={(e) => {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 setName(e.target.value);
                 validateName(e.target.value);
                 setUserInputPresent({ ...userInputPresent, name: true });
@@ -153,7 +155,7 @@ export default function CheckoutForm(props: any) {
               required
               value={address}
               data-testid='checkout__address'
-              onChange={(e) => {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 setAddress(e.target.value);
                 validateAddress(e.target.value);
                 setUserInputPresent({ ...userInputPresent, address: true });
@@ -172,7 +174,7 @@ export default function CheckoutForm(props: any) {
                 validateBeforeSubmit() ? '' : 'grey-out'
               }`}
               type='submit'
-              onClick={async (e) => {
+              onClick={async (e: MouseEvent<HTMLElement>) => {
                 e.preventDefault();
                 if (validateBeforeSubmit()) {
                   await postOrder({

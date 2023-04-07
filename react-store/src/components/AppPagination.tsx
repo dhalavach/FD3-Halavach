@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
-// import { Box, Pagination } from '@mui/material';
+import React, { useEffect, useState, ChangeEvent } from 'react';
 import Pagination from '@mui/material/Pagination';
 import Box from '@mui/material/Box';
-
 import { useSelector } from 'react-redux';
 import useSearchParamsState from '../hooks/useSearchParamsState';
+import { Product, RootState } from '../types/Types';
 
-export default function AppPagination(props: any) {
+export default function AppPagination(props: {
+  setDisplayedProducts: (arr: Product[] | []) => void;
+}) {
   const pageSize = 10;
   const { setDisplayedProducts } = props;
   const [pageParam, setPageParam] = useSearchParamsState('pageParam', '1');
   const [countParam, setCountParam] = useState('0');
 
-  const products = useSelector((state: any) => state.products);
-  let filteredProducts = useSelector((state: any) => state.filteredProducts);
+  const products = useSelector((state: RootState) => state.products);
+  let filteredProducts = useSelector(
+    (state: RootState) => state.filteredProducts
+  );
 
   useEffect(() => {
     setCountParam(filteredProducts.length.toString());
@@ -26,7 +29,7 @@ export default function AppPagination(props: any) {
     );
   }, [pageParam, filteredProducts, products]);
 
-  const handlePageChange = (event: any, page: number) => {
+  const handlePageChange = (event: ChangeEvent<unknown>, page: number) => {
     setPageParam(page.toString());
   };
 

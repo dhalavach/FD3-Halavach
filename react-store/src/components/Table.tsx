@@ -1,4 +1,4 @@
-import { Product } from '../types/Types';
+import { Product, RootState } from '../types/Types';
 import { formatMoney } from '../util';
 import { Fade, Zoom } from 'react-awesome-reveal';
 import Modal from 'react-modal';
@@ -15,10 +15,10 @@ import { setFilteredProducts } from '../slices/filteredProductsSlice';
 
 export default function Table() {
   const dispatch = useDispatch();
-  let products = useSelector((state: any) => state?.products);
+  let products = useSelector((state: RootState) => state.products);
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [displayedProducts, setDisplayedProducts] = useState([]);
-  const cartProducts = useSelector((state: any) => state.cartProducts);
+  const [displayedProducts, setDisplayedProducts] = useState<Product[]>([]);
+  const cartProducts = useSelector((state: RootState) => state.cartProducts);
   const [productInModal, setProductInModal] = useState<Product | null>(null);
 
   const [filterParam, setFilterParam] = useSearchParamsState('filterParam', '');
@@ -70,25 +70,25 @@ export default function Table() {
   };
 
   useEffect(() => {
-    let arr = [...products];
-    if (filterParam) arr = arr.filter((p) => p.itemType.includes(filterParam));
+    let arr = [...products] as Product[];
+    if (filterParam) arr = arr.filter((p: Product) => p.itemType.includes(filterParam));
     if (sortParam) arr = sortProducts(sortParam, arr);
     if (searchQueryParam)
-      arr = arr.filter((p) =>
+      arr = arr.filter((p: Product) =>
         p.itemName.toLowerCase().includes(searchQueryParam.toLowerCase())
       );
     dispatch(setFilteredProducts(arr));
   }, [products, filterParam, searchQueryParam, sortParam]);
 
-  const openModal = (product: Product) => {
+  const openModal = (product: Product): void => {
     setProductInModal(product);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setProductInModal(null);
   };
 
-  const add = (product: Product) => {
+  const add = (product: Product): void => {
     let newCartProducts = [...cartProducts];
     let inCart = false;
     for (const cartItem of newCartProducts) {
@@ -108,7 +108,7 @@ export default function Table() {
     <div>
       {!dataLoaded && <span>Loading...</span>}
       <AppPagination
-        setDisplayedProducts={(p: any) => setDisplayedProducts(p)}
+        setDisplayedProducts={(p: Product[]) => setDisplayedProducts(p)}
       />
       <ul className='products'>
         {displayedProducts?.map((product: Product) => {
@@ -136,7 +136,6 @@ export default function Table() {
                   <AddToCartButton
                     add={add}
                     product={product}
-                    cartProducts={cartProducts}
                   />
                 </div>
               </li>

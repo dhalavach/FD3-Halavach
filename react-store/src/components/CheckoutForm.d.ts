@@ -1,2 +1,4 @@
-/// <reference types="react" />
-export default function CheckoutForm(props: any): JSX.Element;
+import { Dispatch, SetStateAction } from 'react';
+export default function CheckoutForm(props: {
+    setCheckoutFormOpen: Dispatch<SetStateAction<boolean>>;
+}): JSX.Element;

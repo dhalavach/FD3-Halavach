@@ -43,7 +43,7 @@ test('component matches the snapshot', () => {
   const tree = renderer
     .create(
       <Provider store={store}>
-        <AddToCartButton />
+        <AddToCartButton add={() => {}} product={mockProduct} />
       </Provider>
     )
     .toJSON();
@@ -62,7 +62,7 @@ test('button renders without throwing errors', () => {
 
   let comp = renderer.create(
     <Provider store={store}>
-      <AddToCartButton />
+      <AddToCartButton add={() => {}} product={mockProduct} />
     </Provider>
   );
   expect(comp).toBeTruthy();

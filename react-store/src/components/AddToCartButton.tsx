@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Product } from '../types/Types';
+import { useEffect, useState, ReactElement } from 'react';
+import { Product, RootState } from '../types/Types';
 import { useSelector } from 'react-redux';
 
-export default function AddToCartButton(props: any) {
+export default function AddToCartButton(props: {
+  add: (product: Product) => void;
+  product: Product;
+}) {
   const { add, product } = props;
   const [inCart, setInCart] = useState(false);
-  const cartProducts = useSelector((state: any) => state.cartProducts);
+  const cartProducts = useSelector((state: RootState) => state.cartProducts);
   const checkIfInCart = (product: Product): boolean => {
     return cartProducts.findIndex((p: Product) => p.id === product.id) !== -1;
   };
-
 
   useEffect(() => {
     setInCart(checkIfInCart(product));

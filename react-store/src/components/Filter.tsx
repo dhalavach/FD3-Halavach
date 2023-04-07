@@ -1,3 +1,4 @@
+import { ChangeEvent, MouseEvent } from 'react';
 import useSearchParamsState from '../hooks/useSearchParamsState';
 
 export default function Filter() {
@@ -24,7 +25,7 @@ export default function Filter() {
         Filter{' '}
         <select
           value={filterParam}
-          onChange={(e) => setFilterParam(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLSelectElement>) => setFilterParam(e.target.value)}
           data-testid='filter-input'
         >
           <option value=''>All</option>

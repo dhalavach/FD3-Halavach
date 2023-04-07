@@ -7,6 +7,20 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../components/Store';
 import renderer from 'react-test-renderer';
+import { useState as useStateMock } from 'react';
+// import { checkoutFormOpen, setCheckoutFormOpen } from './mocks/mockHooks';
+
+// jest.mock('react', () => ({
+//   ...jest.requireActual('react'),
+//   useState: jest.fn(),
+// }));
+// const setState = jest.fn();
+
+// const [checkoutFormOpen, setCheckoutFormOpen] = useStateMock(false)
+
+// beforeEach(() => {
+//   useStateMock((init: any): any => [init, setState])
+// })
 
 afterEach(cleanup);
 
@@ -15,7 +29,7 @@ test('Renders the component', () => {
     render(
       <Provider store={store}>
         <Router>
-          <CheckoutForm />
+          <CheckoutForm setCheckoutFormOpen={() => {}} />
         </Router>
       </Provider>
     )
@@ -26,7 +40,7 @@ test('submit button is greyed-out on load', () => {
   const form = render(
     <Provider store={store}>
       <Router>
-        <CheckoutForm />
+        <CheckoutForm setCheckoutFormOpen={() => {}} />
       </Router>
     </Provider>
   );
@@ -40,7 +54,7 @@ test('submit button is greyed-out with invalid email', () => {
   const form = render(
     <Provider store={store}>
       <Router>
-        <CheckoutForm />
+        <CheckoutForm setCheckoutFormOpen={() => {}} />
       </Router>
     </Provider>
   );
@@ -56,7 +70,7 @@ test('submit button is not greyed-out with valid input', async () => {
   const form = render(
     <Provider store={store}>
       <Router>
-        <CheckoutForm />
+        <CheckoutForm setCheckoutFormOpen={() => {}} />
       </Router>
     </Provider>
   );
@@ -77,7 +91,7 @@ test('submit button is greyed-out with invalid input', async () => {
   const form = render(
     <Provider store={store}>
       <Router>
-        <CheckoutForm />
+        <CheckoutForm setCheckoutFormOpen={() => {}} />
       </Router>
     </Provider>
   );
@@ -97,7 +111,7 @@ test('submit button renders with correct text', () => {
   const form = render(
     <Provider store={store}>
       <Router>
-        <CheckoutForm />
+        <CheckoutForm setCheckoutFormOpen={() => {}} />
       </Router>
     </Provider>
   );
@@ -109,7 +123,7 @@ test('error message is displayed when invalid email is entered', () => {
   render(
     <Provider store={store}>
       <Router>
-        <CheckoutForm />
+        <CheckoutForm setCheckoutFormOpen={() => {}} />
       </Router>
     </Provider>
   );
@@ -123,7 +137,7 @@ test('error message is displayed when invalid name is entered', () => {
   render(
     <Provider store={store}>
       <Router>
-        <CheckoutForm />
+        <CheckoutForm setCheckoutFormOpen={() => {}} />
       </Router>
     </Provider>
   );
@@ -137,7 +151,7 @@ test('error message is displayed when invalid address is entered', () => {
   render(
     <Provider store={store}>
       <Router>
-        <CheckoutForm />
+        <CheckoutForm setCheckoutFormOpen={() => {}} />
       </Router>
     </Provider>
   );
@@ -152,7 +166,7 @@ test('component matches the snapshot', () => {
     .create(
       <Provider store={store}>
         <Router>
-          <CheckoutForm />
+          <CheckoutForm setCheckoutFormOpen={() => {}} />
         </Router>
       </Provider>
     )

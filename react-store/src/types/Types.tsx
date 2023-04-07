@@ -1,3 +1,5 @@
+import store from './../components/Store';
+
 export type Product = {
   id: number;
   className: string;
@@ -21,3 +23,10 @@ export type orderObject = {
 };
 
 export type Order = {};
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch
+
+
+
