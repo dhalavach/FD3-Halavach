@@ -1,36 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App';
-import Root from './routes/root';
-import ErrorPage from './components/ErrorPage';
-import './styles.css';
-import About from './routes/about';
-import Cart from './routes/cart';
-import store from './components/Store';
-import { Provider } from 'react-redux';
-import OrdersList from './components/OrdersList';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App";
+import Root from "./routes/root";
+import ErrorPage from "./components/ErrorPage";
+import "./styles.css";
+import About from "./routes/about";
+import Cart from "./routes/cart";
+import store from "./components/Store";
+import { Provider } from "react-redux";
+import OrdersList from "./components/OrdersList";
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
   },
   {
-    path: '/about',
+    path: "/about",
     element: <About />,
   },
   {
-    path: '/ordersList',
+    path: "/ordersList",
     element: <OrdersList />,
   },
   {
-    path: '/cart',
+    path: "/cart",
     element: <Cart />,
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />

@@ -1,13 +1,13 @@
-import Table from '../components/Table';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import products from './mocks/mockData.json';
-import '@testing-library/jest-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from '../components/Store';
-import axios from 'axios';
-import renderer from 'react-test-renderer';
+import Table from "../components/Table";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import products from "./mocks/mockData.json";
+import "@testing-library/jest-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "../components/Store";
+import axios from "axios";
+import renderer from "react-test-renderer";
 
 const testStore = {
   ...store,
@@ -26,13 +26,13 @@ beforeEach(() => {
     disconnect: () => null,
   });
   window.IntersectionObserver = mockIntersectionObserver;
-  jest.mock('axios');
+  jest.mock("axios");
   // jest.spyOn(axios, 'get').mockResolvedValue({ data: products });
 });
 
 afterEach(cleanup);
 
-test('renders table', () => {
+test("renders table", () => {
   expect(
     render(
       <Provider store={testStore}>
@@ -44,7 +44,7 @@ test('renders table', () => {
   ).toBeTruthy();
 });
 
-test('add to cart button renders ', async () => {
+test("add to cart button renders ", async () => {
   render(
     <Provider store={testStore}>
       <Router>
@@ -59,7 +59,7 @@ test('add to cart button renders ', async () => {
   expect(addButton).toBeInTheDocument();
 });
 
-test('one add to cart button renders for each product on a default page size of 10 products', async () => {
+test("one add to cart button renders for each product on a default page size of 10 products", async () => {
   render(
     <Provider store={testStore}>
       <Router>
@@ -74,7 +74,7 @@ test('one add to cart button renders for each product on a default page size of 
   expect(addButtons.length).toBe(10);
 });
 
-test('modal window opens when user clicks on a product', async () => {
+test("modal window opens when user clicks on a product", async () => {
   render(
     <Provider store={testStore}>
       <Router>
@@ -83,15 +83,15 @@ test('modal window opens when user clicks on a product', async () => {
     </Provider>
   );
   await waitFor(
-    () => expect(screen.getAllByTestId('table__product')).toBeInTheDocument
+    () => expect(screen.getAllByTestId("table__product")).toBeInTheDocument
   );
-  const product = screen.getAllByTestId('table__product')[0];
+  const product = screen.getAllByTestId("table__product")[0];
   await userEvent.click(product);
-  const modal = screen.getByTestId('table__modal');
+  const modal = screen.getByTestId("table__modal");
   expect(modal).toBeVisible();
 });
 
-test('modal window closes when user clicks on a close button', async () => {
+test("modal window closes when user clicks on a close button", async () => {
   render(
     <Provider store={testStore}>
       <Router>
@@ -100,18 +100,18 @@ test('modal window closes when user clicks on a close button', async () => {
     </Provider>
   );
   await waitFor(
-    () => expect(screen.getAllByTestId('table__product')).toBeInTheDocument
+    () => expect(screen.getAllByTestId("table__product")).toBeInTheDocument
   );
 
-  const product = screen.getAllByTestId('table__product')[0];
+  const product = screen.getAllByTestId("table__product")[0];
   await userEvent.click(product);
-  const modal = screen.getByTestId('table__modal');
-  const closeModalButton = screen.getByTestId('table__modal-close');
+  const modal = screen.getByTestId("table__modal");
+  const closeModalButton = screen.getByTestId("table__modal-close");
   await userEvent.click(closeModalButton);
   expect(modal).not.toBeVisible;
 });
 
-test('component matches the snapshot', () => {
+test("component matches the snapshot", () => {
   const tree = renderer
     .create(
       <Provider store={testStore}>

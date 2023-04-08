@@ -1,9 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createSlice } from "@reduxjs/toolkit";
 
 export const sortSlice = createSlice({
-  name: 'sort',
-  initialState: '',
+  name: "sort",
+  initialState: "",
 
   reducers: {
     setSort: (state, param) => {

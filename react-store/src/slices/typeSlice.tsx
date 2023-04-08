@@ -1,10 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { useSelector, useDispatch } from 'react-redux';
+import { createSlice } from "@reduxjs/toolkit";
+import { useSelector, useDispatch } from "react-redux";
 //import { clients } from './selectedClientSlice';
 
 export const typeSlice = createSlice({
-  name: 'type',
-  initialState: '',
+  name: "type",
+  initialState: "",
 
   reducers: {
     setType: (state, param) => {

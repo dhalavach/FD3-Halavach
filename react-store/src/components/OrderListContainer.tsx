@@ -1,9 +1,9 @@
-import { Product, orderObject } from '../types/Types';
+import { Product, orderObject } from "../types/Types";
 
 export default function OrderListContainer(props: { order: orderObject }) {
   const { order } = props;
   return (
-    <div className='orders-list__order-container' key={order.id}>
+    <div className="orders-list__order-container" key={order.id}>
       <ul>
         <li>Name: {order.name}</li>
         <li>Email: {order.email}</li>

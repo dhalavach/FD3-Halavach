@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const searchQuerySlice = createSlice({
-  name: 'searchQuery',
-  initialState: '',
+  name: "searchQuery",
+  initialState: "",
 
   reducers: {
     setSearchQuery: (state, param) => {

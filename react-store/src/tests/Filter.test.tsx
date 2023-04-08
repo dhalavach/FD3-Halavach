@@ -1,16 +1,16 @@
-import '@testing-library/jest-dom';
-import Filter from '../components/Filter';
-import renderer from 'react-test-renderer';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import "@testing-library/jest-dom";
+import Filter from "../components/Filter";
+import renderer from "react-test-renderer";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-import store from '../components/Store';
-import Table from '../components/Table';
-import useSearchParamsState from '../hooks/useSearchParamsState';
+import store from "../components/Store";
+import Table from "../components/Table";
+import useSearchParamsState from "../hooks/useSearchParamsState";
 
-test('component renders without throwing an error', () => {
+test("component renders without throwing an error", () => {
   const tree = renderer
     .create(
       <Provider store={store}>
@@ -23,7 +23,7 @@ test('component renders without throwing an error', () => {
   expect(tree).toBeTruthy();
 });
 
-test('component matches the snapshot', () => {
+test("component matches the snapshot", () => {
   const tree = renderer
     .create(
       <Provider store={store}>
@@ -36,7 +36,7 @@ test('component matches the snapshot', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test('component changes after user input', () => {
+test("component changes after user input", () => {
   render(
     <Provider store={store}>
       <Router>
@@ -44,9 +44,9 @@ test('component changes after user input', () => {
       </Router>
     </Provider>
   );
-  const filterInput = screen.getByTestId('filter-input');
-  fireEvent.change(filterInput, { target: { value: 'CPU' } });
-  const selectedOption = screen.getByText('CPU');
+  const filterInput = screen.getByTestId("filter-input");
+  fireEvent.change(filterInput, { target: { value: "CPU" } });
+  const selectedOption = screen.getByText("CPU");
   expect(selectedOption).toBeVisible();
 });
 

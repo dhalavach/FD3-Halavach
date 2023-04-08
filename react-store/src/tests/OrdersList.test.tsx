@@ -1,12 +1,12 @@
-import '@testing-library/jest-dom';
-import OrdersList from '../components/OrdersList';
-import renderer from 'react-test-renderer';
-import { Provider } from 'react-redux';
-import store from '../components/Store';
-import { useState } from 'react';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import "@testing-library/jest-dom";
+import OrdersList from "../components/OrdersList";
+import renderer from "react-test-renderer";
+import { Provider } from "react-redux";
+import store from "../components/Store";
+import { useState } from "react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 
-test('component renders without throwing an error', () => {
+test("component renders without throwing an error", () => {
   const tree = renderer
     .create(
       <Provider store={store}>
@@ -17,7 +17,7 @@ test('component renders without throwing an error', () => {
   expect(tree).toBeTruthy();
 });
 
-test('component matches the snapshot', () => {
+test("component matches the snapshot", () => {
   const tree = renderer
     .create(
       <Provider store={store}>
@@ -28,7 +28,7 @@ test('component matches the snapshot', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test('component displays Loading... if orders have not loaded yet', () => {
+test("component displays Loading... if orders have not loaded yet", () => {
   // jest.mock('react', ()=>({
   //   ...jest.requireActual('react'),
   //   useState: jest.fn()
@@ -40,6 +40,6 @@ test('component displays Loading... if orders have not loaded yet', () => {
     </Provider>
   );
 
-  const loadingText = screen.getByText('Loading...');
+  const loadingText = screen.getByText("Loading...");
   expect(loadingText).toBeVisible();
 });

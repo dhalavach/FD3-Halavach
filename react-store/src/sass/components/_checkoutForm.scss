@@ -3,23 +3,17 @@
   padding: 0;
   list-style-type: none;
 
-
-
   &input {
     padding: 1rem;
     border: 0.1rem $gray-light solid;
-
   }
 }
 
 .form-container li {
-
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 1rem;
-
-
 }
 
 .message-error {

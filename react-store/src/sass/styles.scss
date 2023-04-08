@@ -3,13 +3,11 @@
 @import "base/typography";
 @import "base/input";
 
-
 // Abstract
 @import "abstract/variables";
 @import "abstract/colors";
 @import "abstract/mixins";
 @import "abstract/placeholders";
-
 
 //Layout
 @import "layout/desktop";
@@ -21,8 +19,6 @@
 @import "layout/footer";
 @import "layout/link";
 
-
-
 // Components
 @import "components/header";
 @import "components/table";
@@ -32,11 +28,7 @@
 @import "components/modal";
 @import "components/ordersList";
 
-
 // Pages
-
-
-
 
 .hidden {
   display: none;

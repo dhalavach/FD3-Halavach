@@ -1,4 +1,4 @@
-import data from './mockData.json';
+import data from "./mockData.json";
 const mockAxios = {
   get: jest.fn().mockResolvedValue({ data: data }),
 

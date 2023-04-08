@@ -1,13 +1,13 @@
-import App from '../App';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from '../components/Store';
-import renderer from 'react-test-renderer';
+import App from "../App";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import "@testing-library/jest-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "../components/Store";
+import renderer from "react-test-renderer";
 
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
     matches: false,
@@ -21,7 +21,7 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-test('renders main page', () => {
+test("renders main page", () => {
   expect(
     render(
       <Provider store={store}>
@@ -33,7 +33,7 @@ test('renders main page', () => {
   ).toBeTruthy();
 });
 
-test('renders link to cart', () => {
+test("renders link to cart", () => {
   render(
     <Provider store={store}>
       <Router>
@@ -45,7 +45,7 @@ test('renders link to cart', () => {
   expect(cart).toBeInTheDocument();
 });
 
-test('component matches the snapshot', () => {
+test("component matches the snapshot", () => {
   const tree = renderer
     .create(
       <Provider store={store}>

@@ -1,17 +1,17 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
-import Pagination from '@mui/material/Pagination';
-import Box from '@mui/material/Box';
-import { useSelector } from 'react-redux';
-import useSearchParamsState from '../hooks/useSearchParamsState';
-import { Product, RootState } from '../types/Types';
+import React, { useEffect, useState, ChangeEvent } from "react";
+import Pagination from "@mui/material/Pagination";
+import Box from "@mui/material/Box";
+import { useSelector } from "react-redux";
+import useSearchParamsState from "../hooks/useSearchParamsState";
+import { Product, RootState } from "../types/Types";
 
 export default function AppPagination(props: {
   setDisplayedProducts: (arr: Product[] | []) => void;
 }) {
-  const pageSize = 10;
+  const PAGE_SIZE = 10;
   const { setDisplayedProducts } = props;
-  const [pageParam, setPageParam] = useSearchParamsState('pageParam', '1');
-  const [countParam, setCountParam] = useState('0');
+  const [pageParam, setPageParam] = useSearchParamsState("pageParam", "1");
+  const [countParam, setCountParam] = useState("0");
 
   const products = useSelector((state: RootState) => state.products);
   let filteredProducts = useSelector(
@@ -23,8 +23,8 @@ export default function AppPagination(props: {
     let newProducts = [...filteredProducts];
     setDisplayedProducts(
       newProducts.slice(
-        (parseInt(pageParam) - 1) * pageSize,
-        (parseInt(pageParam) - 1) * pageSize + pageSize
+        (parseInt(pageParam) - 1) * PAGE_SIZE,
+        (parseInt(pageParam) - 1) * PAGE_SIZE + PAGE_SIZE
       )
     );
   }, [pageParam, filteredProducts, products]);
@@ -36,16 +36,16 @@ export default function AppPagination(props: {
   return (
     <>
       <Box
-        justifyContent={'center'}
-        alignItems={'center'}
-        display={'flex'}
+        justifyContent={"center"}
+        alignItems={"center"}
+        display={"flex"}
         sx={{
-          margin: '20px 0px',
+          margin: "20px 0px",
         }}
       ></Box>
       <Pagination
         page={parseInt(pageParam)}
-        count={Math.ceil(parseInt(countParam) / pageSize)}
+        count={Math.ceil(parseInt(countParam) / PAGE_SIZE)}
         onChange={handlePageChange}
       ></Pagination>
     </>

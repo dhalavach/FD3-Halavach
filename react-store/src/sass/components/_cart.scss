@@ -2,7 +2,6 @@
   padding: 1rem;
   margin: 1rem;
   display: flex;
-
 }
 
 .cart-header {
@@ -18,8 +17,6 @@
     width: 5rem;
   }
 
-  ;
-
   &li {
     display: flex;
 
@@ -27,7 +24,6 @@
       padding: 0.5rem;
     }
   }
-
 }
 
 .cart-products li div:last-child {
@@ -46,30 +42,13 @@
   }
 }
 
-// .right {
-//   text-align: right;
-// }
-
-// .total {
-//   display: flex;
-//   justify-content: space-between;
-//   width: 100%;
-//   align-items: center;
-//   font-size: 2rem;
-
-//   &div,
-//   button {
-//     flex: 1;
-//   }
-// }
-
-
 .removing {
-
   & img {
     opacity: 0.2;
     transition: opacity 1000ms;
-
   }
+}
 
+.load-hidden {
+  visibility: hidden;
 }

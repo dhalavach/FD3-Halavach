@@ -1,17 +1,16 @@
-import { useState, useEffect } from 'react';
-import { Fade } from 'react-awesome-reveal';
-import { Product, RootState, orderObject } from '../types/Types';
-import { formatMoney } from '../util';
-import CheckoutForm from './CheckoutForm';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { setCartProducts } from '../slices/cartProductsSlice';
+import { useState, useEffect } from "react";
+import { Fade } from "react-awesome-reveal";
+import { Product, RootState, orderObject } from "../types/Types";
+import { formatMoney } from "../util";
+import CheckoutForm from "./CheckoutForm";
+import { useSelector, useDispatch } from "react-redux";
+import { setCartProducts } from "../slices/cartProductsSlice";
 
 export default function Cart() {
   const dispatch = useDispatch();
   const cartProducts = useSelector((state: RootState) => state.cartProducts);
 
-   const [checkoutFormOpen, setCheckoutFormOpen] = useState(false);
+  const [checkoutFormOpen, setCheckoutFormOpen] = useState(false);
   const [productToRemove, setProductToRemove] = useState<number | null>();
 
   // useEffect(() => {
@@ -25,7 +24,7 @@ export default function Cart() {
       (item) => item.id !== product.id
     );
     dispatch(setCartProducts(newCartProducts));
-    localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
+    localStorage.setItem("cartProducts", JSON.stringify(newCartProducts));
   };
 
   useEffect(() => {
@@ -40,23 +39,23 @@ export default function Cart() {
     <>
       <div>
         {cartProducts.length === 0 ? (
-          <div className='cart cart-header'>Empty</div>
+          <div className="cart cart-header">Empty</div>
         ) : (
-          <div className='cart cart-header'>
+          <div className="cart cart-header">
             {cartProducts.length} product(s) in cart
           </div>
         )}
       </div>
       {cartProducts.length > 0 && (
         <div>
-          <div className='cart'>
-            <ul className='cart-products'>
+          <div className="cart">
+            <ul className="cart-products">
               {cartProducts.map((product: Product) => {
                 return (
-                  <Fade key={product.id} direction={'left'} triggerOnce={true}>
+                  <Fade key={product.id} direction={"left"} triggerOnce={true}>
                     <li
-                      className={`${
-                        product.id == productToRemove ? 'removing' : ''
+                      className={` ${
+                        product.id == productToRemove ? "removing" : ""
                       }`}
                     >
                       <div>
@@ -66,12 +65,12 @@ export default function Cart() {
                         ></img>
                       </div>
                       <div>{product.itemName}</div>
-                      <div className='right'>
+                      <div className="right">
                         {`${formatMoney(product.itemPrice)} x  ${
                           product?.count
                         }`}
                         <button
-                          className='cart__button-remove'
+                          className="cart__button-remove"
                           onClick={() => {
                             setProductToRemove(product.id);
                             setTimeout(() => {
@@ -89,7 +88,7 @@ export default function Cart() {
               })}
             </ul>
           </div>
-          <div className='cart__total'>
+          <div className="cart__total">
             <div>
               Total:
               {cartProducts.reduce(
@@ -100,7 +99,7 @@ export default function Cart() {
             </div>
           </div>
           <button
-            className='btn primary'
+            className="btn primary"
             onClick={() => setCheckoutFormOpen(true)}
           >
             Checkout

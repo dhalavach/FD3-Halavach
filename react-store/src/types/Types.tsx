@@ -1,4 +1,4 @@
-import store from './../components/Store';
+import store from "./../components/Store";
 
 export type Product = {
   id: number;
@@ -26,7 +26,4 @@ export type Order = {};
 
 export type RootState = ReturnType<typeof store.getState>;
 
-export type AppDispatch = typeof store.dispatch
-
-
-
+export type AppDispatch = typeof store.dispatch;

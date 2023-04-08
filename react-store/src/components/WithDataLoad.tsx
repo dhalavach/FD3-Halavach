@@ -1,5 +1,5 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React from "react";
+import { useEffect, useState } from "react";
 
 const WithDataLoad = (config: any, propName: any) => (Component: any) => {
   const ComponentWithDataLoad = (props: any) => {

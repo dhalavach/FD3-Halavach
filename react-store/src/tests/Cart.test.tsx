@@ -1,10 +1,10 @@
-import '@testing-library/jest-dom';
-import Cart from '../components/Cart';
-import renderer from 'react-test-renderer';
-import { Provider } from 'react-redux';
-import store from '../components/Store';
+import "@testing-library/jest-dom";
+import Cart from "../components/Cart";
+import renderer from "react-test-renderer";
+import { Provider } from "react-redux";
+import store from "../components/Store";
 
-test('component renders without throwing an error', () => {
+test("component renders without throwing an error", () => {
   const tree = renderer
     .create(
       <Provider store={store}>
@@ -15,7 +15,7 @@ test('component renders without throwing an error', () => {
   expect(tree).toBeTruthy();
 });
 
-test('component matches the snapshot', () => {
+test("component matches the snapshot", () => {
   const tree = renderer
     .create(
       <Provider store={store}>
