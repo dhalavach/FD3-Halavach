@@ -1,16 +1,16 @@
-import { Product, RootState } from "../types/Types";
-import { formatMoney } from "../util";
-import { Fade, Zoom } from "react-awesome-reveal";
-import Modal from "react-modal";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setCartProducts } from "../slices/cartProductsSlice";
-import AddToCartButton from "./AddToCartButton";
-import AppPagination from "./AppPagination";
-import axios from "axios";
-import { setProducts } from "../slices/productsSlice";
-import useSearchParamsState from "../hooks/useSearchParamsState";
-import { setFilteredProducts } from "../slices/filteredProductsSlice";
+import { Product, RootState } from '../types/Types';
+import { formatMoney } from '../util';
+import { Fade, Zoom } from 'react-awesome-reveal';
+import Modal from 'react-modal';
+import { useDeferredValue, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCartProducts } from '../slices/cartProductsSlice';
+import AddToCartButton from './AddToCartButton';
+import AppPagination from './AppPagination';
+import axios from 'axios';
+import { setProducts } from '../slices/productsSlice';
+import useSearchParamsState from '../hooks/useSearchParamsState';
+import { setFilteredProducts } from '../slices/filteredProductsSlice';
 
 export default function Table() {
   const dispatch = useDispatch();
@@ -19,19 +19,20 @@ export default function Table() {
   const cartProducts = useSelector((state: RootState) => state.cartProducts);
   const [productInModal, setProductInModal] = useState<Product | null>(null);
 
-  const [filterParam, setFilterParam] = useSearchParamsState("filterParam", "");
+  const [filterParam, setFilterParam] = useSearchParamsState('filterParam', '');
   const [searchQueryParam, setSearchQueryParam] = useSearchParamsState(
-    "searchQueryParam",
-    ""
+    'searchQueryParam',
+    ''
   );
-  const [sortParam, setSortParam] = useSearchParamsState("sortParam", "");
+  const [sortParam, setSortParam] = useSearchParamsState('sortParam', '');
+  const deferredSearchQueryParam = useDeferredValue(searchQueryParam);
 
   const fetchConfig = {
-    PRODUCTS_URL: "http://localhost:3000/products",
-    ORDERS_URL: "http://localhost:3000/orders",
-    method: "GET",
+    PRODUCTS_URL: 'http://localhost:3000/products',
+    ORDERS_URL: 'http://localhost:3000/orders',
+    method: 'GET',
     headers: {
-      Accept: "application/json",
+      Accept: 'application/json',
     },
   };
 
@@ -49,15 +50,15 @@ export default function Table() {
   }, []);
 
   const sortProducts = (sort: string, arr: Product[]): Product[] => {
-    if (sort === "ascending") {
+    if (sort === 'ascending') {
       arr = arr.sort((a, b) => a.itemPrice - b.itemPrice);
-    } else if (sort === "descending") {
+    } else if (sort === 'descending') {
       arr = arr.sort((a, b) => b.itemPrice - a.itemPrice);
-    } else if (sort === "az") {
+    } else if (sort === 'az') {
       arr = arr.sort((a: Product, b: Product) => {
         return a.itemName.localeCompare(b.itemName);
       });
-    } else if (sort === "za") {
+    } else if (sort === 'za') {
       arr = arr.sort((a: Product, b: Product) => {
         return -a.itemName.localeCompare(b.itemName);
       });
@@ -71,12 +72,16 @@ export default function Table() {
     if (filterParam)
       arr = arr.filter((p: Product) => p.itemType.includes(filterParam));
     if (sortParam) arr = sortProducts(sortParam, arr);
-    if (searchQueryParam)
+    if (deferredSearchQueryParam) {
       arr = arr.filter((p: Product) =>
-        p.itemName.toLowerCase().includes(searchQueryParam.toLowerCase())
+        p.itemName
+          .toLowerCase()
+          .includes(deferredSearchQueryParam.toLowerCase())
       );
+      console.log('searching...');
+    }
     dispatch(setFilteredProducts(arr));
-  }, [products, filterParam, searchQueryParam, sortParam]);
+  }, [products, filterParam, deferredSearchQueryParam, sortParam]);
 
   const openModal = (product: Product): void => {
     setProductInModal(product);
@@ -99,7 +104,7 @@ export default function Table() {
       newCartProducts.push({ ...product, count: 1 });
     }
     dispatch(setCartProducts(newCartProducts));
-    localStorage.setItem("cartProducts", JSON.stringify(newCartProducts));
+    localStorage.setItem('cartProducts', JSON.stringify(newCartProducts));
   };
 
   return (
@@ -109,24 +114,24 @@ export default function Table() {
           setDisplayedProducts(products)
         }
       />
-      <ul className="products">
+      <ul className='products'>
         {displayedProducts?.map((product: Product) => {
           return (
             <li key={product.id}>
               <div
-                className="product"
-                data-testid="table__product"
+                className='product'
+                data-testid='table__product'
                 onClick={() => {
                   openModal(product);
                 }}
               >
-                <a href={"#" + product.id}>
+                <a href={'#' + product.id}>
                   <img src={product.itemImage} alt={product.itemImageAlt}></img>
                   <p>{product.itemName}</p>
                 </a>
               </div>
 
-              <div className="product-price">
+              <div className='product-price'>
                 <div>{formatMoney(product.itemPrice)}</div>
                 <AddToCartButton add={add} product={product} />
               </div>
@@ -141,40 +146,40 @@ export default function Table() {
       />
       <div>
         {productInModal && (
-          <div className="modal__wrapper" data-testid="table__modal">
+          <div className='modal__wrapper' data-testid='table__modal'>
             <Modal
               isOpen={true}
               onRequestClose={closeModal}
               ariaHideApp={false}
             >
               <Zoom>
-                <div className="modal__close-wrapper">
+                <div className='modal__close-wrapper'>
                   <button
-                    className="modal__close-modal"
+                    className='modal__close-modal'
                     onClick={closeModal}
-                    data-testid="table__modal-close"
+                    data-testid='table__modal-close'
                   >
                     x
                   </button>
                 </div>
                 <div>
-                  <div className="product">
-                    <div className="modal__image-description-wrapper">
+                  <div className='product'>
+                    <div className='modal__image-description-wrapper'>
                       <div>
                         <img
                           src={productInModal.itemImage}
                           alt={productInModal.itemImageAlt}
-                        ></img>{" "}
+                        ></img>{' '}
                       </div>
-                      <div className="modal__description">
-                        <span className="modal__description">
+                      <div className='modal__description'>
+                        <span className='modal__description'>
                           {productInModal?.itemDescription}
                         </span>
                       </div>
                     </div>
                     <p>{productInModal.itemName}</p>
                   </div>
-                  <div className="product-price">
+                  <div className='product-price'>
                     <div>{formatMoney(productInModal.itemPrice)}</div>
                     <AddToCartButton add={add} product={productInModal} />
                   </div>
