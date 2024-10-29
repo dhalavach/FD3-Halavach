@@ -1,4 +1,66 @@
+// Variables (consistent with other components)
+$gray-light: #e0e0e0;
+$gray-dark: #333;
+$brand-main: #5a67d8;
+$brand-light: #edf2f7;
+$header-height: 4.5rem;
+$font-size-main: 1.6rem;
+$spacing-main: 1rem;
+
 .header {
   display: flex;
-  justify-content: space-evenly;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $spacing-main;
+  height: $header-height;
+  background-color: $brand-main;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  // Logo and Title
+  .header__logo {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-right: auto;
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+      color: $brand-light;
+    }
+  }
+
+  // Navigation Links
+  .header__nav {
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-size: $font-size-main;
+      transition: color 0.2s;
+
+      &:hover {
+        color: $brand-light;
+      }
+    }
+  }
+
+  // Search and Cart Icons
+  .header__actions {
+    display: flex;
+    gap: 1rem;
+
+    .header__icon {
+      font-size: 1.8rem;
+      color: #fff;
+      cursor: pointer;
+      transition: color 0.2s;
+
+      &:hover {
+        color: $brand-light;
+      }
+    }
+  }
 }

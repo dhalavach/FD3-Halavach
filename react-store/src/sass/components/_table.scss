@@ -1,61 +1,87 @@
 .products {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   flex-wrap: wrap;
-  padding: 0;
+  gap: 2rem;
+  padding: 2rem;
+  list-style: none;
   margin: 0;
-  list-style-type: none;
 }
 
 .products li {
-  flex: 0 20rem;
-  height: 20%;
+  flex: 1 1 20rem;
+  max-width: 25rem;
+  margin: 0;
   padding: 1rem;
-  margin: 1rem;
 }
 
 .product {
-  // border: 2px solid black;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  background-color: #fff;
+  border-radius: 0.8rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
 
-  & a:link {
-    text-decoration: none;
+  &:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   }
-}
 
-.product img {
-  max-width: 20rem;
-  max-height: 20rem;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 20rem;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 }
 
 .product-price {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
+  padding: 1rem;
+  font-size: $font-size-main;
+  color: $font-color;
+  border-top: 1px solid $gray-light;
 
-.product-price div,
-.product-price button {
-  text-align: center;
-  flex: 1;
-}
+  div {
+    font-size: $font-size-price;
+    font-weight: bold;
+    color: $gray-dark;
+  }
 
-.product-price div {
-  font-size: 2rem;
+  button {
+    margin-left: 1rem;
+    font-size: $font-size-main;
+  }
 }
 
 .btn {
   cursor: pointer;
   padding: 1rem;
-  border: 0.1rem $gray-light solid;
+  border-radius: 0.5rem;
+  border: 1px solid $gray-light;
   background-color: $brand-main;
+  color: #fff;
+  font-weight: 600;
+  transition: background-color 0.2s, border 0.2s;
 
   &:hover {
-    border: 2px black solid;
+    background-color: darken($brand-main, 5%);
+    border-color: $gray-dark;
   }
 }
 

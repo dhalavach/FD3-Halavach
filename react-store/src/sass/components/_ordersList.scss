@@ -1,11 +1,31 @@
-.orders-list__order-container ul li {
-  list-style-type: none;
-}
+// Variables (to keep styling consistent with other components)
+$gray-light: #e0e0e0;
+$gray-dark: #333;
+$brand-main: #5a67d8;
+$spacing-main: 1rem;
+$border-radius-main: 8px;
 
 .orders-list__order-container {
-  background-color: gainsboro;
-  margin: 1rem;
-  padding: 1rem;
-  max-width: 60%;
-  border-radius: 1rem;
+  background-color: $gray-light;
+  margin: $spacing-main auto;
+  padding: 1.5rem;
+  max-width: 70%;
+  border-radius: $border-radius-main;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style-type: none;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid $gray-dark;
+      color: $gray-dark;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
 }

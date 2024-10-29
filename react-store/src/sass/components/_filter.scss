@@ -1,11 +1,59 @@
+// Variables (reuse from other components for consistency)
+$gray-light: #e0e0e0;
+$gray-dark: #333;
+$brand-main: #5a67d8;
+$brand-light: #edf2f7;
+$input-border-radius: 0.5rem;
+$font-size-main: 1.6rem;
+$spacing-main: 1rem;
+
 .filter {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 1rem;
-  margin: 1rem;
-  border-bottom: 0.1rem $gray-light solid;
-}
+  padding: $spacing-main;
+  margin: 0 auto;
+  max-width: 60rem;
+  border-bottom: 1px solid $gray-light;
+  background-color: $brand-light;
+  border-radius: $input-border-radius;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 
-.filter div {
-  flex: 1;
+  div {
+    flex: 1;
+    margin: 0 $spacing-main;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    label {
+      display: block;
+      font-size: $font-size-main;
+      font-weight: 500;
+      color: $gray-dark;
+      margin-bottom: 0.5rem;
+    }
+
+    select,
+    input {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: $font-size-main;
+      color: $gray-dark;
+      border: 1px solid $gray-light;
+      border-radius: $input-border-radius;
+      background-color: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: $brand-main;
+      }
+    }
+  }
 }
