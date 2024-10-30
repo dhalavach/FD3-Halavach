@@ -1,53 +1,40 @@
-import React, { useEffect, useState, ChangeEvent } from "react";
-import Pagination from "@mui/material/Pagination";
-import Box from "@mui/material/Box";
-import { useSelector } from "react-redux";
-import useSearchParamsState from "../hooks/useSearchParamsState";
-import { Product, RootState } from "../types/Types";
+import React, { useEffect, useState, ChangeEvent } from 'react';
+import Pagination from '@mui/material/Pagination';
+import Box from '@mui/material/Box';
+import { useSelector } from 'react-redux';
+import useSearchParamsState from '../hooks/useSearchParamsState';
+import { Product, RootState } from '../types/Types';
 
-export default function AppPagination(props: {
+const PAGE_SIZE = 10;
+
+export default function AppPagination({
+  setDisplayedProducts,
+}: {
   setDisplayedProducts: (arr: Product[] | []) => void;
 }) {
-  const PAGE_SIZE = 10;
-  const { setDisplayedProducts } = props;
-  const [pageParam, setPageParam] = useSearchParamsState("pageParam", "1");
-  const [countParam, setCountParam] = useState("0");
-
+  const [pageParam, setPageParam] = useSearchParamsState('pageParam', '1');
   const products = useSelector((state: RootState) => state.products);
-  let filteredProducts = useSelector(
-    (state: RootState) => state.filteredProducts
-  );
+  const filteredProducts = useSelector((state: RootState) => state.filteredProducts);
+
+  const totalPages = Math.ceil(filteredProducts.length / PAGE_SIZE);
 
   useEffect(() => {
-    setCountParam(filteredProducts.length.toString());
-    let newProducts = [...filteredProducts];
-    setDisplayedProducts(
-      newProducts.slice(
-        (parseInt(pageParam) - 1) * PAGE_SIZE,
-        (parseInt(pageParam) - 1) * PAGE_SIZE + PAGE_SIZE
-      )
-    );
-  }, [pageParam, filteredProducts, products]);
+    const updateDisplayedProducts = () => {
+      const startIdx = (parseInt(pageParam) - 1) * PAGE_SIZE;
+      const paginatedProducts = filteredProducts.slice(startIdx, startIdx + PAGE_SIZE);
+      setDisplayedProducts(paginatedProducts);
+    };
 
-  const handlePageChange = (event: ChangeEvent<unknown>, page: number) => {
+    updateDisplayedProducts();
+  }, [pageParam, filteredProducts, setDisplayedProducts]);
+
+  const handlePageChange = (_: ChangeEvent<unknown>, page: number) => {
     setPageParam(page.toString());
   };
 
   return (
-    <>
-      <Box
-        justifyContent={"center"}
-        alignItems={"center"}
-        display={"flex"}
-        sx={{
-          margin: "20px 0px",
-        }}
-      ></Box>
-      <Pagination
-        page={parseInt(pageParam)}
-        count={Math.ceil(parseInt(countParam) / PAGE_SIZE)}
-        onChange={handlePageChange}
-      ></Pagination>
-    </>
+    <Box display='flex' justifyContent='center' alignItems='center' sx={{ margin: '20px 0' }}>
+      <Pagination page={parseInt(pageParam)} count={totalPages} onChange={handlePageChange} />
+    </Box>
   );
 }
