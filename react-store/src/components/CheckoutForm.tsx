@@ -1,243 +1,172 @@
-import axios from "axios";
-import {
-  ChangeEvent,
-  Dispatch,
-  MouseEvent,
-  SetStateAction,
-  useState,
-} from "react";
-import { Product, RootState } from "../types/Types";
-import { useDispatch, useSelector } from "react-redux";
-import { setOrders } from "../slices/ordersSlice";
-import { setCartProducts } from "../slices/cartProductsSlice";
-import Modal from "react-modal";
-import { Zoom } from "react-awesome-reveal";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { ChangeEvent, Dispatch, FormEventHandler, MouseEvent, SetStateAction, useState } from 'react';
+import { Product, RootState } from '../types/Types';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOrders } from '../slices/ordersSlice';
+import { setCartProducts } from '../slices/cartProductsSlice';
+import Modal from 'react-modal';
+import { Zoom } from 'react-awesome-reveal';
+import { useNavigate } from 'react-router-dom';
 
-export default function CheckoutForm(props: {
+export default function CheckoutForm({
+  setCheckoutFormOpen,
+}: {
   setCheckoutFormOpen: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { setCheckoutFormOpen } = props;
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [nameError, setNameError] = useState("");
-  const [addressError, setAddressError] = useState("");
-  const [userInputPresent, setUserInputPresent] = useState({
-    email: false,
-    name: false,
-    address: false,
+  const [formState, setFormState] = useState({
+    name: '',
+    email: '',
+    address: '',
+    emailError: '',
+    nameError: '',
+    addressError: '',
+    userInputPresent: { email: false, name: false, address: false },
+    postOrderModalOpen: false,
   });
-  const [postOrderModalOpen, setPostOrderModalOpen] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartProducts = useSelector((state: RootState) => state.cartProducts);
 
   const postConfig = {
-    URL: "http://localhost:3000/orders",
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-    },
+    URL: 'http://localhost:3000/orders',
+    method: 'POST',
+    headers: { Accept: 'application/json' },
   };
 
-  const validateName = (name: string): void => {
-    const message =
-      "Name must be longer or equal than 3 and shorter or equal than 100 characters!";
-    if (!name) setNameError(message);
-    else if (name.length >= 3 && name.length <= 100) {
-      setNameError("");
-    } else setNameError(message);
-  };
+  const validateInput = (field: string, value: string) => {
+    const messages = {
+      name: 'Name must be between 3 and 100 characters!',
+      email: 'Enter a valid email address!',
+      address: 'Enter a valid shipping address!',
+    };
 
-  const validateEmail = (email: string): void => {
-    const message = "Enter valid email address!";
-    const emailRegex = new RegExp(
-      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
-    );
-    if (!email) setEmailError(message);
-    else if (email.match(emailRegex)) setEmailError("");
-    else setEmailError(message);
-  };
+    let error = '';
 
-  const validateAddress = (address: string): void => {
-    const message = "Enter valid shipping address!";
-    const addressRegex = new RegExp(/[A-Za-z0-9'\.\-\s\,]/);
-    if (!address) setAddressError(message);
-    else if (address.match(addressRegex) && address.length >= 5)
-      setAddressError("");
-    else setAddressError(message);
-  };
-
-  const validateBeforeSubmit = (): boolean => {
-    if (
-      Object.values(userInputPresent).every((val) => val === true) &&
-      !nameError &&
-      !emailError &&
-      !addressError
-    ) {
-      return true;
-    } else {
-      return false;
+    switch (field) {
+      case 'name':
+        error = value.length < 3 || value.length > 100 ? messages.name : '';
+        break;
+      case 'email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        error = !value.match(emailRegex) ? messages.email : '';
+        break;
+      case 'address':
+        const addressRegex = /^[A-Za-z0-9'\.\-\s\,]{5,}$/;
+        error = !value.match(addressRegex) ? messages.address : '';
+        break;
+      default:
+        break;
     }
+
+    setFormState((prev) => ({
+      ...prev,
+      [`${field}Error`]: error,
+      userInputPresent: { ...prev.userInputPresent, [field]: true },
+    }));
   };
 
-  const postOrder = async (data: {
-    name: string;
-    email: string;
-    address: string;
-    orderedProducts: Product[];
-  }) => {
-    dispatch(setOrders(data));
+  const isFormValid = () => {
+    const { emailError, nameError, addressError, userInputPresent } = formState;
+    return Object.values(userInputPresent).every(Boolean) && !emailError && !nameError && !addressError;
+  };
 
+  const postOrder = async (data: { name: string; email: string; address: string; orderedProducts: Product[] }) => {
+    dispatch(setOrders(data));
     try {
-      await axios.post(postConfig.URL, data).then((response) => {
-        console.log(response.status, response.data);
-      });
+      await axios.post(postConfig.URL, data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const postOrderCleanUp = (): void => {
-    dispatch(setCartProducts([]));
-    localStorage.setItem("cartProducts", "");
-    setCheckoutFormOpen(false);
-    setPostOrderModalOpen(false);
+  const handleFormSubmit = async (e: any) => {
+    e.preventDefault();
+    if (isFormValid()) {
+      await postOrder({ ...formState, orderedProducts: cartProducts });
+      setFormState((prev) => ({ ...prev, postOrderModalOpen: true }));
+    }
   };
+
+  const postOrderCleanUp = () => {
+    dispatch(setCartProducts([]));
+    localStorage.setItem('cartProducts', '');
+    setCheckoutFormOpen(false);
+    setFormState((prev) => ({ ...prev, postOrderModalOpen: false }));
+  };
+
+  const handleInputChange = (field: string) => (e: any) => {
+    const value = e.target.value;
+    setFormState((prev) => ({ ...prev, [field]: value }));
+    validateInput(field, value);
+  };
+
   return (
     <>
-      <div className="cart">CheckoutForm</div>
-      <form>
-        <ul className="form-container">
+      <div className='cart'>CheckoutForm</div>
+      <form onSubmit={handleFormSubmit as any}>
+        <ul className='form-container'>
           <li>
             <label>Email</label>
-            <input
-              name="email"
-              type="email"
-              required
-              value={email}
-              data-testid="checkout__email"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setEmail(e.target.value);
-                validateEmail(e.target.value);
-                setUserInputPresent({ ...userInputPresent, email: true });
-              }}
-            ></input>
-            <span
-              className="message-error"
-              data-testid="checkout__email-error-message"
-            >
-              {emailError}
-            </span>
+            <input name='email' type='email' required value={formState.email} onChange={handleInputChange('email')} />
+            <span className='message-error'>{formState.emailError}</span>
           </li>
           <li>
             <label>First and last name</label>
-            <input
-              name="name"
-              type="text"
-              required
-              value={name}
-              data-testid="checkout__name"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setName(e.target.value);
-                validateName(e.target.value);
-                setUserInputPresent({ ...userInputPresent, name: true });
-              }}
-            ></input>
-            <span
-              className="message-error"
-              data-testid="checkout__name-error-message"
-            >
-              {nameError}
-            </span>
+            <input name='name' type='text' required value={formState.name} onChange={handleInputChange('name')} />
+            <span className='message-error'>{formState.nameError}</span>
           </li>
           <li>
             <label>Delivery address</label>
             <input
-              name="address"
-              type="text"
+              name='address'
+              type='text'
               required
-              value={address}
-              data-testid="checkout__address"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setAddress(e.target.value);
-                validateAddress(e.target.value);
-                setUserInputPresent({ ...userInputPresent, address: true });
-              }}
-            ></input>
-            <span
-              className="message-error"
-              data-testid="checkout__address-error-message"
-            >
-              {addressError}
-            </span>
+              value={formState.address}
+              onChange={handleInputChange('address')}
+            />
+            <span className='message-error'>{formState.addressError}</span>
           </li>
           <li>
             <button
-              className={`btn primary btn-submit ${
-                validateBeforeSubmit() ? "" : "grey-out"
-              }`}
-              type="submit"
-              onClick={async (e: MouseEvent<HTMLElement>) => {
-                e.preventDefault();
-                if (validateBeforeSubmit()) {
-                  await postOrder({
-                    name: name,
-                    email: email,
-                    address: address,
-                    orderedProducts: cartProducts,
-                  });
-                }
-                setPostOrderModalOpen(true);
-                // dispatch(setCartProducts([]));
-                // localStorage.setItem('cartProducts', '');
-              }}
-              data-testid="checkout__submit-button"
+              className={`btn primary btn-submit ${isFormValid() ? '' : 'grey-out'}`}
+              type='submit'
+              data-testid='checkout__submit-button'
             >
               Proceed to checkout
             </button>
           </li>
         </ul>
       </form>
-      <div>
-        {postOrderModalOpen && (
-          <div className="modal__wrapper" data-testid="checkout-form__modal">
-            <Modal
-              isOpen={true}
-              onRequestClose={postOrderCleanUp}
-              ariaHideApp={false}
-            >
-              <Zoom>
-                <div className="modal__close-wrapper">
-                  <button
-                    className="modal__close-modal"
-                    onClick={postOrderCleanUp}
-                    data-testid="checkout-form__modal-close"
-                  >
-                    x
-                  </button>
-                </div>
-                <div className="checkout-form__modal-heading">
-                  <h4>Order successfully placed!</h4>
-                </div>
-                <div className="checkout-form__modal-buttons">
-                  <button onClick={postOrderCleanUp}>Continue shopping</button>
-                  <button
-                    onClick={() => {
-                      navigate("/ordersList");
-                      postOrderCleanUp();
-                    }}
-                  >
-                    View orders
-                  </button>
-                </div>
-              </Zoom>
-            </Modal>
-          </div>
-        )}
-      </div>
+      {formState.postOrderModalOpen && (
+        <Modal isOpen={true} onRequestClose={postOrderCleanUp} ariaHideApp={false}>
+          <Zoom>
+            <div className='modal__close-wrapper'>
+              <button
+                className='modal__close-modal'
+                onClick={postOrderCleanUp}
+                data-testid='checkout-form__modal-close'
+              >
+                x
+              </button>
+            </div>
+            <div className='checkout-form__modal-heading'>
+              <h4>Order successfully placed!</h4>
+            </div>
+            <div className='checkout-form__modal-buttons'>
+              <button onClick={postOrderCleanUp}>Continue shopping</button>
+              <button
+                onClick={() => {
+                  navigate('/ordersList');
+                  postOrderCleanUp();
+                }}
+              >
+                View orders
+              </button>
+            </div>
+          </Zoom>
+        </Modal>
+      )}
     </>
   );
 }
