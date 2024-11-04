@@ -1,22 +1,12 @@
-import { ChangeEvent, useState, useDeferredValue } from 'react';
+import { ChangeEvent } from 'react';
 import useSearchParamsState from '../hooks/useSearchParamsState';
-// import { setSearchQuery } from '../slices/searchQuerySlice';
-// import { debounce } from '../util';
 
 export default function Search() {
-  const [searchQueryParam, setSearchQueryParam] = useSearchParamsState(
-    'searchQueryParam',
-    ''
-  );
-  // const deferredValue = (value: any) =>  useDeferredValue(value)
+  const [searchQueryParam, setSearchQueryParam] = useSearchParamsState('searchQueryParam', '');
 
-  //let searchInputTimeout: any;
-
-  const handleSearchInput = (val: string) => {
-    setSearchQueryParam(val);
+  const handleSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQueryParam(e.target.value);
   };
-
-  // const debouncedHandleSearchInput = debounce(handleSearchInput, 500);
 
   return (
     <div>
@@ -28,9 +18,7 @@ export default function Search() {
         placeholder='search products'
         value={searchQueryParam}
         data-testid='search__input-field'
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          handleSearchInput(e.target.value);
-        }}
+        onChange={handleSearchInput}
       />
     </div>
   );
