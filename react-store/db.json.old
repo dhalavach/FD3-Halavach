@@ -93,6 +93,49 @@
         }
       ],
       "id": 2
+    },
+    {
+      "name": "Dmitry Halavach",
+      "email": "halawacz@gmail.com",
+      "address": "Internatsionalnaia 4",
+      "emailError": "",
+      "nameError": "",
+      "addressError": "",
+      "userInputPresent": {
+        "email": true,
+        "name": true,
+        "address": true
+      },
+      "postOrderModalOpen": false,
+      "orderedProducts": [
+        {
+          "id": 3,
+          "className": "Item",
+          "itemType": "motherboard",
+          "itemName": "MSI MPG B650 Edge WiFi",
+          "itemPrice": 1095,
+          "itemImage": "/assets/images/msib650.jpg",
+          "itemImageURL": "https://uni.by/files/ItemsImages/137010_r300.jpg",
+          "itemImageAlt": "MSI B650 Edge",
+          "itemQuantity": 0,
+          "itemDescription": "",
+          "count": 1
+        },
+        {
+          "id": 4,
+          "className": "Item",
+          "itemType": "CPU",
+          "itemName": "Ryzen 5800X3D",
+          "itemPrice": 1200,
+          "itemImage": "/assets/images/ryzen5800x3d.jpg",
+          "itemImageURL": "https://uni.by/files/ItemsImages/137010_r300.jpg",
+          "itemImageAlt": "Ryzen 5800X3D",
+          "itemQuantity": 1,
+          "itemDescription": "The AMD Ryzen™ 7 5800X3D is the first desktop processor with stacked L3 cache, delivering unmatched 96MB of L3 cache paired with incredibly fast cores to create the world’s fastest gaming desktop processor.",
+          "count": 1
+        }
+      ],
+      "id": 3
     }
   ],
   "products": [

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, Fragment } from 'react';
+import { useState, useEffect, useCallback, Fragment, startTransition } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import { Product, RootState } from '../types/Types';
 import { formatMoney } from '../util';
@@ -15,16 +15,20 @@ export default function Cart() {
 
   // Load cart products from localStorage on component mount
   useEffect(() => {
-    const storedCartProducts = localStorage.getItem('cartProducts');
-    if (storedCartProducts) {
-      dispatch(setCartProducts(JSON.parse(storedCartProducts)));
-    }
+    startTransition(() => {
+      const storedCartProducts = localStorage.getItem('cartProducts');
+      if (storedCartProducts) {
+        dispatch(setCartProducts(JSON.parse(storedCartProducts)));
+      }
+    });
   }, [dispatch]);
 
   // Set new cart products in localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
-    if (cartProducts.length === 0) setCheckoutFormOpen(false);
+    startTransition(() => {
+      localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+      if (cartProducts.length === 0) setCheckoutFormOpen(false);
+    });
   }, [cartProducts]);
 
   // Removes a product from cart

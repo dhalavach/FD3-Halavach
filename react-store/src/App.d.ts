@@ -1,4 +1,4 @@
 /// <reference types="react" />
-import "./styles.css";
+import './styles.css';
 declare function App(): JSX.Element;
 export default App;
