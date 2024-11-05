@@ -24,13 +24,7 @@ npm install
 npm run start
 ```
 
-4. View prod build:
-
-```
-npm run build
-```
-
-5. View production build:
+4. View production build:
 
 ```
 npm run build
