@@ -12,8 +12,7 @@ import { setProducts } from '../slices/productsSlice';
 import useSearchParamsState from '../hooks/useSearchParamsState';
 import { setFilteredProducts } from '../slices/filteredProductsSlice';
 import useDebounce from '../hooks/useDebounce';
-
-const PRODUCT_URL = 'http://localhost:3000/products';
+import { getProducts } from '../services/api';
 
 export default function Table() {
   const dispatch = useDispatch();
@@ -30,7 +29,7 @@ export default function Table() {
 
   const loadProducts = async () => {
     try {
-      const { data } = await axios.get(PRODUCT_URL);
+      const { data } = await getProducts();
       dispatch(setProducts(data));
     } catch (error) {
       console.error(error);
